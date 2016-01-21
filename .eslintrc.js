@@ -3,5 +3,8 @@ module.exports = {
   plugins: [
     'standard'
   ],
+  env: {
+    mocha: true
+  },
   parser: 'babel-eslint'
 }
