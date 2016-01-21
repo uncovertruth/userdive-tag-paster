@@ -1,6 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
-var loaders = require('./config.d/loader')
+var loaders = require('./config.d/loaders')
 var resolve = require('./config.d/resolve')
 
 module.exports = {
