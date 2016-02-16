@@ -18,13 +18,14 @@
 
       chrome.runtime.getBackgroundPage((backgroundPage) => {
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-          if (request.config === 'get') {
-            sendResponse({
-              'id': backgroundPage.bg.get('USERDIVEId'),
-              'host': backgroundPage.bg.get('USERDIVEHost'),
-              'env': backgroundPage.bg.get('USERDIVEEnv')
-            });
+          if (request.config !== 'get') {
+            return;
           }
+          sendResponse({
+            'id': backgroundPage.bg.get('USERDIVEId'),
+            'host': backgroundPage.bg.get('USERDIVEHost'),
+            'env': backgroundPage.bg.get('USERDIVEEnv')
+          });
         });
       });
     }
