@@ -21,7 +21,7 @@
         "<all_urls>"
       ],
       "js": [
-        "scripts/insert-tag.js"
+        "scripts/contentscript.js"
       ],
       "run_at": "document_end"
     }
