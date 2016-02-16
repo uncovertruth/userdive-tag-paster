@@ -3,16 +3,14 @@
 (function (root, chrome) {
   class Provider {
     constructor () {
-      console.log('start');
       root.addEventListener('load', (evt) => {
-        console.log('load');
         this.load();
       });
     }
     load () {
       chrome.runtime.sendMessage({config: 'get'}, (response) => {
         let config = response || {};
-        function createTag (id, src, env = 'default') {
+        function createTag (id, src, env) {
           if (typeof id !== 'string' || typeof src !== 'string') {
             return;
           }
