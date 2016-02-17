@@ -37,7 +37,7 @@
           if (id.length < 3 || src.length < 14) {
             return;
           }
-          return `if(!window.UDTracker||!window.USERDIVEObject) !function(e,t,n,c,r,u,s){e.USERDIVEObject=r,e[r]=e[r]||function(){(e[r].queue=e[r].queue||[]).push(arguments)},u=t.createElement(n),s=document.getElementsByTagName(n)[0],u.async=1,u.src=c,s.parentNode.insertBefore(u,s)}(window,document,"script","//${src}/static/UDTracker.js","ud");ud("create", "${id}", {"env": "${env}"});ud("analyze");`;
+          return `if(!window.UDTracker||!window.USERDIVEObject){!function(e,t,n,c,r,u,s){e.USERDIVEObject=r,e[r]=e[r]||function(){(e[r].queue=e[r].queue||[]).push(arguments)},u=t.createElement(n),s=document.getElementsByTagName(n)[0],u.async=1,u.src=c,s.parentNode.insertBefore(u,s)}(window,document,"script","//${src}/static/UDTracker.js","ud");ud("create", "${id}", {"env": "${env}"});ud("analyze");}`;
         };
         this.loaded = this.injectScript(createTag(
           config.id,
