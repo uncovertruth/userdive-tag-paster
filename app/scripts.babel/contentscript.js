@@ -14,6 +14,9 @@
      * @return {boolean}
      */
     injectScript (source) {
+      if (typeof source !== 'string' || source.length < 380) {
+        return;
+      }
       let th = document.getElementsByTagName('body')[0];
       let s = document.createElement('script');
       s.text = source;
