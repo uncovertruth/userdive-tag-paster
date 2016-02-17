@@ -3,9 +3,7 @@
 (function (root, document, chrome) {
   class Options {
     constructor () {
-      root.addEventListener('load', (evt) => {
-        this.start();
-      });
+      this.start();
     }
     start () {
       this.assignEventHandlers();
@@ -14,19 +12,6 @@
     assignEventHandlers () {
       document.querySelector('#save').addEventListener('click', (evt) => {
         this.save(evt);
-      });
-
-      chrome.runtime.getBackgroundPage((backgroundPage) => {
-        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-          if (request.config !== 'get') {
-            return;
-          }
-          sendResponse({
-            'id': backgroundPage.bg.get('USERDIVEId'),
-            'host': backgroundPage.bg.get('USERDIVEHost'),
-            'env': backgroundPage.bg.get('USERDIVEEnv')
-          });
-        });
       });
     }
     restoreConfigurations () {
