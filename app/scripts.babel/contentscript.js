@@ -7,6 +7,8 @@
         this.load();
       });
       this.loaded = false;
+      this._attr = 'data-userdive-tracker-status';
+      this._id = 'unto-duckling-peril';
     }
     /**
      * Inject javascript to web page
@@ -33,16 +35,18 @@
          * @param  {string} env default production
          * @return {string} return inject javascript string
          */
-        function createTag (id, src, env) {
+        function createTag (id, src, env, elementId, attr) {
           if (id.length < 3 || src.length < 14) {
             return;
           }
-          return `if(!window.UDTracker||!window.USERDIVEObject){!function(e,t,n,c,r,u,s){e.USERDIVEObject=r,e[r]=e[r]||function(){(e[r].queue=e[r].queue||[]).push(arguments)},u=t.createElement(n),s=document.getElementsByTagName(n)[0],u.async=1,u.src=c,s.parentNode.insertBefore(u,s)}(window,document,"script","//${src}/static/UDTracker.js","ud");ud("create", "${id}", {"env": "${env}"});ud("analyze");}`;
+          return `"use strict";!function(e,t){var n=t.getElementById("${elementId}");e.UDTrakcer||e.USERDIVEObject?n.setAttribute("${attr}","used"):(!function(e,n,r,c,u,a,s){e.USERDIVEObject=u,e[u]=e[u]||function(){(e[u].queue=e[u].queue||[]).push(arguments)},a=n.createElement(r),s=t.getElementsByTagName(r)[0],a.async=1,a.src=c,s.parentNode.insertBefore(a,s)}(window,t,"script","//${src}/static/UDTracker.js","ud"),ud("create","${id}",{env:"${env}"}),ud("analyze"))}(window,document);`;
         };
         this.loaded = this.injectScript(createTag(
           config.id,
           config.host,
-          config.env
+          config.env,
+          this._id,
+          this._attr
         ));
       });
     }
