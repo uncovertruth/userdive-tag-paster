@@ -7,15 +7,33 @@
     }
     assignEventHandlers () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.config !== 'get') {
-          return;
+        switch (request.config) {
+          case 'get':
+            sendResponse({
+              'id': this.get('USERDIVEId'),
+              'host': this.get('USERDIVEHost'),
+              'env': this.get('USERDIVEEnv')
+            });
+            break;
+          case 'status':
+            this.updateBadge(request.statusText);
+            break;
         }
-        sendResponse({
-          'id': this.get('USERDIVEId'),
-          'host': this.get('USERDIVEHost'),
-          'env': this.get('USERDIVEEnv')
-        });
       });
+    }
+    updateBadge (statusText) {
+      switch (statusText) {
+        case 'ok':
+          chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
+          chrome.browserAction.setBadgeText({'text': statusText});
+          break;
+        case 'used':
+          chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
+          chrome.browserAction.setBadgeText({'text': statusText});
+          break;
+        default:
+          chrome.browserAction.setBadgeText({'text': 'ng'});
+      }
     }
     get (key) {
       let value = localStorage[key];
