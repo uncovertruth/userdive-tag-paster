@@ -20,6 +20,9 @@
             break;
         }
       });
+      chrome.tabs.onActivated.addListener((response) => {
+        this.updateBadge({text: ''});
+      });
     }
     updateBadge (statusText) {
       switch (statusText) {
@@ -31,8 +34,12 @@
           chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
           chrome.browserAction.setBadgeText({'text': statusText});
           break;
+        case 'err':
+          chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
+          chrome.browserAction.setBadgeText({'text': statusText});
+          break;
         default:
-          chrome.browserAction.setBadgeText({'text': 'ng'});
+          chrome.browserAction.setBadgeText({'text': ''});
       }
     }
     get (key) {
