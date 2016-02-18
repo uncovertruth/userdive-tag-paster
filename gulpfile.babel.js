@@ -107,7 +107,7 @@ gulp.task('package', function () {
   let appName = require('./package.json').name;
 
   return gulp.src('dist/*')
-    .pipe($.zip(appName + '- ' + manifest.version + '.zip'))
+    .pipe($.zip(appName + '-' + manifest.version + '.zip'))
     .pipe(gulp.dest('package'));
 });
 
@@ -118,6 +118,6 @@ gulp.task('build', (cb) => {
     'size', cb);
 });
 
-gulp.task('default', ['clean'], cb => {
+gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
 });
