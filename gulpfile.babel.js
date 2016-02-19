@@ -106,7 +106,7 @@ gulp.task('package', function () {
   let manifest = require('./dist/manifest.json');
   let appName = require('./package.json').name;
 
-  return gulp.src('dist/*')
+  return gulp.src('dist/**')
     .pipe($.zip(appName + '-' + manifest.version + '.zip'))
     .pipe(gulp.dest('package'));
 });
