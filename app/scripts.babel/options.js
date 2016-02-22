@@ -19,13 +19,18 @@
         document.querySelector('#analytics-id').value = backgroundPage.bg.get('USERDIVEId');
         document.querySelector('#env').value = backgroundPage.bg.get('USERDIVEEnv');
         document.querySelector('#host').value = backgroundPage.bg.get('USERDIVEHost');
+        document.querySelector('#ignore').value = backgroundPage.bg.get('USERDIVEIgnore');
       });
     }
     save (evt) {
       chrome.runtime.getBackgroundPage((backgroundPage) => {
-        backgroundPage.bg.set('USERDIVEId', document.querySelector('#analytics-id').value);
         backgroundPage.bg.set('USERDIVEEnv', document.querySelector('#env').value);
         backgroundPage.bg.set('USERDIVEHost', document.querySelector('#host').value);
+        backgroundPage.bg.set('USERDIVEId', document.querySelector('#analytics-id').value);
+        backgroundPage.bg.set('USERDIVEIgnore', document.querySelector('#ignore').value);
+      });
+      chrome.tabs.getCurrent((tab) => {
+        chrome.tabs.remove(tab.id);
       });
     }
   }
