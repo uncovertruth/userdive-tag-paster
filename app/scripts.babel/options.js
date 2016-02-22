@@ -27,6 +27,9 @@
         backgroundPage.bg.set('USERDIVEEnv', document.querySelector('#env').value);
         backgroundPage.bg.set('USERDIVEHost', document.querySelector('#host').value);
       });
+      chrome.tabs.getCurrent((tab) => {
+        chrome.tabs.remove(tab.id);
+      });
     }
   }
 
