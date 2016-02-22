@@ -10,9 +10,10 @@
         switch (request.config) {
           case 'get':
             sendResponse({
-              'id': this.get('USERDIVEId'),
+              'env': this.get('USERDIVEEnv'),
               'host': this.get('USERDIVEHost'),
-              'env': this.get('USERDIVEEnv')
+              'id': this.get('USERDIVEId'),
+              'ignore': this.get('USERDIVEIgnore')
             });
             break;
           case 'status':
