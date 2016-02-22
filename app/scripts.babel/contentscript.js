@@ -50,7 +50,7 @@
           }
           return `"use strict";!function(e,t){var n=t.getElementById("${elementId}");e.UDTrakcer||e.USERDIVEObject?n.setAttribute("${attr}","used"):(!function(e,n,r,c,u,a,s){e.USERDIVEObject=u,e[u]=e[u]||function(){(e[u].queue=e[u].queue||[]).push(arguments)},a=n.createElement(r),s=t.getElementsByTagName(r)[0],a.async=1,a.src=c,s.parentNode.insertBefore(a,s)}(window,t,"script","//${src}/static/UDTracker.js","ud"),ud("create","${id}",{env:"${env}"}),ud("analyze"))}(window,document);`;
         };
-        for (let domain in config.ignore.split('\n')) {
+        for (let domain of config.ignore.split('\n')) {
           let regexp = new RegExp(domain);
           if (regexp.test(root.location.href)) {
             return;
@@ -70,7 +70,7 @@
       let attr = this._attr;
       try {
         return document.getElementById(id).getAttribute(attr);
-      } catch (err) {} finally {
+      } catch (err) {
         console.log('Block load userdive tag, plz check options');
         return '';
       }
