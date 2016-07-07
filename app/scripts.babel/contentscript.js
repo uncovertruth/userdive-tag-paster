@@ -48,7 +48,7 @@
           if (id.length < 3 || src.length < 14) {
             return;
           }
-          return `"use strict";!function(e,t){var n=t.getElementById("${elementId}");e.UDTrakcer||e.USERDIVEObject?n.setAttribute("${attr}","used"):(!function(e,n,r,c,u,a,s){e.USERDIVEObject=u,e[u]=e[u]||function(){(e[u].queue=e[u].queue||[]).push(arguments)},a=n.createElement(r),s=t.getElementsByTagName(r)[0],a.async=1,a.src=c,s.parentNode.insertBefore(a,s)}(window,t,"script","//${src}/static/UDTracker.js","ud"),ud("create","${id}",{env:"${env}"}),ud("analyze"))}(window,document);`;
+          return `"use strict";(function(e,t){var n=t.getElementById("${elementId}");if(e.UDTrakcer||e.USERDIVEObject){n.setAttribute("${attr}","used")}else{(function(e,t,n,r,c,a,i,s){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};i=t.createElement(n);s=t.getElementsByTagName(n)[0];i.async=1;i.src=r;i.charset=a;s.parentNode.insertBefore(i,s)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}})(window,document);`;
         };
         for (let domain of config.ignore.split('\n')) {
           let regexp = new RegExp(domain);
