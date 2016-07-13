@@ -1,7 +1,7 @@
 'use strict';
 
 (function (root, document) {
-  var element = document.getElementById('${elementId}');
+  const element = document.getElementById('${elementId}');
   if (root.UDTrakcer || root.USERDIVEObject) {
     element.setAttribute('${attr}', 'used');
   } else {

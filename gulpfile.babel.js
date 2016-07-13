@@ -103,8 +103,8 @@ gulp.task('wiredep', () => {
 });
 
 gulp.task('package', function () {
-  let manifest = require('./dist/manifest.json');
-  let appName = require('./package.json').name;
+  const manifest = require('./dist/manifest.json');
+  const appName = require('./package.json').name;
 
   return gulp.src('dist/**')
     .pipe($.zip(appName + '-' + manifest.version + '.zip'))
