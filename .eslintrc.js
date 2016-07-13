@@ -1,12 +1,7 @@
 module.exports = {
-  'extends': 'standard',
+  'extends': '@uncovertruth/eslint-config',
   'parser': 'babel-eslint',
-  'plugins': [
-    'standard'
-  ],
   'env': {
-    'browser': true,
-    'mocha': true,
     'node': true
   },
   'globals': {

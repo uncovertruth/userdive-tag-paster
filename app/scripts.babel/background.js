@@ -44,7 +44,7 @@
       }
     }
     get (key) {
-      let value = localStorage[key];
+      const value = localStorage[key];
       if (value) {
         return value;
       }
