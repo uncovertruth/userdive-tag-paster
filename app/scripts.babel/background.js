@@ -56,4 +56,13 @@
   }
 
   root.bg = new Background();
+
+  chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.greeting == "status")
+      sendResponse({
+        msg: request.statusText
+      });
+  });
+
 })(window, chrome, localStorage);
