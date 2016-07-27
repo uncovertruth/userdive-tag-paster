@@ -29,11 +29,11 @@
       switch (statusText) {
         case 'ok':
           chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
-          chrome.browserAction.setBadgeText({'text': statusText});
+          chrome.browserAction.setBadgeText({'text': 'okk'});
           break;
         case 'used':
           chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
-          chrome.browserAction.setBadgeText({'text': statusText});
+          chrome.browserAction.setBadgeText({'text': 'nuan'});
           break;
         case 'err':
           chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
