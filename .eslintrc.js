@@ -1,13 +1,13 @@
 module.exports = {
-  'extends': '@uncovertruth/eslint-config',
-  'parser': 'babel-eslint',
-  'env': {
+  extends: ['@uncovertruth/eslint-config'],
+  parser: 'babel-eslint',
+  env: {
     'node': true
   },
-  'globals': {
+  globals: {
     'chrome': true
   },
-  'rules': {
+  rules: {
     'semi': [2, 'always']
   }
-};
+}
