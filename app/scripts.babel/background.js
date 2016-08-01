@@ -1,5 +1,8 @@
 'use strict';
 
+
+var nowStatus = '';
+
 (function (root, chrome, localStorage) {
   class Background {
     constructor () {
@@ -29,11 +32,11 @@
       switch (statusText) {
         case 'ok':
           chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
-          chrome.browserAction.setBadgeText({'text': 'okk'});
+          chrome.browserAction.setBadgeText({'text': statusText});
           break;
         case 'used':
           chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
-          chrome.browserAction.setBadgeText({'text': 'nuan'});
+          chrome.browserAction.setBadgeText({'text': statusText});
           break;
         case 'err':
           chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
@@ -42,6 +45,7 @@
         default:
           chrome.browserAction.setBadgeText({'text': ''});
       }
+      nowStatus = statusText;
     }
     get (key) {
       const value = localStorage[key];
@@ -61,7 +65,7 @@
   function(request, sender, sendResponse) {
     if (request.greeting == "status")
       sendResponse({
-        msg: request.statusText
+        msg: nowStatus
       });
   });
 
