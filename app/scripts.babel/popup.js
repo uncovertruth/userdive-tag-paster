@@ -6,4 +6,4 @@
     if (request.greeting == "hello")
       ele.append("<h1>successed</h1>");
   });
-});
+})();
