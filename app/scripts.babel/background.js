@@ -1,8 +1,4 @@
 'use strict';
-
-
-var nowStatus = '';
-
 (function (root, chrome, localStorage) {
   class Background {
     constructor () {
@@ -45,7 +41,6 @@ var nowStatus = '';
         default:
           chrome.browserAction.setBadgeText({'text': ''});
       }
-      nowStatus = statusText;
     }
     get (key) {
       const value = localStorage[key];
@@ -58,15 +53,5 @@ var nowStatus = '';
       localStorage[key] = value;
     }
   }
-
   root.bg = new Background();
-
-  chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.greeting == "status")
-      sendResponse({
-        msg: nowStatus
-      });
-  });
-
 })(window, chrome, localStorage);
