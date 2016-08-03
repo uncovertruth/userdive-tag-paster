@@ -9,6 +9,10 @@
     (function(e,t,n,c,r,a,s,u){e.USERDIVEObject=r;e[r]=e[r]||function(){(e[r].queue=e[r].queue||[]).push(arguments)};s=t.createElement(n);u=t.getElementsByTagName(n)[0];s.async=1;s.src=c;s.charset=a;u.parentNode.insertBefore(s,u)})(window,document,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");
     root.ud("create","${id}",{env:"${env}", cookieExpires: 1});
     root.ud("analyze");
+    var cook = UDTracker.cookie.fetch();
+    chrome.runtime.sendMessage(
+      {pageId: cook.pageId}
+    );
     /* eslint-enable */
   }
 })(window, document);
