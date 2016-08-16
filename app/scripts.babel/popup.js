@@ -5,10 +5,11 @@
       // console.log(response.status);
       const data = response.status.split(',');
       const ele = document.getElementById('status');
+      const th_1 = document.getElementsByTagName('tr')[1];
       for (const i in data) {
-        const z = document.createElement('p');
+        const z = document.createElement('td');
         z.innerHTML = data[i];
-        ele.appendChild(z);
+        th_1.appendChild(z);
       }
     });
   });
