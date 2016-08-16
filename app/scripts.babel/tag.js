@@ -13,10 +13,11 @@
     chrome.runtime.sendMessage(
       {pageId: cook.pageId}
     );
-    /* eslint-enable */
+
   }
   const nowStatus = UDTracker.cookie.fetch();
   const statusEle = document.getElementById('unto-duckling-peril');
   console.log(nowStatus);
   statusEle.setAttribute('status', [nowStatus.pageId, nowStatus.trackingId, nowStatus.visitorType]);
+  /* eslint-enable */
 })(window, document);
