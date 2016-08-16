@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-enable */
 (function (root, chrome, localStorage) {
   class Background {
     constructor () {

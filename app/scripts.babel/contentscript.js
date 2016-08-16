@@ -1,11 +1,10 @@
 'use strict';
-
+/* eslint-enable */
 (function (root, chrome, document) {
   class Provider {
     constructor () {
       this._attr = 'data-userdive-tracker-status';
       this._id = 'unto-duckling-peril';
-
       root.addEventListener('load', (evt) => {
         try {
           this.load();
@@ -14,6 +13,13 @@
           }, 1000);
         } catch (err) {
           this.badge('err');
+        }
+      });
+      chrome.runtime.onMessage.addListener(
+      (request, sender, sendResponse) => {
+        const sta = document.getElementById(this._id).getAttribute('status');
+        if (request.greeting === 'get') {
+          sendResponse({status: sta});
         }
       });
     }
@@ -84,13 +90,6 @@
       });
     }
   }
-  /* eslint no-new: 1*/
   new Provider();
-  chrome.runtime.onMessage.addListener(
-  function (request, sender, sendResponse) {
-    const sta = document.getElementById('unto-duckling-peril').getAttribute('status');
-    if (request.greeting === 'get') {
-      sendResponse({status: sta});
-    }
-  });
+  /* eslint no-new: 1*/
 })(window, chrome, document);
