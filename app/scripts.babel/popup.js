@@ -1,9 +1,4 @@
 (function () {
-  // const ele = document.getElementById('status');
-  // chrome.runtime.sendMessage({greeting: 'ok'}, function (res) {
-  //   console.log(res.sta);
-  //   ele.innerText = res.nowStatus;
-  // });
   chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {greeting: 'get'}, function (response) {
       // document.getElementById('status').textContent = response.status;

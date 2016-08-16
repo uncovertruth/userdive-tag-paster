@@ -86,17 +86,8 @@
   }
   /* eslint no-new: 1*/
   new Provider();
-  // chrome.runtime.onMessage.addListener(
-  //   function (request, sender, sendResponse) {
-  //     const ele = document.getElementById('unto-duckling-peril');
-  //     if (request.greeting === 'ok') {
-  //       sendResponse({sta: ele.getAttribute('status')});
-  //     }
-  //   }
-  // );
   chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
-    // const ele = UDTracker.cookie.fetch();
     const sta = document.getElementById('unto-duckling-peril').getAttribute('status');
     if (request.greeting === 'get') {
       sendResponse({status: sta});
