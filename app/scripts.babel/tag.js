@@ -17,7 +17,6 @@
       element.setAttribute('status', [data.pageId, data.trackingId, data.visitorType]);
     } else {
       console.log('There are not UDTracker');
-      element.setAttribute('status', ['e', 'r', 'r']);
     }
   }, 2000);
 })(window, document);
