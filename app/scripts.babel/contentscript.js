@@ -49,7 +49,7 @@
           if (id.length < 3 || src.length < 14) {
             return;
           }
-          return `"use strict";(function(e,t,n){const r=t.getElementById("${elementId}");const s=n.cookie.fetch();if(e.UDTrakcer||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,n,r,s,c,a,i){e.USERDIVEObject=s;e[s]=e[s]||function(){(e[s].queue=e[s].queue||[]).push(arguments)};a=t.createElement(n);i=t.getElementsByTagName(n)[0];a.async=1;a.src=r;a.charset=c;i.parentNode.insertBefore(a,i)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze");chrome.runtime.sendMessage({pageId:s.pageId})}r.setAttribute("status",[s.pageId,s.trackingId,s.visitorType])})(window,document,window.UDTracker);`;
+          return `"use strict";(function(e,t){const r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,s,o,a){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};o=t.createElement(r);a=t.getElementsByTagName(r)[0];o.async=1;o.src=c;o.charset=s;a.parentNode.insertBefore(o,a)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(e.UDTracker){console.log("There are the UDTracker");const t=e.UDTracker.cookie.fetch();r.setAttribute("status",[t.pageId,t.trackingId,t.visitorType])}else{console.log("There are not UDTracker");r.setAttribute("status",["e","r","r"])}},2e3)})(window,document);`;
         };
         for (const domain of config.ignore.split('\n')) {
           const regexp = new RegExp(domain);

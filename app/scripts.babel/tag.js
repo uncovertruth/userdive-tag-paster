@@ -1,8 +1,7 @@
 'use strict';
-(function (root, document, UDTracker) {
+(function (root, document) {
   const element = document.getElementById('${elementId}');
-  const data = UDTracker.cookie.fetch();
-  if (UDTracker || root.USERDIVEObject) {
+  if (root.UDTracker || root.USERDIVEObject) {
     element.setAttribute('${attr}', 'used');
   } else {
     /* eslint-disable */
@@ -10,9 +9,15 @@
     /* eslint-enable */
     root.ud('create', '${id}', {env: '${env}', cookieExpires: 1});
     root.ud('analyze');
-    chrome.runtime.sendMessage(
-      {pageId: data.pageId}
-    );
   }
-  element.setAttribute('status', [data.pageId, data.trackingId, data.visitorType]);
-})(window, document, window.UDTracker);
+  setTimeout(function () {
+    if (root.UDTracker) {
+      console.log('There are the UDTracker');
+      const data = root.UDTracker.cookie.fetch();
+      element.setAttribute('status', [data.pageId, data.trackingId, data.visitorType]);
+    } else {
+      console.log('There are not UDTracker');
+      element.setAttribute('status', ['e', 'r', 'r']);
+    }
+  }, 2000);
+})(window, document);
