@@ -25,6 +25,7 @@
     "gulp-useref": "^3.0.5",
     "gulp-zip": "^3.2.0",
     "main-bower-files": "^2.11.1",
+    "rimraf": "^2.5.4",
     "run-sequence": "^1.1.5",
     "wiredep": "^4.0.0"
   },
@@ -32,8 +33,10 @@
   "scripts": {
     "build": "gulp build",
     "lint": "eslint .",
-    "prebuild": "rm -rf dist app/scripts",
-    "test": "npm run lint"
+    "prebuild": "rimraf dist app/scripts",
+    "release": "gulp package",
+    "test": "npm run lint",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
