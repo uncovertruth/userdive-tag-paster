@@ -2,7 +2,7 @@
 (function (root, document, UDTracker) {
   const element = document.getElementById('${elementId}');
   const data = UDTracker.cookie.fetch();
-  if (root.UDTrakcer || root.USERDIVEObject) {
+  if (UDTracker || root.USERDIVEObject) {
     element.setAttribute('${attr}', 'used');
   } else {
     /* eslint-disable */
