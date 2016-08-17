@@ -88,8 +88,8 @@
     assignStatusHandler () {
       chrome.runtime.onMessage.addListener(
         (request, sender, sendResponse) => {
-          const sta = document.getElementById(this._id).getAttribute(this._statusAttr);
           if (request.pass === 'get') {
+            const sta = document.getElementById(this._id).getAttribute(this._statusAttr);
             sendResponse({status: sta});
           }
         }
