@@ -1,6 +1,7 @@
 'use strict';
-(function (root, document) {
+(function (root, document, UDTracker) {
   const element = document.getElementById('${elementId}');
+  const data = UDTracker.cookie.fetch();
   if (root.UDTrakcer || root.USERDIVEObject) {
     element.setAttribute('${attr}', 'used');
   } else {
@@ -9,16 +10,9 @@
     /* eslint-enable */
     root.ud('create', '${id}', {env: '${env}', cookieExpires: 1});
     root.ud('analyze');
-    /* eslint-disable */
-    const data = UDTracker.cookie.fetch();
-    /* eslint-enable */
     chrome.runtime.sendMessage(
       {pageId: data.pageId}
     );
   }
-  /* eslint-disable */
-  const nowStatus = UDTracker.cookie.fetch();
-  /* eslint-enable */
-  const statusEle = document.getElementById('unto-duckling-peril');
-  statusEle.setAttribute('status', [nowStatus.pageId, nowStatus.trackingId, nowStatus.visitorType]);
-})(window, document);
+  element.setAttribute('status', [data.pageId, data.trackingId, data.visitorType]);
+})(window, document, window.UDTracker);
