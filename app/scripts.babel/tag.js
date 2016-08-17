@@ -12,9 +12,8 @@
   }
   setTimeout(function () {
     if (root.UDTracker) {
-      console.log('There are the UDTracker');
       const data = root.UDTracker.cookie.fetch();
-      element.setAttribute('status', [data.pageId, data.trackingId, data.visitorType]);
+      element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
     } else {
       console.log('There are not UDTracker');
     }
