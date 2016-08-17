@@ -1,5 +1,4 @@
 'use strict';
-/* eslint-enable */
 (function (root, chrome, document) {
   class Provider {
     constructor () {
@@ -15,13 +14,7 @@
           this.badge('err');
         }
       });
-      chrome.runtime.onMessage.addListener(
-      (request, sender, sendResponse) => {
-        const sta = document.getElementById(this._id).getAttribute('status');
-        if (request.greeting === 'get') {
-          sendResponse({status: sta});
-        }
-      });
+      this.msgToPopup();
     }
     /**
      * Inject javascript to web page
@@ -89,7 +82,17 @@
         statusText: text
       });
     }
+    msgToPopup () {
+      chrome.runtime.onMessage.addListener(
+        (request, sender, sendResponse) => {
+          const sta = document.getElementById(this._id).getAttribute('status');
+          if (request.greeting === 'get') {
+            sendResponse({status: sta});
+          }
+        }
+      );
+    }
   }
-  new Provider();
   /* eslint no-new: 1*/
+  new Provider();
 })(window, chrome, document);
