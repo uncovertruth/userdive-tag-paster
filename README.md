@@ -1,4 +1,4 @@
-# userdive-tag-paster
+# @uncovertruth/userdive-tag-paster
 
 タグ貼る君
 
@@ -13,11 +13,16 @@ gulp watch
 ## build
 
 ```sh
-gulp build
-gulp package
+npm run watch
+```
+
+## Release
+
+```sh
+npm run release
 ```
 
 [david-dm-image]: https://david-dm.org/uncovertruth/userdive-tag-paster.svg
 [david-dm-url]: https://david-dm.org/uncovertruth/userdive-tag-paster
 [dev-david-dm-image]: https://david-dm.org/uncovertruth/userdive-tag-paster/dev-status.svg
-[dev-david-dm-url]: https://david-dm.org/uncovertruth/userdive-tag-paster#info=devDependencies
+[dev-david-dm-url]: https://david-dm.org/uncovertruth/userdive-tag-paster?type=dev
