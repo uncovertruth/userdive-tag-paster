@@ -1,11 +1,10 @@
 'use strict';
-
 (function (root, chrome, document) {
   class Provider {
     constructor () {
       this._attr = 'data-userdive-tracker-status';
       this._id = 'unto-duckling-peril';
-
+      this._statusAttr = 'status';
       root.addEventListener('load', (evt) => {
         try {
           this.load();
@@ -16,6 +15,7 @@
           this.badge('err');
         }
       });
+      this.assignStatusHandler();
     }
     /**
      * Inject javascript to web page
@@ -44,13 +44,14 @@
          * @param  {string} env default production
          * @param  {string} elementId id
          * @param  {string} attr attr
+         * @param  {string} status statusAttr
          * @return {string} return inject javascript string
          */
-        function createTag (id, src, env, elementId, attr) {
+        function createTag (id, src, env, elementId, attr, status) {
           if (id.length < 3 || src.length < 14) {
             return;
           }
-          return `"use strict";(function(e,t){var n=t.getElementById("${elementId}");if(e.UDTrakcer||e.USERDIVEObject){n.setAttribute("${attr}","used")}else{(function(e,t,n,r,c,a,i,s){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};i=t.createElement(n);s=t.getElementsByTagName(n)[0];i.async=1;i.src=r;i.charset=a;s.parentNode.insertBefore(i,s)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}})(window,document);`;
+          return `"use strict";(function(e,t){const r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,n,c,s,i,o){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};i=t.createElement(r);o=t.getElementsByTagName(r)[0];i.async=1;i.src=n;i.charset=s;o.parentNode.insertBefore(i,o)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(e.UDTracker){const t=e.UDTracker.cookie.fetch();r.setAttribute("${status}",[t.pageId,t.trackingId,t.visitorType])}else{console.log("There are not UDTracker")}},2e3)})(window,document);`;
         };
         for (const domain of config.ignore.split('\n')) {
           const regexp = new RegExp(domain);
@@ -63,7 +64,8 @@
           config.host,
           config.env,
           this._id,
-          this._attr
+          this._attr,
+          this._statusAttr
         ));
       });
     }
@@ -82,6 +84,16 @@
         config: 'status',
         statusText: text
       });
+    }
+    assignStatusHandler () {
+      chrome.runtime.onMessage.addListener(
+        (request, sender, sendResponse) => {
+          if (request.pass === 'get') {
+            const sta = document.getElementById(this._id).getAttribute(this._statusAttr);
+            sendResponse({status: sta});
+          }
+        }
+      );
     }
   }
   /* eslint no-new: 1*/

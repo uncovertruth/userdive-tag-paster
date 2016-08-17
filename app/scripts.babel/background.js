@@ -1,5 +1,4 @@
 'use strict';
-
 (function (root, chrome, localStorage) {
   class Background {
     constructor () {
@@ -54,6 +53,5 @@
       localStorage[key] = value;
     }
   }
-
   root.bg = new Background();
 })(window, chrome, localStorage);
