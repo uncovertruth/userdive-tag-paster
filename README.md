@@ -2,15 +2,15 @@
 
 タグ貼る君
 
-[![Dependency Status][david-dm-image]][david-dm-url] [![devDependency Status][dev-david-dm-image]][dev-david-dm-url]
+[![Build Status][travis-image]][travis-url] [![Dependency Status][david-dm-image]][david-dm-url] [![devDependency Status][dev-david-dm-image]][dev-david-dm-url]
 
-## develop
+## Build
 
 ```sh
-gulp watch
+npm run build
 ```
 
-## build
+## Develop
 
 ```sh
 npm run watch
@@ -22,6 +22,8 @@ npm run watch
 npm run release
 ```
 
+[travis-image]: https://travis-ci.org/uncovertruth/userdive-tag-paster.svg?branch=master
+[travis-url]: https://travis-ci.org/uncovertruth/userdive-tag-paster
 [david-dm-image]: https://david-dm.org/uncovertruth/userdive-tag-paster.svg
 [david-dm-url]: https://david-dm.org/uncovertruth/userdive-tag-paster
 [dev-david-dm-image]: https://david-dm.org/uncovertruth/userdive-tag-paster/dev-status.svg
