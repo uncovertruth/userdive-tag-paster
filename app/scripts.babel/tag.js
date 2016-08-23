@@ -1,6 +1,6 @@
 'use strict';
-(function (root, document) {
-  const element = document.getElementById('${elementId}');
+(function (root, document, element, data) {
+  element = document.getElementById('${elementId}');
   if (root.UDTracker || root.USERDIVEObject) {
     element.setAttribute('${attr}', 'used');
   } else {
@@ -11,11 +11,15 @@
     root.ud('analyze');
   }
   setTimeout(function () {
-    if (root.UDTracker) {
-      const data = root.UDTracker.cookie.fetch();
+    if (!root.UDTracker) {
+      console.warn('Blocked USERDIVE Scripts');
+      return;
+    }
+    try {
+      data = root.UDTracker.cookie.fetch();
       element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
-    } else {
-      console.log('There are not UDTracker');
+    } catch (err) {
+      element.setAttribute('${attr}', 'err');
     }
   }, 2000);
 })(window, document);
