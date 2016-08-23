@@ -31,6 +31,7 @@
   },
   "dependencies": {},
   "scripts": {
+    "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "build": "gulp build",
     "lint": "eslint .",
     "prebuild": "rimraf dist app/scripts",
