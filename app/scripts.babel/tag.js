@@ -15,7 +15,11 @@
       console.warn('Blocked USERDIVE Scripts');
       return;
     }
-    data = root.UDTracker.cookie.fetch();
-    element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
-  }, 1000);
+    try {
+      data = root.UDTracker.cookie.fetch();
+      element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
+    } catch (err) {
+      element.setAttribute('${attr}', 'err');
+    }
+  }, 2000);
 })(window, document);
