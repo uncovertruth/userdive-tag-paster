@@ -1,21 +1,22 @@
 'use strict';
-
-(function (root, chrome, document) {
+(function (global, chrome, document) {
   class Provider {
-    constructor () {
-      this._attr = 'data-userdive-tracker-status';
-      this._id = 'unto-duckling-peril';
+    constructor (id, badgeStatusAttribute, cookieStatusAttribute) {
+      this.id = id;
+      this.badgeStatusAttribute = badgeStatusAttribute;
+      this.cookieStatusAttribute = cookieStatusAttribute;
 
-      root.addEventListener('load', (evt) => {
+      global.addEventListener('load', (evt) => {
         try {
           this.load();
           setTimeout(() => {
-            this.badge(this.getStatus());
-          }, 1000);
+            this.updateBadge();
+          }, 2000);
         } catch (err) {
           this.badge('err');
         }
       });
+      this.assignStatusHandler();
     }
     /**
      * Inject javascript to web page
@@ -29,61 +30,84 @@
       const th = document.getElementsByTagName('body')[0];
       const s = document.createElement('script');
       s.text = source;
-      s.id = this._id;
-      s.setAttribute(this._attr, 'ok');
+      s.id = this.id;
+      s.setAttribute(this.badgeStatusAttribute, 'ok');
       th.appendChild(s);
       return true;
+    }
+    /**
+     * inject UDTracker.js
+     * @param  {string} id USERDIVE project id
+     * @param  {string} host USERDIVE tracker host
+     * @param  {string} env default production
+     * @param  {string} elementId id
+     * @param  {string} attr attr
+     * @param  {string} status statusAttr
+     * @return {string} return inject javascript string
+     */
+    createTag (id, host, env, elementId, attr, status) {
+      if (id.length < 3 || host.length < 14) {
+        return;
+      }
+      return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,i,s,a){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};s=t.createElement(r);a=t.getElementsByTagName(r)[0];s.async=1;s.src=c;s.charset=i;a.parentNode.insertBefore(s,a)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{c=e.UDTracker.cookie.fetch();r.setAttribute("${status}",[c.pageId,c.trackingId,c.visitorType])}catch(t){r.setAttribute("${attr}","err")}},1e3)})(window,document);`;
     }
     load () {
       chrome.runtime.sendMessage({config: 'get'}, (response) => {
         const config = response || {};
-        /**
-         * inject UDTracker.js
-         * @param  {string} id USERDIVE project id
-         * @param  {string} src USERDIVE tracker host
-         * @param  {string} env default production
-         * @param  {string} elementId id
-         * @param  {string} attr attr
-         * @return {string} return inject javascript string
-         */
-        function createTag (id, src, env, elementId, attr) {
-          if (id.length < 3 || src.length < 14) {
-            return;
-          }
-          return `"use strict";(function(e,t){var n=t.getElementById("${elementId}");if(e.UDTrakcer||e.USERDIVEObject){n.setAttribute("${attr}","used")}else{(function(e,t,n,r,c,a,i,s){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};i=t.createElement(n);s=t.getElementsByTagName(n)[0];i.async=1;i.src=r;i.charset=a;s.parentNode.insertBefore(i,s)})(window,t,"script","//harpoon3.userdive.com/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}})(window,document);`;
-        };
         for (const domain of config.ignore.split('\n')) {
           const regexp = new RegExp(domain);
-          if (regexp.test(root.location.href)) {
+          if (regexp.test(global.location.href)) {
             return;
           }
         }
-        this.injectScript(createTag(
+        this.injectScript(this.createTag(
           config.id,
           config.host,
           config.env,
-          this._id,
-          this._attr
+          this.id,
+          this.badgeStatusAttribute,
+          this.cookieStatusAttribute
         ));
       });
     }
-    getStatus () {
-      const id = this._id;
-      const attr = this._attr;
+    getAttributeStatus (attr) {
       try {
-        return document.getElementById(id).getAttribute(attr);
+        return document.getElementById(this.id).getAttribute(attr);
       } catch (err) {
-        console.log('Block load userdive tag, plz check options');
-        return '';
+        console.warn('Block USERDIVE Load tag, plz check options', attr);
+        throw err;
       }
     }
+    updateBadge () {
+      this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
+    }
     badge (text) {
+      if (!text) {
+        throw new Error('undefined text');
+      }
       chrome.runtime.sendMessage({
         config: 'status',
         statusText: text
       });
     }
+    assignStatusHandler () {
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        if (request.pass !== 'get') {
+          return;
+        }
+        try {
+          sendResponse({status: this.getAttributeStatus(this.cookieStatusAttribute)});
+          this.updateBadge();
+        } catch (err) {
+          this.badge('err');
+        }
+      });
+    }
   }
   /* eslint no-new: 1*/
-  new Provider();
+  new Provider(
+    'unto-duckling-peril',
+    'data-userdive-tracker-status',
+    'data-userdive-cookie-status'
+  );
 })(window, chrome, document);

@@ -1,6 +1,5 @@
 'use strict';
-
-(function (root, chrome, localStorage) {
+(function (global, chrome, localStorage) {
   class Background {
     constructor () {
       this.assignEventHandlers();
@@ -54,6 +53,5 @@
       localStorage[key] = value;
     }
   }
-
-  root.bg = new Background();
+  global.bg = new Background();
 })(window, chrome, localStorage);
