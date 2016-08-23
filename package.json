@@ -29,7 +29,9 @@
     "run-sequence": "^1.1.5",
     "wiredep": "^4.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "riot": "^2.6.0"
+  },
   "scripts": {
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "build": "gulp build",

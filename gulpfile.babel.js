@@ -115,9 +115,14 @@ gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
     ['html', 'images', 'extras'],
-    'size', cb);
+    'size', 'riot', cb);
 });
 
 gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
+});
+
+gulp.task('riot', () => {
+  gulp.src('node_modules/riot/riot.csp.min.js')
+  .pipe(gulp.dest('dist/scripts'));
 });
