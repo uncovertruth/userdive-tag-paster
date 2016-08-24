@@ -1,5 +1,5 @@
 'use strict';
-(function (chrome, document) {
+(function (chrome, document, json) {
   class StateView {
     constructor () {
       this.updateState();
@@ -15,11 +15,10 @@
     }
     appendState (status) {
       const data = status.split(',');
-      const th = document.getElementsByTagName('tr')[1];
       for (const i in data) {
-        const z = document.createElement('td');
-        z.innerHTML = data[i];
-        th.appendChild(z);
+        const info = data[i].split(':');
+        const statusDom = document.getElementsByTagName('info');
+        statusDom.setAttribute(info[0], info[1]);
       }
     }
     updateState () {
@@ -31,4 +30,4 @@
 
   /* eslint no-new: 1 */
   new StateView();
-})(chrome, document);
+})(chrome, document, JSON);

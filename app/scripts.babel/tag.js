@@ -17,7 +17,8 @@
     }
     try {
       data = root.UDTracker.cookie.fetch();
-      element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
+      const attrString = '{pageId:' + data.pageId + ',visitorType:' + data.visitorType + '}';
+      element.setAttribute('${status}', attrString);
     } catch (err) {
       element.setAttribute('${attr}', 'err');
     }

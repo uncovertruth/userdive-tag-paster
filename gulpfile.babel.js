@@ -3,6 +3,7 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
+import riot from 'gulp-riot';
 
 const $ = gulpLoadPlugins();
 
@@ -66,7 +67,7 @@ gulp.task('chromeManifest', () => {
 });
 
 gulp.task('babel', () => {
-  return gulp.src('app/scripts.babel/**/*.js')
+  return gulp.src(['app/scripts.babel/**/*.js', '!app/scripts.babel/popupInfo.js'])
     .pipe($.babel({
       presets: ['es2015']
     }))
@@ -114,7 +115,7 @@ gulp.task('package', function () {
 gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
-    ['html', 'images', 'extras'],
+    ['compileRiot', 'html', 'images', 'extras'],
     'size', 'distModules', cb);
 });
 
@@ -122,7 +123,15 @@ gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
 });
 
+gulp.task('compileRiot', () => {
+  gulp.src('app/scripts.babel/popupInfo.js')
+  .pipe(riot({
+    compact: true
+  }))
+  .pipe(gulp.dest('app/scripts'));
+});
+
 gulp.task('distModules', () => {
   gulp.src('node_modules/riot/riot.csp.min.js')
-  .pipe(gulp.dest('dist/scripts'));
+  .pipe(gulp.dest('./dist/scripts/'));
 });
