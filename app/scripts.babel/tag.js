@@ -17,7 +17,16 @@
     }
     try {
       data = root.UDTracker.cookie.fetch();
-      const attrString = '{pageId:' + data.pageId + ',visitorType:' + data.visitorType + '}';
+      const kinds = [
+        'pageId',
+        'visitorType'
+      ];
+      let attrString = '';
+      for (const i in kinds) {
+        attrString += i <= kinds.length - 1
+        ? kinds[i] + ':' + data[kinds[i]] + ','
+        : kinds[i] + ':' + data[kinds[i]];
+      }
       element.setAttribute('${status}', attrString);
     } catch (err) {
       element.setAttribute('${attr}', 'err');
