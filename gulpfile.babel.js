@@ -3,7 +3,6 @@ import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del';
 import runSequence from 'run-sequence';
 import {stream as wiredep} from 'wiredep';
-import riot from 'gulp-riot';
 
 const $ = gulpLoadPlugins();
 
@@ -124,11 +123,9 @@ gulp.task('default', ['clean'], (cb) => {
 });
 
 gulp.task('compileRiot', () => {
-  gulp.src('app/scripts.babel/popupInfo.js')
-  .pipe(riot({
-    compact: true
-  }))
-  .pipe(gulp.dest('app/scripts'));
+  gulp.src('app/components/*.pug')
+  .pipe($.pug())
+  .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('distModules', () => {
