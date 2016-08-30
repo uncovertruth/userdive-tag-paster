@@ -42,6 +42,7 @@ gulp.task('html', () => {
     .pipe($.debug())
     .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cssnano()))
+    .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
     .pipe(gulp.dest('dist'));
 });
 
@@ -77,7 +78,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['compileRiot', 'babel', 'html'], () => {
+gulp.task('watch', ['compilePugToJs', 'babel', 'html'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -90,7 +91,7 @@ gulp.task('watch', ['compileRiot', 'babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['build']);
   gulp.watch('bower.json', ['wiredep']);
-  gulp.watch('app/components/*.pug', ['compileRiot']);
+  gulp.watch('app/components/*.pug', ['compilePugToJs']);
 });
 
 gulp.task('size', () => {
@@ -116,8 +117,8 @@ gulp.task('package', function () {
 
 gulp.task('build', (cb) => {
   runSequence(
-    'babel', 'chromeManifest', 'compileRiot',
-    ['html', 'images', 'extras'],
+    'babel', 'chromeManifest',
+    ['compilePugToJs', 'compilePugToHtml', 'html', 'images', 'extras'],
     'size', 'distModules', cb);
 });
 
@@ -125,15 +126,18 @@ gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
 });
 
-gulp.task('compileRiot', () => {
-  gulp.src('./app/tags/*.tag')
-  .pipe($.riot({compact: true}))
-  .pipe(gulp.dest('./app/scripts'));
-  gulp.src('./app/components/*.tag')
-  .pipe($.pug({
-    pretty: true
+gulp.task('compilePugToJs', () => {
+  gulp.src('./app/components/*.pug')
+  .pipe($.riot({
+    template: 'pug'
   }))
-  .pipe(gulp.dest('./app/'));
+  .pipe(gulp.dest('./dist/scripts'));
+});
+
+gulp.task('compilePugToHtml', () => {
+  gulp.src('./app/popup.pug')
+  .pipe($.pug())
+  .pipe(gulp.dest('./dist/'));
 });
 
 gulp.task('distModules', () => {

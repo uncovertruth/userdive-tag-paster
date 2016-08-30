@@ -27,12 +27,14 @@
 
     changeStatusToAry (status) {
       const attrStatus = status.split(',');
-      const data = [['', ''], ['', '']];
+      const data = [];
       for (const i in attrStatus) {
-        const attrAry = attrStatus[i].split(':');
-        for (let count = 0; count < 2; count++) {
-          data[i][count] = attrAry[count];
-        }
+        data.push(attrStatus[i]);
+        data.push(attrStatus[i].split(':'));
+        // for (let count = 0; count < 2; count++) {
+          // console.log(attrAry[count]);
+          // data.push(attrAry[count]);
+        // }
       }
       return data;
     }
