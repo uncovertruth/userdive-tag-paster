@@ -23,9 +23,8 @@
       ];
       let attrString = '';
       for (const i in kinds) {
-        attrString += i < kinds.length - 1
-        ? kinds[i] + ':' + data[kinds[i]] + ','
-        : kinds[i] + ':' + data[kinds[i]];
+        attrString += '{kindsa[i]}:{data[kinds[i]]}';
+        if (i === 0) attrString += ',';
       }
       element.setAttribute('${status}', attrString);
     } catch (err) {
