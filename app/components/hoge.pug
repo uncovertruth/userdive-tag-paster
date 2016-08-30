@@ -2,6 +2,13 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
-    style(src="styles/main.css")
+    <!-- build:css styles/main.css -->
+    link(rel="styles/main.css")
+    <!-- endbuild -->
+    <script src="scripts/riot.csp.min.js"></script>
+    <!-- build:js scripts/popup.js -->
+    script(src="scripts/popup.js")
+    <!-- endbuild -->
   body
-    
+    info
+    script(src="scripts/popupInfo.js")

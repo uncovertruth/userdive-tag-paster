@@ -133,3 +133,7 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# result html files
+./app/popup.html
+./app/hoge.html
