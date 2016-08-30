@@ -31,10 +31,6 @@
       for (const i in attrStatus) {
         data.push(attrStatus[i]);
         data.push(attrStatus[i].split(':'));
-        // for (let count = 0; count < 2; count++) {
-          // console.log(attrAry[count]);
-          // data.push(attrAry[count]);
-        // }
       }
       return data;
     }
