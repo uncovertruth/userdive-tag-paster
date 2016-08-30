@@ -1,6 +1,6 @@
 /* eslint-disable */
 <info>
-  <table>
+  <table border="1" cellspacin="0">
     <tr>
       <td>{pageIdTitle}</td>
       <td>{visitorTypeTitle}</td>
