@@ -11,7 +11,6 @@
           return;
         }
         this.appendState(response.status);
-        console.log('apennded');
       });
     }
     appendState (status) {
@@ -20,11 +19,10 @@
 
     changeStatusToAry (status) {
       const attrStatus = status.split(',');
-      console.log(attrStatus);
-      const data = [];
+      const data = [['', ''], ['', '']];
       for (const i in attrStatus) {
         const attrAry = attrStatus[i].split(':');
-        for (let count = 0; count <= 1; count++) {
+        for (let count = 0; count < 2; count++) {
           data[i][count] = attrAry[count];
         }
       }
