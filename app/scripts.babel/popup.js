@@ -17,9 +17,11 @@
       const ele = document.getElementsByTagName('info')[0];
       for (const i in statusAry) {
         for (let index = 0; index < 2; index++) {
-          index === 0
-          ? ele.setAttribute(statusAry[i][index] + 'title', statusAry[i][index])
-          : ele.setAttribute(statusAry[i][0], statusAry[i][index]);
+          if (index === 0) {
+            ele.setAttribute(statusAry[i][index] + 'title', statusAry[i][index]);
+          } else {
+            ele.setAttribute(statusAry[i][0], statusAry[i][index]);
+          }
         }
       }
       riot.mount('*');

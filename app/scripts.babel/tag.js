@@ -23,7 +23,7 @@
       ];
       let attrString = '';
       for (const i in kinds) {
-        attrString += '{kindsa[i]}:{data[kinds[i]]}';
+        attrString += '${kinds[i]}:${data[kinds[i]]}';
         if (i === 0) attrString += ',';
       }
       element.setAttribute('${status}', attrString);
