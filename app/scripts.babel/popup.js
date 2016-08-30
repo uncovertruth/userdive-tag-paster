@@ -11,15 +11,24 @@
           return;
         }
         this.appendState(response.status);
+        console.log('apennded');
       });
     }
     appendState (status) {
-      const data = status.split(',');
-      for (const i in data) {
-        const info = data[i].split(':');
-        const statusDom = document.getElementsByTagName('info');
-        statusDom.setAttribute(info[0], info[1]);
+      console.log(this.changeStatusToAry(status));
+    }
+
+    changeStatusToAry (status) {
+      const attrStatus = status.split(',');
+      console.log(attrStatus);
+      const data = [];
+      for (const i in attrStatus) {
+        const attrAry = attrStatus[i].split(':');
+        for (let count = 0; count <= 1; count++) {
+          data[i][count] = attrAry[count];
+        }
       }
+      return data;
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {

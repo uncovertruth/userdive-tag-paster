@@ -23,7 +23,7 @@
       ];
       let attrString = '';
       for (const i in kinds) {
-        attrString += i <= kinds.length - 1
+        attrString += i < kinds.length - 1
         ? kinds[i] + ':' + data[kinds[i]] + ','
         : kinds[i] + ':' + data[kinds[i]];
       }
