@@ -75,7 +75,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['babel', 'html'], () => {
+gulp.task('watch', ['babel', 'html', 'compileRiot'], () => {
   $.livereload.listen();
 
   gulp.watch([
@@ -88,6 +88,7 @@ gulp.task('watch', ['babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['build']);
   gulp.watch('bower.json', ['wiredep']);
+  gulp.watch('app/components/*.pug', ['compileRiot']);
 });
 
 gulp.task('size', () => {
