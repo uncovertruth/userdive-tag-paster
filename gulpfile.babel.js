@@ -135,7 +135,7 @@ gulp.task('compilePugToJs', () => {
 });
 
 gulp.task('compilePugToHtml', () => {
-  gulp.src('./app/popup.pug')
+  gulp.src('./app/*.pug')
   .pipe($.pug())
   .pipe(gulp.dest('./dist/'));
 });
