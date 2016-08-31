@@ -2,7 +2,7 @@
   "name": "@uncovertruth/userdive-tag-paster",
   "private": true,
   "devDependencies": {
-    "@uncovertruth/eslint-config": "^0.0.1",
+    "@uncovertruth/eslint-config": "^1.0.0",
     "babel-core": "^6.5.2",
     "babel-eslint": "^6.1.2",
     "babel-preset-es2015": "^6.5.0",
