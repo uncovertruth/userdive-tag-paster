@@ -14,7 +14,6 @@
     }
     appendState (status) {
       const statusHash = JSON.parse(status);
-      console.log(statusHash);
       const ele = document.getElementsByTagName('info')[0];
       for (const key in statusHash) {
         ele.setAttribute(key, statusHash[key]);
