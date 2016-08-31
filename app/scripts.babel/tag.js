@@ -25,7 +25,8 @@
       for (const i in kinds) {
         attrHash[kinds[i]] = data[kinds[i]];
       }
-      element.setAttribute('${status}', JSON.stringify(attrHash));
+      data = JSON.stringify(attrHash);
+      element.setAttribute('${status}', data);
     } catch (err) {
       element.setAttribute('${attr}', 'err');
     }
