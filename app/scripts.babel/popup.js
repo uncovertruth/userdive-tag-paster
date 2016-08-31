@@ -9,10 +9,10 @@
         if (!response || !response.status) {
           return;
         }
-        this.appendState(response.status);
+        this.renameState(response.status);
       });
     }
-    appendState (status) {
+    renameState (status) {
       const statusHash = JSON.parse(status);
       const ele = document.getElementsByTagName('info')[0];
       for (const key in statusHash) {
