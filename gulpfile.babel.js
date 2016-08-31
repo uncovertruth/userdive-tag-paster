@@ -67,8 +67,7 @@ gulp.task('chromeManifest', () => {
 
 gulp.task('babel', () => {
   return gulp.src([
-    'app/scripts.babel/*.js',
-    '!app/scripts.babel/popupInfo.js'
+    'app/scripts.babel/*.js'
   ])
     .pipe($.babel({
       presets: ['es2015']
