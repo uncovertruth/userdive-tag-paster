@@ -21,13 +21,11 @@
         'pageId',
         'visitorType'
       ];
-      let attrString = '';
+      const attrHash = {};
       for (const i in kinds) {
-        // attrString += '${kinds[i]}:${data[kinds[i]]}';
-        attrString += kinds[i] + ':' + data[kinds[i]];
-        if (i === 0) attrString += ',';
+        attrHash[kinds[i]] = data[kinds[i]];
       }
-      element.setAttribute('${status}', attrString);
+      element.setAttribute('${status}', JSON.stringify(attrHash));
     } catch (err) {
       element.setAttribute('${attr}', 'err');
     }
