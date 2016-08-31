@@ -17,7 +17,7 @@
       console.log(statusHash);
       const ele = document.getElementsByTagName('info')[0];
       for (const key in statusHash) {
-        ele.setAttribute(key + 'title', statusHash[key]);
+        ele.setAttribute(key, statusHash[key]);
       }
       riot.mount('*');
     }
