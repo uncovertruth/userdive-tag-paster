@@ -131,7 +131,7 @@ gulp.task('compilePugToJs', () => {
   .pipe($.riot({
     template: 'pug'
   }))
-  .pipe(gulp.dest('./dist/scripts'));
+  .pipe(gulp.dest('./app/scripts'));
 });
 
 gulp.task('compilePugToHtml', () => {
