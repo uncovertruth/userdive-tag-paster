@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(lang="en")
-    // build:css styles/main.css 
+    // build:css styles/main.css
     link(rel="styles/main.css")
     // endbuild
     script(src="scripts/riot.csp.min.js")
@@ -11,6 +11,8 @@ html
     // endbuild
   body
     info
-      // build:js scripts/info.js
-      script(src="scripts/info.js")
-      // endbuild
+      yield(to="page_id") pageId
+      yield(to="visitor_type") visitorType
+    // build:js scripts/info.js
+    script(src="scripts/info.js")
+    // endbuild

@@ -1,11 +1,15 @@
 info
   table(border="1" cellspacing="0")
     tr
-      td pageId
-      td visitorType
-    tr
-      td {pageId}
-      td {visitorType}
+      td
+        yield(from="page_id")
+      td
+        yield(from="visitor_type")
+    tr(each={status})
+      td {data}
+
   script.
-    this.pageId = opts.pageid
-    this.visitorType = opts.visitortype
+    this.status = [
+    {data: opts.pageid},
+    {data: opts.visitortype}
+    ]
