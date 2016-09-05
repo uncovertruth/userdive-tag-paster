@@ -14,11 +14,16 @@
     }
     renameState (status) {
       const statusHash = JSON.parse(status);
+      console.log(statusHash);
       const ele = document.getElementsByTagName('info')[0];
-      for (const key in statusHash) {
-        ele.setAttribute(key, statusHash[key]);
+      const kinds = [
+        'pageId',
+        'visitorType'
+      ];
+      for (const i in kinds) {
+        ele.setAttribute(kinds[i], statusHash[kinds[i]]);
       }
-      riot.mount('*');
+      riot.mount('info');
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
