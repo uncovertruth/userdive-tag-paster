@@ -14,7 +14,6 @@
     }
     renameState (status) {
       const statusHash = JSON.parse(status);
-      console.log(statusHash);
       const ele = document.getElementsByTagName('info')[0];
       const kinds = [
         'pageId',
