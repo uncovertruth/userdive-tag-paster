@@ -16,16 +16,9 @@
       return;
     }
     try {
-      data = root.UDTracker.cookie.fetch();
-      const kinds = [
-        'pageId',
-        'visitorType'
-      ];
-      const attrHash = {};
-      for (const i in kinds) {
-        attrHash[kinds[i]] = data[kinds[i]];
-      }
-      data = JSON.stringify(attrHash);
+      const data = JSON.stringify(
+        root.UDTracker.cookie.fetch()
+      );
       element.setAttribute('${status}', data);
     } catch (err) {
       element.setAttribute('${attr}', 'err');
