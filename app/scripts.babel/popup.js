@@ -14,7 +14,8 @@
     }
     renameState (status) {
       const statusHash = JSON.parse(status);
-      const ele = document.getElementsByTagName('info')[0];
+      const tagName = 'info';
+      const ele = document.getElementsByTagName(tagName)[0];
       const kinds = [
         'pageId',
         'visitorType'
@@ -22,7 +23,7 @@
       for (const i in kinds) {
         ele.setAttribute(kinds[i], statusHash[kinds[i]]);
       }
-      riot.mount('info');
+      riot.mount(tagName);
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
