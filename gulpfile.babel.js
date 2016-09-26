@@ -127,7 +127,7 @@ gulp.task('default', ['clean'], (cb) => {
 });
 
 gulp.task('compilePugToJs', () => {
-  gulp.src('./app/components/*.pug')
+  return gulp.src('./app/components/*.pug')
   .pipe($.riot({
     template: 'pug'
   }))
@@ -135,7 +135,7 @@ gulp.task('compilePugToJs', () => {
 });
 
 gulp.task('compilePugToHtml', () => {
-  gulp.src('./app/*.pug')
+  return gulp.src('./app/*.pug')
   .pipe($.pug({
     pretty: true
   }))
