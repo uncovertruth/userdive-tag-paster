@@ -6,7 +6,7 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', ['compilePugToJs', 'compilePugToHtml'], () => {
+gulp.task('extras', ['compilePugToJs'], () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
@@ -36,7 +36,7 @@ gulp.task('images', () => {
     .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('html', () => {
+gulp.task('html', ['compilePugToHtml'], () => {
   return gulp.src('app/*.html')
     .pipe($.sourcemaps.init())
     .pipe($.useref())
