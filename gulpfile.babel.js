@@ -6,7 +6,7 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', () => {
+gulp.task('extras', ['compilePugToJs'], () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
@@ -117,7 +117,7 @@ gulp.task('package', function () {
 gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
-    ['compilePugToJs', 'compilePugToHtml', 'html', 'images', 'extras'],
+    ['html', 'images', 'extras'],
     'size', 'distModules', cb);
 });
 
@@ -135,8 +135,10 @@ gulp.task('compilePugToJs', () => {
 
 gulp.task('compilePugToHtml', () => {
   gulp.src('./app/*.pug')
-  .pipe($.pug())
-  .pipe(gulp.dest('./dist/'));
+  .pipe($.pug({
+    pretty: true
+  }))
+  .pipe(gulp.dest('./app/'));
 });
 
 gulp.task('distModules', () => {
