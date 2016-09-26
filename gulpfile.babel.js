@@ -6,7 +6,7 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', ['compilePugToJs'], () => {
+gulp.task('extras', ['compilePugToJs', 'compilePugToHtml'], () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
