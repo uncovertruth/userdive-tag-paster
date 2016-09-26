@@ -13,16 +13,10 @@
       });
     }
     renameState (status) {
-      const statusHash = JSON.parse(status);
+      console.log(status);
       const tagName = 'info';
-      const ele = document.getElementsByTagName(tagName)[0];
-      const kinds = [
-        'pageId',
-        'visitorType'
-      ];
-      for (const i in kinds) {
-        ele.setAttribute(kinds[i], statusHash[kinds[i]]);
-      }
+      const tagDom = document.getElementsByTagName(tagName)[0];
+      tagDom.setAttribute('status', status);
       riot.mount(tagName);
     }
     updateState () {
