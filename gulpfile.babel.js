@@ -118,7 +118,7 @@ gulp.task('package', function () {
 gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
-    ['html', 'images', 'extras'],
+    ['extras', 'html', 'images'],
     'size', 'distModules', cb);
 });
 
