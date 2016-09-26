@@ -12,6 +12,7 @@ gulp.task('extras', ['compilePugToJs'], () => {
     'app/_locales/**',
     '!app/scripts.babel',
     '!app/*.json',
+    '!app/*.pug',
     '!app/*.html'
   ], {
     base: 'app',
@@ -77,7 +78,7 @@ gulp.task('babel', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
 
-gulp.task('watch', ['compilePugToJs', 'babel', 'html'], () => {
+gulp.task('watch', ['babel', 'html'], () => {
   $.livereload.listen();
 
   gulp.watch([
