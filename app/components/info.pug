@@ -1,2 +1,10 @@
 info
-  table(border="1" cellspacing="0")
+  table
+    tr
+      th(each="{status}") {data}
+  script.
+    this.status = [
+      {"data": opts.pageid},
+      {"data": opts.visitortype},
+    ]
+    this.alal = this.JSON.parse(this.status)
