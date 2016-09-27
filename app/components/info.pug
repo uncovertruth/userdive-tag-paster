@@ -3,10 +3,14 @@ info
     tr
       th(each="{title in rawdata}") {title}
     tr
-      th(each="{value in rawdata.value}") {value}
+      th(each="{value in values}") {value}
   script.
-    /*console.log(opts.status)*/
     var rawData  = JSON.parse(
       document.getElementsByTagName("info")[0].getAttribute("status")
       )
+    var values = []
+    for(var key in rawData) {
+      values.push(rawData[key])
+    }
     this.rawdata = rawData
+    this.values = values
