@@ -1,24 +1,24 @@
 doctype html
 html
-head
-  title USERDIVE tracker
-body
-  div
+  head
+    title USERDIVE tracker
+  body
     div
-      span Id
-      input#analytics-id(type="text" name="analytics-id")
-    div
-      span Env
-      input#env(type="text" name="env")
-    div
-      span Source
-      input#host(type="text" name="host")
-    div
-      span Ignore domains (plz split
-      br
-      | line break)
-      textarea#ignore(rows="4" cols="40")
-    button#save save
-    // build:js scripts/options.js
-    script(src="scripts/options.js")
-    // endbuild
+      div
+        span Id
+        input#analytics-id(type="text" name="analytics-id")
+      div
+        span Env
+        input#env(type="text" name="env")
+      div
+        span Source
+        input#host(type="text" name="host")
+      div
+        span Ignore domains (plz split
+        br
+        | line break)
+        textarea#ignore(rows="4" cols="40")
+      button#save save
+      // build:js scripts/options.js
+      script(src="scripts/options.js")
+      // endbuild
