@@ -16,7 +16,7 @@
       console.log(status);
       const tagName = 'info';
       const tagDom = document.getElementsByTagName(tagName)[0];
-      tagDom.setAttribute('status', JSON.stringify(status));
+      tagDom.setAttribute('status', status);
       riot.mount(tagName);
     }
     updateState () {
