@@ -1,10 +1,5 @@
 info
   table
     tr
-      th(each="{status}") {data}
   script.
-    this.status = [
-      {"data": opts.pageid},
-      {"data": opts.visitortype},
-    ]
-    this.alal = this.JSON.parse(this.status)
+    console.log(opts.status)

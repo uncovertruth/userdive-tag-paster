@@ -16,11 +16,7 @@
       console.log(status);
       const tagName = 'info';
       const tagDom = document.getElementsByTagName(tagName)[0];
-      // tagDom.setAttribute('status', status);
-      const data = json.parse(status);
-      for (const key in data) {
-        tagDom.setAttribute(key, data[key]);
-      }
+      tagDom.setAttribute('status', JSON.stringify(status));
       riot.mount(tagName);
     }
     updateState () {
