@@ -3,7 +3,7 @@ info
     tr
       th(each="{title in rawdata}") {title}
     tr
-      th(each="{value in values}") {value}
+      th(each="{value in rawdata[value]}") {value}
   script.
     var rawData  = JSON.parse(
       document.getElementsByTagName("info")[0].getAttribute("status")
