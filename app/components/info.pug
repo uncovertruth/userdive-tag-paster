@@ -1,5 +1,19 @@
 info
-  table
+  table(border="1")
     tr
+      th(each="{title in titles}") {title}
+    tr
+      th(each="{value in values}") {value}
   script.
-    console.log(opts.status)
+    /*console.log(opts.status)*/
+    var rawData  = JSON.parse(
+      document.getElementsByTagName("info")[0].getAttribute("status")
+      )
+    var titles = []
+    var values = []
+    for(var i in rawData ) {
+      titles.push(i)
+      values.push(rawData[i])
+    }
+    this.titles = titles
+    this.values = values

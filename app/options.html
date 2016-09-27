@@ -1,30 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>USERDIVE tracker</title>
-</head>
-<body>
-  <div>
+  <head>
+    <title>USERDIVE tracker</title>
+  </head>
+  <body>
     <div>
-      <span>Id</span>
-      <input id="analytics-id" type="text" name="analytics-id" />
+      <div><span>ID</span>
+        <input id="analytics-id" type="text" name="analytics-id">
+      </div>
+      <div><span>Env</span>
+        <input id="env" type="text" name="env">
+      </div>
+      <div><span>Slource</span>
+        <input id="host" type="text" name="host">
+      </div>
+      <div><span>Ignore domains (plz split</span><b>line break</b>)</div>
+      <button id="save">save</button>
+      <!-- build:js scripts/options.js-->
+      <script src="scripts/options.js"></script>
+      <!-- endbuild-->
     </div>
-    <div>
-      <span>Env</span>
-      <input id="env" type="text" name="env" />
-    </div>
-    <div>
-      <span>Source</span>
-      <input id="host" type="text" name="host" />
-    </div>
-    <div>
-      <div>Ignore domains (plz split <b>line break</b>)</div>
-      <textarea id="ignore" rows="4" cols="40"></textarea>
-    </div>
-    <button id="save">Save</button>
-    <!-- build:js scripts/options.js -->
-    <script src="scripts/options.js"></script>
-    <!-- endbuild -->
-  </div>
-</body>
+  </body>
 </html>
