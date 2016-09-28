@@ -104,7 +104,7 @@
       });
     }
   }
-/* eslint no-new: 1 */
+  /* eslint no-new: 1 */
   new Provider(
     'unto-duckling-peril',
     'data-userdive-tracker-status',
