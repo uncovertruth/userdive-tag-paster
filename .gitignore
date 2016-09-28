@@ -1,6 +1,5 @@
 app/scripts/
-app/options.html
-app/popup.html
+app/*.html
 bower_components/
 dist/
 package/
