@@ -38,7 +38,7 @@
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "build": "gulp build",
     "lint": "eslint .",
-    "prebuild": " find app -name '*.html' -delete",
+    "prebuild": "find app -name '*.html' -delete | rimraf dist app/scripts",
     "release": "gulp package",
     "test": "npm run lint",
     "watch": "gulp watch"
