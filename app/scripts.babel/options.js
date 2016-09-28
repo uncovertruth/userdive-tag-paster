@@ -38,6 +38,6 @@
     }
   }
 
-  /*eslint no-new: 1*/
+  /* eslint no-new: 1*/
   new Options();
 })(window, document, chrome);
