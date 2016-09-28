@@ -1,16 +1,9 @@
 info
   table(border="1")
-    tr
-      th(each="{title in rawdata}") {title}
-    tr
-      th(each="{value in rawdata[value]}") {value}
+    tr(each="{name, value in data}")
+      th {name}
+      th {value}
   script.
-    var rawData  = JSON.parse(
+    this.data  = JSON.parse(
       document.getElementsByTagName("info")[0].getAttribute("status")
       )
-    var values = []
-    for(var key in rawData) {
-      values.push(rawData[key])
-    }
-    this.rawdata = rawData
-    this.values = values
