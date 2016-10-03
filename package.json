@@ -40,11 +40,11 @@
   "scripts": {
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "build": "gulp build",
-    "lint": "eslint .",
+    "lint:js": "eslint .",
     "lint:pug": "pug-lint ./app/*.pug ./app/components/*.pug",
     "prebuild": "rimraf dist app/scripts app/*.html",
     "release": "gulp package",
-    "test": "npm-run-all -p lint*",
+    "test": "npm-run-all -p lint:*",
     "watch": "gulp watch"
   },
   "repository": {
