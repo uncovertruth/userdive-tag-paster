@@ -9,7 +9,7 @@
         if (!response || !response.status) {
           return;
         }
-        this.renameState(response.status);
+        this.mountTag(response.status);
       });
     }
     mountTag (status) {
