@@ -27,6 +27,8 @@
     "gulp-useref": "^3.0.5",
     "gulp-zip": "^3.2.0",
     "main-bower-files": "^2.11.1",
+    "pug-lint": "^2.3.0",
+    "pug-lint-config-uncovertruth": "0.0.1",
     "rimraf": "^2.5.4",
     "run-sequence": "^1.1.5",
     "wiredep": "^4.0.0"
