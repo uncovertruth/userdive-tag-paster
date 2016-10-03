@@ -12,7 +12,7 @@
         this.renameState(response.status);
       });
     }
-    renameState (status) {
+    mountTag (status) {
       const tagName = 'info';
       riot.mount(tagName, {data: json.parse(status)});
     }
