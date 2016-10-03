@@ -14,9 +14,7 @@
     }
     renameState (status) {
       const tagName = 'info';
-      const tagDom = document.getElementsByTagName(tagName)[0];
-      tagDom.setAttribute('status', status);
-      riot.mount(tagName);
+      riot.mount(tagName, {data: json.parse(status)});
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
