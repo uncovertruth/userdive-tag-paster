@@ -42,7 +42,7 @@
     "build": "gulp build",
     "lint:js": "eslint .",
     "lint:pug": "pug-lint ./app/*.pug ./app/components/*.pug",
-    "prebuild": "rimraf dist app/scripts app/*.html",
+    "prebuild": "find app -name '*.html' -delete && rimraf dist app/scripts",
     "release": "gulp package",
     "test": "npm-run-all -p lint:*",
     "watch": "gulp watch"
