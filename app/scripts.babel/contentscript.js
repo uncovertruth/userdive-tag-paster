@@ -1,11 +1,10 @@
 'use strict';
 (function (global, chrome, document) {
   class Provider {
-    constructor (id, badgeStatusAttribute, cookieStatusAttribute, injectStatus) {
+    constructor (id, badgeStatusAttribute, cookieStatusAttribute) {
       this.id = id;
       this.badgeStatusAttribute = badgeStatusAttribute;
       this.cookieStatusAttribute = cookieStatusAttribute;
-      this.injectStatus = injectStatus;
 
       global.addEventListener('load', (evt) => {
         try {
@@ -61,7 +60,7 @@
             return;
           }
         }
-        this.injectStatus = this.injectScript(this.createTag(
+        this.injectScript(this.createTag(
           config.id,
           config.host,
           config.env,
@@ -73,18 +72,18 @@
     }
     getAttributeStatus (attr) {
       try {
-        return document.getElementById(this.id).getAttribute(attr);
+        const tag = document.getElementById(this.id);
+        if (!tag) {
+          return tag.getAttribute(attr);
+        }
+        return '-';
       } catch (err) {
         console.warn('Block USERDIVE Load tag, plz check options', attr);
-        throw err;
       }
+      return '?';
     }
     updateBadge () {
-      if (this.injected === true) {
-        this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
-      } else {
-        this.badge('no');
-      }
+      this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
     }
     badge (text) {
       if (!text) {
@@ -113,7 +112,6 @@
   new Provider(
     'unto-duckling-peril',
     'data-userdive-tracker-status',
-    'data-userdive-cookie-status',
-    false
+    'data-userdive-cookie-status'
   );
 })(window, chrome, document);
