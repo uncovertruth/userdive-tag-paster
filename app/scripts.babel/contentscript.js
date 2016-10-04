@@ -1,10 +1,11 @@
 'use strict';
 (function (global, chrome, document) {
   class Provider {
-    constructor (id, badgeStatusAttribute, cookieStatusAttribute) {
+    constructor (id, badgeStatusAttribute, cookieStatusAttribute, injectStatus) {
       this.id = id;
       this.badgeStatusAttribute = badgeStatusAttribute;
       this.cookieStatusAttribute = cookieStatusAttribute;
+      this.injectStatus = injectStatus;
 
       global.addEventListener('load', (evt) => {
         try {
@@ -60,7 +61,7 @@
             return;
           }
         }
-        this.injectScript(this.createTag(
+        this.injectStatus = this.injectScript(this.createTag(
           config.id,
           config.host,
           config.env,
@@ -79,7 +80,11 @@
       }
     }
     updateBadge () {
-      this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
+      if (this.injected === true) {
+        this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
+      } else {
+        this.badge('no');
+      }
     }
     badge (text) {
       if (!text) {
@@ -108,6 +113,7 @@
   new Provider(
     'unto-duckling-peril',
     'data-userdive-tracker-status',
-    'data-userdive-cookie-status'
+    'data-userdive-cookie-status',
+    false
   );
 })(window, chrome, document);
