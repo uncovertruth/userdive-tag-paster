@@ -1,0 +1,24 @@
+doctype html
+html
+  head
+    title USERDIVE tracker
+  body
+    div
+      div
+        span Id
+        input#analytics-id(type="text" name="analytics-id")
+      div
+        span Env
+        input#env(type="text" name="env")
+      div
+        span Source
+        input#host(type="text" name="host")
+      div
+        span Ignored domains (plz split
+          b line break)
+          br
+        textarea#ignore(rows="4" cols="40")
+      button#save Save
+      // build:js scripts/options.js
+      script(src="scripts/options.js")
+      // endbuild

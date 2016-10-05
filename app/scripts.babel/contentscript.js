@@ -49,7 +49,7 @@
       if (id.length < 3 || host.length < 14) {
         return;
       }
-      return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,i,s,a){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};s=t.createElement(r);a=t.getElementsByTagName(r)[0];s.async=1;s.src=c;s.charset=i;a.parentNode.insertBefore(s,a)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{c=e.UDTracker.cookie.fetch();r.setAttribute("${status}",[c.pageId,c.trackingId,c.visitorType])}catch(t){r.setAttribute("${attr}","err")}},1e3)})(window,document);`;
+      return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,s,i,u){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};i=t.createElement(r);u=t.getElementsByTagName(r)[0];i.async=1;i.src=c;i.charset=s;u.parentNode.insertBefore(i,u)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{const t=JSON.stringify(e.UDTracker.cookie.fetch());r.setAttribute("${status}",t)}catch(c){r.setAttribute("${attr}","err")}},2e3)})(window,document);`;
     }
     load () {
       chrome.runtime.sendMessage({config: 'get'}, (response) => {
@@ -72,11 +72,15 @@
     }
     getAttributeStatus (attr) {
       try {
-        return document.getElementById(this.id).getAttribute(attr);
+        const tag = document.getElementById(this.id);
+        if (!tag) {
+          return tag.getAttribute(attr);
+        }
+        return '-';
       } catch (err) {
         console.warn('Block USERDIVE Load tag, plz check options', attr);
-        throw err;
       }
+      return '?';
     }
     updateBadge () {
       this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
@@ -104,7 +108,7 @@
       });
     }
   }
-  /* eslint no-new: 1*/
+  /* eslint no-new: 1 */
   new Provider(
     'unto-duckling-peril',
     'data-userdive-tracker-status',
