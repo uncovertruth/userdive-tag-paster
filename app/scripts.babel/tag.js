@@ -1,3 +1,4 @@
+/* eslint no-template-curly-in-string: 0 */
 'use strict';
 (function (root, document, element, data) {
   element = document.getElementById('${elementId}');
@@ -16,8 +17,10 @@
       return;
     }
     try {
-      data = root.UDTracker.cookie.fetch();
-      element.setAttribute('${status}', [data.pageId, data.trackingId, data.visitorType]);
+      const data = JSON.stringify(
+        root.UDTracker.cookie.fetch()
+      );
+      element.setAttribute('${status}', data);
     } catch (err) {
       element.setAttribute('${attr}', 'err');
     }

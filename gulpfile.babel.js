@@ -6,12 +6,13 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', () => {
+gulp.task('extras', ['compilePugToJs'], () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
     '!app/scripts.babel',
     '!app/*.json',
+    '!app/*.pug',
     '!app/*.html'
   ], {
     base: 'app',
@@ -35,7 +36,7 @@ gulp.task('images', () => {
     .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('html', () => {
+gulp.task('html', ['compilePugToHtml'], () => {
   return gulp.src('app/*.html')
     .pipe($.sourcemaps.init())
     .pipe($.useref())
@@ -66,7 +67,9 @@ gulp.task('chromeManifest', () => {
 });
 
 gulp.task('babel', () => {
-  return gulp.src('app/scripts.babel/**/*.js')
+  return gulp.src([
+    'app/scripts.babel/*.js'
+  ])
     .pipe($.babel({
       presets: ['es2015']
     }))
@@ -88,6 +91,7 @@ gulp.task('watch', ['babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['build']);
   gulp.watch('bower.json', ['wiredep']);
+  gulp.watch('app/components/*.pug', ['compilePugToJs']);
 });
 
 gulp.task('size', () => {
@@ -99,7 +103,7 @@ gulp.task('wiredep', () => {
     .pipe(wiredep({
       ignorePath: /^(\.\.\/)*\.\./
     }))
-    .pipe(gulp.dest('app'));
+    .pipe(gulp.dest('app/'));
 });
 
 gulp.task('package', function () {
@@ -114,10 +118,31 @@ gulp.task('package', function () {
 gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
-    ['html', 'images', 'extras'],
-    'size', cb);
+    ['extras', 'html', 'images'],
+    'size', 'distModules', cb);
 });
 
 gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
+});
+
+gulp.task('compilePugToJs', () => {
+  return gulp.src('./app/components/*.pug')
+  .pipe($.riot({
+    template: 'pug'
+  }))
+  .pipe(gulp.dest('./app/scripts'));
+});
+
+gulp.task('compilePugToHtml', () => {
+  return gulp.src('./app/*.pug')
+  .pipe($.pug({
+    pretty: true
+  }))
+  .pipe(gulp.dest('./app/'));
+});
+
+gulp.task('distModules', () => {
+  gulp.src('node_modules/riot/riot.csp.min.js')
+  .pipe(gulp.dest('./dist/scripts/'));
 });

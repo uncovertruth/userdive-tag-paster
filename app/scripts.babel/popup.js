@@ -1,26 +1,20 @@
 'use strict';
-(function (chrome, document) {
+(function (chrome, document, riot) {
   class StateView {
     constructor () {
       this.updateState();
     }
     getCookieState (tabId) {
       chrome.tabs.sendMessage(tabId, {pass: 'get'}, (response) => {
-        console.log(response);
         if (!response || !response.status) {
           return;
         }
-        this.appendState(response.status);
+        this.mountTag(response.status);
       });
     }
-    appendState (status) {
-      const data = status.split(',');
-      const th = document.getElementsByTagName('tr')[1];
-      for (const i in data) {
-        const z = document.createElement('td');
-        z.innerHTML = data[i];
-        th.appendChild(z);
-      }
+    mountTag (status) {
+      const tagName = 'info';
+      riot.mount(tagName, {data: status});
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -31,4 +25,4 @@
 
   /* eslint no-new: 1 */
   new StateView();
-})(chrome, document);
+})(chrome, document, window.riot);
