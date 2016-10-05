@@ -1,4 +1,4 @@
-/* eslint no-template-curly-in-string: 1 */
+/* eslint no-template-curly-in-string: 0 */
 'use strict';
 (function (root, document, element, data) {
   element = document.getElementById('${elementId}');

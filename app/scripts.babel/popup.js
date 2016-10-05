@@ -1,5 +1,5 @@
 'use strict';
-(function (chrome, document, json, riot) {
+(function (chrome, document, riot) {
   class StateView {
     constructor () {
       this.updateState();
@@ -14,7 +14,7 @@
     }
     mountTag (status) {
       const tagName = 'info';
-      riot.mount(tagName, {data: json.parse(status)});
+      riot.mount(tagName, {data: status});
     }
     updateState () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -25,4 +25,4 @@
 
   /* eslint no-new: 1 */
   new StateView();
-})(chrome, document, JSON, window.riot);
+})(chrome, document, window.riot);

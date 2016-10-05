@@ -25,7 +25,7 @@
      */
     injectScript (source) {
       if (typeof source !== 'string' || source.length < 380) {
-        return;
+        return false;
       }
       const th = document.getElementsByTagName('body')[0];
       const s = document.createElement('script');
@@ -47,7 +47,7 @@
      */
     createTag (id, host, env, elementId, attr, status) {
       if (id.length < 3 || host.length < 14) {
-        return;
+        return '';
       }
       return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,s,i,u){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};i=t.createElement(r);u=t.getElementsByTagName(r)[0];i.async=1;i.src=c;i.charset=s;u.parentNode.insertBefore(i,u)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{const t=JSON.stringify(e.UDTracker.cookie.fetch());r.setAttribute("${status}",t)}catch(c){r.setAttribute("${attr}","err")}},2e3)})(window,document);`;
     }
@@ -71,19 +71,32 @@
       });
     }
     getAttributeStatus (attr) {
+      return document.getElementById(this.id).getAttribute(attr);
+    }
+    getBadgeStatus () {
       try {
-        const tag = document.getElementById(this.id);
-        if (!tag) {
-          return tag.getAttribute(attr);
-        }
-        return '-';
+        return this.getAttributeStatus(this.badgeStatusAttribute);
       } catch (err) {
-        console.warn('Block USERDIVE Load tag, plz check options', attr);
+        console.warn('Failed: getBadgeStatus ' + err);
       }
-      return '?';
+      // cannot find element if blocked
+      return '-';
+    }
+    getCookieStatus () {
+      let cookie;
+      try {
+        cookie = JSON.parse(this.getAttributeStatus(this.cookieStatusAttribute));
+      } catch (err) {
+        console.warn('Failed: getCookieStatus ' + err);
+      }
+      if (cookie) {
+        return cookie;
+      }
+      this.badge('?');
+      return {};
     }
     updateBadge () {
-      this.badge(this.getAttributeStatus(this.badgeStatusAttribute));
+      this.badge(this.getBadgeStatus());
     }
     badge (text) {
       if (!text) {
@@ -100,7 +113,8 @@
           return;
         }
         try {
-          sendResponse({status: this.getAttributeStatus(this.cookieStatusAttribute)});
+          const cookie = this.getCookieStatus();
+          sendResponse({status: cookie});
           this.updateBadge();
         } catch (err) {
           this.badge('err');
