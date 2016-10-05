@@ -76,9 +76,15 @@
         if (!tag) {
           return tag.getAttribute(attr);
         }
+        if (attr === this.cookieStatusAttribute) {
+          return '{}';
+        }
         return '-';
       } catch (err) {
         console.warn('Block USERDIVE Load tag, plz check options', attr);
+      }
+      if (attr === this.cookieStatusAttribute) {
+        return '{}';
       }
       return '?';
     }
