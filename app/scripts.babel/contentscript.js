@@ -75,7 +75,7 @@
     }
     getBadgeStatus () {
       try {
-        return this.getCookieStatus()['pageId'];
+        return this.getAttributeStatus(this.cookieStatusAttribute)['pageId'];
       } catch (err) {
         console.warn('Failed: getBadgeStatus ' + err);
       }
