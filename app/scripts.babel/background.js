@@ -25,22 +25,8 @@
       });
     }
     updateBadge (statusText) {
-      switch (statusText) {
-        case 'ok':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
-          chrome.browserAction.setBadgeText({'text': statusText});
-          break;
-        case 'used':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
-          chrome.browserAction.setBadgeText({'text': statusText});
-          break;
-        case 'err':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
-          chrome.browserAction.setBadgeText({'text': statusText});
-          break;
-        default:
-          chrome.browserAction.setBadgeText({'text': ''});
-      }
+      chrome.browserAction.setBadgeBackgroundColor({color: '#333'});
+      chrome.browserAction.setBadgeText({'text': statusText});
     }
     get (key) {
       const value = localStorage[key];
