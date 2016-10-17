@@ -74,7 +74,20 @@
       return document.getElementById(this.id).getAttribute(attr);
     }
     getBadgeValues () {
-      return {status: getBadgeStatus(), pageId: getPageId()};
+      return {status: this.getBadgeStatus(), pageId: this.getPageId()};
+    }
+    getPageId () {
+      let cookie;
+      try {
+        cookie = this.getCookieStatus();
+      } catch (err) {
+        console.warn('Failed getPageId ' + err);
+      }
+      try {
+        return cookie['pageId'];
+      } catch (err) {
+        return '-';
+      }
     }
     getBadgeStatus () {
       try {
