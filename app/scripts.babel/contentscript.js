@@ -96,17 +96,26 @@
       return {};
     }
     updateBadge () {
-      this.badge(this.getBadgeStatus());
+      this.badge(this.getBadgeStatus(), this.getPageId());
     }
-    badge (text) {
-      if (!text) {
+    badge (text, page) {
+      if (!text && !page) {
         throw new Error('undefined text');
       }
       chrome.runtime.sendMessage({
         config: 'status',
         status: text,
-        pageId: this.getCookieStatus()['pageId']
+        pageId: page
       });
+    }
+    getPageId () {
+      const cookie = this.getCookieStatus();
+      try {
+        return String(cookie['pageId']);
+      } catch (err) {
+        console.warn('Failed: getPageId ' + err);
+        return '0';
+      }
     }
     assignStatusHandler () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -118,7 +127,7 @@
           sendResponse({status: cookie});
           this.updateBadge();
         } catch (err) {
-          this.badge('err');
+          this.badge('err', '-');
         }
       });
     }
