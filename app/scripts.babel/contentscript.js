@@ -73,9 +73,6 @@
     getAttributeStatus (attr) {
       return document.getElementById(this.id).getAttribute(attr);
     }
-    getBadgeValues () {
-      return {status: this.getBadgeStatus(), pageId: this.getPageId()};
-    }
     getPageId () {
       let cookie;
       try {
@@ -84,7 +81,7 @@
         console.warn('Failed getCookieStatus ' + err);
       }
       try {
-        if (!cookie['pageId']) {
+        if (!cookie) {
           return '?';
         }
         return cookie['pageId'];
@@ -115,7 +112,8 @@
       return {};
     }
     updateBadge () {
-      this.badge(this.getBadgeValues());
+      const values = {status: this.getBadgeStatus(), pageId: this.getPageId()};
+      this.badge(values);
     }
     badge (values) {
       if (!values) {
