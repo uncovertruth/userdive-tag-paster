@@ -104,7 +104,8 @@
       }
       chrome.runtime.sendMessage({
         config: 'status',
-        statusText: text
+        status: text,
+        pageId: this.getCookieStatus()['pageId']
       });
     }
     assignStatusHandler () {
