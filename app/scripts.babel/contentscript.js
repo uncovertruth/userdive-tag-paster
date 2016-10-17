@@ -84,7 +84,7 @@
         console.warn('Failed getCookieStatus ' + err);
       }
       try {
-        if (!cookie) {
+        if (!cookie['pageId']) {
           return '?';
         }
         return cookie['pageId'];
@@ -96,7 +96,7 @@
       try {
         return this.getAttributeStatus(this.badgeStatusAttribute);
       } catch (err) {
-        console.warn('Failed: getBadgeStatus ' + err);
+        console.warn('Failed: getAttributeStatus ' + err);
       }
       // cannot find element if blocked
       return '-';
@@ -111,7 +111,7 @@
       if (cookie) {
         return cookie;
       }
-      this.badge('?');
+      this.badge({status: '?', pageId: ''});
       return {};
     }
     updateBadge () {
