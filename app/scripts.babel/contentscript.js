@@ -117,7 +117,7 @@
     }
     badge (values) {
       if (!values) {
-        throw new Error('undefined text');
+        throw new Error('undefined values');
       }
       chrome.runtime.sendMessage({
         config: 'status',
