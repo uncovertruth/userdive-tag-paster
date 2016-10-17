@@ -81,9 +81,12 @@
       try {
         cookie = this.getCookieStatus();
       } catch (err) {
-        console.warn('Failed getPageId ' + err);
+        console.warn('Failed getCookieStatus ' + err);
       }
       try {
+        if (!cookie) {
+          return '?';
+        }
         return cookie['pageId'];
       } catch (err) {
         return '-';
