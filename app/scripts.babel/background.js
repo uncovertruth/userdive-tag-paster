@@ -16,7 +16,7 @@
             });
             break;
           case 'status':
-            this.updateBadge(request.status, request.pageId);
+            this.updateBadge(request.statusText, request.pageId);
             break;
         }
       });
@@ -24,27 +24,23 @@
         this.updateBadge({text: ''});
       });
     }
-    updateBadge (status, pageId) {
-      this.badgeColor(status);
-      this.badgeText(pageId);
-    }
-
-    uodateBadgeColor (status) {
-      switch (status) {
+    updateBadge (statusText, pageId) {
+      switch (statusText) {
         case 'ok':
           chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
+          chrome.browserAction.setBadgeText({'text': statusText});
           break;
         case 'used':
           chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
+          chrome.browserAction.setBadgeText({'text': pageId});
           break;
         case 'err':
           chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
+          chrome.browserAction.setBadgeText({'text': statusText});
           break;
+        default:
+          chrome.browserAction.setBadgeText({'text': ''});
       }
-    }
-
-    updateBadgeText (pageId) {
-      chrome.browserAction.setBadgeText({'text': pageId});
     }
     get (key) {
       const value = localStorage[key];

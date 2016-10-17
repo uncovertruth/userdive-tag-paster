@@ -73,6 +73,9 @@
     getAttributeStatus (attr) {
       return document.getElementById(this.id).getAttribute(attr);
     }
+    getBadgeValues () {
+      return {status: getBadgeStatus(), pageId: getPageId()};
+    }
     getBadgeStatus () {
       try {
         return this.getAttributeStatus(this.badgeStatusAttribute);
@@ -96,26 +99,17 @@
       return {};
     }
     updateBadge () {
-      this.badge(this.getBadgeStatus(), this.getPageId());
+      this.badge(this.getBadgeValues());
     }
-    badge (text, page) {
-      if (!text && !page) {
+    badge (values) {
+      if (!values) {
         throw new Error('undefined text');
       }
       chrome.runtime.sendMessage({
         config: 'status',
-        status: text,
-        pageId: page
+        statusText: values['status'],
+        pageId: values['pageId']
       });
-    }
-    getPageId () {
-      const cookie = this.getCookieStatus();
-      try {
-        return String(cookie['pageId']);
-      } catch (err) {
-        console.warn('Failed: getPageId ' + err);
-        return '0';
-      }
     }
     assignStatusHandler () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -127,7 +121,7 @@
           sendResponse({status: cookie});
           this.updateBadge();
         } catch (err) {
-          this.badge('err', '-');
+          this.badge('err');
         }
       });
     }
