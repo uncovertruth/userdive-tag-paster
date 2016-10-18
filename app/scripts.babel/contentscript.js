@@ -78,7 +78,7 @@
       try {
         cookie = this.getCookieStatus();
       } catch (err) {
-        console.warn('Failed getCookieStatus ' + err);
+        console.warn(`Failed getCookieStatus ${err}`);
       }
       try {
         if (!cookie) {
@@ -94,7 +94,7 @@
         return this.getPageId();
       }
       if (this.getBadgeStatus().length() >= 4) {
-        throw new Error('Too long the status message: ' + this.getBadgeStatus());
+        throw new Error(`Too long the status message: ${this.getBadgeStatus()}`);
       }
       return this.getBadgeStatus();
     }
@@ -102,7 +102,7 @@
       try {
         return this.getAttributeStatus(this.badgeStatusAttribute);
       } catch (err) {
-        console.warn('Failed: getBadgeStatus ' + err);
+        console.warn(`Failed: getBadgeStatus ${err}`);
       }
       // cannot find element if blocked
       return '-';
@@ -112,7 +112,7 @@
       try {
         cookie = JSON.parse(this.getAttributeStatus(this.cookieStatusAttribute));
       } catch (err) {
-        console.warn('Failed: getCookieStatus ' + err);
+        console.warn(`Failed: getCookieStatus ${err}`);
       }
       if (cookie) {
         return cookie;
