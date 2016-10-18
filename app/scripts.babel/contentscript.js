@@ -11,7 +11,7 @@
           this.load();
           setTimeout(() => {
             this.updateBadge();
-          }, 2000);
+          }, 3000);
         } catch (err) {
           this.badge('err');
         }
@@ -84,7 +84,7 @@
         if (!cookie) {
           return '?';
         }
-        return cookie['pageId'];
+        return String(cookie['pageId']);
       } catch (err) {
         return '-';
       }
