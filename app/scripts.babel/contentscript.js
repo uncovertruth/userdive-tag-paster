@@ -93,9 +93,6 @@
       if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
         return this.getPageId();
       }
-      if (this.getBadgeStatus().length() >= 4) {
-        throw new Error(`Too long the status message: ${this.getBadgeStatus()}`);
-      }
       return this.getBadgeStatus();
     }
     getBadgeStatus () {
@@ -122,7 +119,10 @@
     }
     updateBadge () {
       const badgeData = {text: this.getBadgeText(), status: this.getBadgeStatus()};
-      this.badge(badgeData);
+      if (badgeData['text'].length() <= 4) {
+        this.badge(badgeData);
+        throw new Error(`Too long the status message: ${this.getBadgeStatus()}`);
+      }
     }
     badge (badgeData) {
       if (!badgeData) {
