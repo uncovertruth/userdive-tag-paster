@@ -93,6 +93,10 @@
       if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
         return this.getPageId();
       }
+      if (this.getBadgeStatus().length() >= 4) {
+        new Error('Too long the status message: ' + this.getBadgeStatus());
+        return 'err';
+      }
       return this.getBadgeStatus();
     }
     getBadgeStatus () {
