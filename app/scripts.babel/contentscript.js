@@ -89,11 +89,17 @@
         return '-';
       }
     }
+    getBadgeText () {
+      if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
+        return this.getPageId();
+      }
+      return this.getBadgeStatus();
+    }
     getBadgeStatus () {
       try {
         return this.getAttributeStatus(this.badgeStatusAttribute);
       } catch (err) {
-        console.warn('Failed: getAttributeStatus ' + err);
+        console.warn('Failed: getBadgeStatus ' + err);
       }
       // cannot find element if blocked
       return '-';
@@ -108,21 +114,21 @@
       if (cookie) {
         return cookie;
       }
-      this.badge({status: '?', pageId: ''});
+      this.badge({text: '?', status: '?'});
       return {};
     }
     updateBadge () {
-      const values = {status: this.getBadgeStatus(), pageId: this.getPageId()};
-      this.badge(values);
+      const badgeData = {text: this.getBadgeText(), status: this.getBadgeStatus()};
+      this.badge(badgeData);
     }
-    badge (values) {
-      if (!values) {
+    badge (badgeData) {
+      if (!badgeData) {
         throw new Error('undefined values');
       }
       chrome.runtime.sendMessage({
         config: 'status',
-        statusText: values['status'],
-        pageId: values['pageId']
+        text: badgeData['text'],
+        status: badgeData['status']
       });
     }
     assignStatusHandler () {
@@ -135,7 +141,7 @@
           sendResponse({status: cookie});
           this.updateBadge();
         } catch (err) {
-          this.badge('err');
+          this.badge({text: 'err', status: 'err'});
         }
       });
     }
