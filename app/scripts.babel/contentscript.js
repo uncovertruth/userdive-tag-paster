@@ -77,17 +77,14 @@
       let cookie;
       try {
         cookie = this.getCookieStatus();
-      } catch (err) {
-        console.warn(`Failed getCookieStatus ${err}`);
-      }
-      try {
         if (!cookie) {
           return '?';
         }
         return cookie['pageId'];
       } catch (err) {
-        return '-';
+        console.warn(`Failed getCookieStatus ${err}`);
       }
+      return '-';
     }
     getBadgeText () {
       if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
@@ -120,7 +117,7 @@
     updateBadge () {
       const badgeData = {text: this.getBadgeText(), status: this.getBadgeStatus()};
       if (badgeData['text'].length >= 4) {
-        throw new Error(`Too long the status message: ${this.getBadgeStatus()}`);
+        throw new Error(`Too long the status message: ${this.getBadgeText()}`);
       }
       this.badge(badgeData);
     }
