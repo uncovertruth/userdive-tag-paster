@@ -119,10 +119,10 @@
     }
     updateBadge () {
       const badgeData = {text: this.getBadgeText(), status: this.getBadgeStatus()};
-      if (badgeData['text'].length() <= 4) {
-        this.badge(badgeData);
+      if (badgeData['text'].length() >= 4) {
         throw new Error(`Too long the status message: ${this.getBadgeStatus()}`);
       }
+      this.badge(badgeData);
     }
     badge (badgeData) {
       if (!badgeData) {
