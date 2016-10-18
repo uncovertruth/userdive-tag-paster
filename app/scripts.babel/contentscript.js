@@ -84,14 +84,14 @@
         if (!cookie) {
           return '?';
         }
-        return String(cookie['pageId']);
+        return cookie['pageId'];
       } catch (err) {
         return '-';
       }
     }
     getBadgeText () {
       if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
-        return this.getPageId();
+        return String(this.getPageId());
       }
       return this.getBadgeStatus();
     }
