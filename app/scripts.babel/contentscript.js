@@ -13,7 +13,7 @@
             this.updateBadge();
           }, 3000);
         } catch (err) {
-          this.badge('err');
+          this.renderBadge('err');
         }
       });
       this.assignStatusHandler();
@@ -73,24 +73,26 @@
     getAttributeStatus (attr) {
       return document.getElementById(this.id).getAttribute(attr);
     }
-    getPageId () {
-      let cookie;
+    getPageIdOrError () {
       try {
-        cookie = this.getCookieStatus();
-        if (!cookie) {
-          return '?';
-        }
-        return cookie['pageId'];
+        return this.getCookieStatus().pageId.toString();
       } catch (err) {
         console.warn(`Failed getCookieStatus ${err}`);
       }
-      return '-';
+      return 'err';
     }
-    getBadgeText () {
-      if (this.getBadgeStatus() === 'used' || this.getBadgeStatus() === 'ok') {
-        return String(this.getPageId());
+    createBadgeText () {
+      const status = this.getBadgeStatus();
+      if (status === 'used' || status === 'ok') {
+        return this.getPageIdOrError();
       }
-      return this.getBadgeStatus();
+      if (!status) {
+        return 'err';
+      }
+      if (status.length >= 4) {
+        throw new Error(`Too long the status message: ${status}`);
+      }
+      return status;
     }
     getBadgeStatus () {
       try {
@@ -99,7 +101,7 @@
         console.warn(`Failed: getBadgeStatus ${err}`);
       }
       // cannot find element if blocked
-      return '-';
+      return 'err';
     }
     getCookieStatus () {
       let cookie;
@@ -111,24 +113,14 @@
       if (cookie) {
         return cookie;
       }
-      this.badge({text: '?', status: '?'});
+      this.renderBadge('?');
       return {};
     }
-    updateBadge () {
-      const badgeData = {text: this.getBadgeText(), status: this.getBadgeStatus()};
-      if (badgeData['text'].length >= 4) {
-        throw new Error(`Too long the status message: ${this.getBadgeText()}`);
-      }
-      this.badge(badgeData);
-    }
-    badge (badgeData) {
-      if (!badgeData) {
-        throw new Error('undefined values');
-      }
+    renderBadge (text, status = '?') {
       chrome.runtime.sendMessage({
         config: 'status',
-        text: badgeData['text'],
-        status: badgeData['status']
+        status,
+        text
       });
     }
     assignStatusHandler () {
@@ -137,11 +129,10 @@
           return;
         }
         try {
-          const cookie = this.getCookieStatus();
-          sendResponse({status: cookie});
-          this.updateBadge();
+          sendResponse({status: this.getCookieStatus()});
+          this.renderBadge(this.getBadgeText());
         } catch (err) {
-          this.badge({text: 'err', status: 'err'});
+          this.renderBadge('err');
         }
       });
     }
