@@ -16,7 +16,7 @@
             });
             break;
           case 'status':
-            this.updateBadge(request.status, request.text);
+            this.updateBadge(request.text, request.status);
             break;
         }
       });
@@ -24,22 +24,22 @@
         this.updateBadge({text: ''});
       });
     }
-    updateBadge (status, text) {
+    updateBadge (text = '?', status = 'err') {
       switch (status) {
         case 'ok':
           chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
-          chrome.browserAction.setBadgeText({'text': text});
+          chrome.browserAction.setBadgeText({text});
           break;
         case 'used':
           chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
-          chrome.browserAction.setBadgeText({'text': text});
+          chrome.browserAction.setBadgeText({text});
           break;
         case 'err':
           chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
-          chrome.browserAction.setBadgeText({'text': text});
+          chrome.browserAction.setBadgeText({text});
           break;
         default:
-          chrome.browserAction.setBadgeText({'text': ''});
+          chrome.browserAction.setBadgeText({'text': '?'});
       }
     }
     get (key) {
