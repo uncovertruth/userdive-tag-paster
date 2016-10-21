@@ -115,7 +115,7 @@ gulp.task('package', function () {
   }
 
   return gulp.src('dist/**')
-    .pipe($.zip(app.ame + '-' + manifest.version + '.zip'))
+    .pipe($.zip(app.name + '-' + manifest.version + '.zip'))
     .pipe(gulp.dest('package'));
 });
 
