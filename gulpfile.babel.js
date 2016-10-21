@@ -108,10 +108,14 @@ gulp.task('wiredep', () => {
 
 gulp.task('package', function () {
   const manifest = require('./dist/manifest.json');
-  const appName = require('./package.json').name;
+  const app = require('./package.json');
+
+  if (app.version !== manifest.version) {
+    throw new Error('Pleas update verions');
+  }
 
   return gulp.src('dist/**')
-    .pipe($.zip(appName + '-' + manifest.version + '.zip'))
+    .pipe($.zip(app.ame + '-' + manifest.version + '.zip'))
     .pipe(gulp.dest('package'));
 });
 
