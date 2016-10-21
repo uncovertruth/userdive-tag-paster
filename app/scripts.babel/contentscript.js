@@ -86,8 +86,11 @@
       if (status === 'used' || status === 'ok') {
         return this.getPageIdOrError();
       }
+      if (!status) {
+        return 'err';
+      }
       if (status.length >= 4) {
-        throw new Error(`Too long the status message: ${this.createBadgeText()}`);
+        throw new Error(`Too long the status message: ${status}`);
       }
       return status;
     }
