@@ -1,6 +1,11 @@
+// @flow
 'use strict';
+declare var chrome: any
 (function (global, chrome, document) {
   class Provider {
+    id: string;
+    badgeStatusAttribute: string;
+    cookieStatusAttribute: string;
     constructor (id, badgeStatusAttribute, cookieStatusAttribute) {
       this.id = id;
       this.badgeStatusAttribute = badgeStatusAttribute;
@@ -11,7 +16,7 @@
           this.load();
           setTimeout(() => {
             this.renderBadge(
-              this.getBadgeText(),
+              this.createBadgeText(),
               this.getBadgeStatus()
             );
           }, 3000);
@@ -133,7 +138,7 @@
         }
         try {
           sendResponse({status: this.getCookieStatus()});
-          this.renderBadge(this.getBadgeText());
+          this.renderBadge(this.createBadgeText());
         } catch (err) {
           this.renderBadge('err');
         }

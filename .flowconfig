@@ -1,0 +1,9 @@
+[ignore]
+app/scripts/
+dist/
+
+[include]
+
+[libs]
+
+[options]

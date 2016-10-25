@@ -1,4 +1,6 @@
+/* @flow */
 'use strict';
+declare var chrome: any
 (function (chrome, document, riot) {
   class StateView {
     constructor () {
