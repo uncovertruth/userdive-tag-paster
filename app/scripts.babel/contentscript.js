@@ -10,7 +10,7 @@
         try {
           this.load();
           setTimeout(() => {
-            this.updateBadge();
+            this.renderBadge(this.getBadgeText());
           }, 3000);
         } catch (err) {
           this.renderBadge('err');
