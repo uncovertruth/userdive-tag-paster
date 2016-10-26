@@ -1,4 +1,6 @@
+/* @flow */
 'use strict';
+declare var chrome: any;
 (function (global, chrome, localStorage) {
   class Background {
     constructor () {
