@@ -7,7 +7,7 @@
     "url": "https://github.com/uncovertruth/userdive-tag-paster/issues"
   },
   "dependencies": {
-    "riot": "^2.6.4"
+    "riot": "^2.6.5"
   },
   "devDependencies": {
     "@uncovertruth/eslint-config": "^1.0.1",
