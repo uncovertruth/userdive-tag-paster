@@ -41,6 +41,7 @@ declare var chrome: any;
           chrome.browserAction.setBadgeText({text});
           break;
         default:
+          chrome.browserAction.setBadgeBackgroundColor({color: '#CCCCCC'});
           chrome.browserAction.setBadgeText({'text': '?'});
       }
     }

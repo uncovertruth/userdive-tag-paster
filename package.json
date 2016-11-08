@@ -1,10 +1,10 @@
 {
   "name": "@uncovertruth/userdive-tag-paster",
   "description": "debugger",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "author": "UNCOVER TRUTH Inc.",
   "bugs": {
-    "url": "https://github.com/uncovertruth/userdive-tag-paster/issues"
+    "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
   "dependencies": {
     "riot": "^2.6.4"
@@ -55,13 +55,14 @@
   },
   "scripts": {
     "build": "gulp build",
+    "lint": "npm-run-all -p lint:*",
     "lint:flow": "flow",
     "lint:js": "eslint .",
     "lint:pug": "pug-lint ./app/*.pug ./app/components/*.pug",
     "prebuild": "find app -name '*.html' -delete && rimraf dist app/scripts",
     "release": "gulp package",
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
-    "test": "npm-run-all -p lint:*",
+    "test": "npm run lint",
     "watch": "gulp watch"
   }
 }
