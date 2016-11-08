@@ -1,4 +1,4 @@
-// @flow
+/* @flow */
 'use strict';
 declare var chrome: any
 (function (global, chrome, document) {
@@ -31,8 +31,8 @@ declare var chrome: any
      * @param  {string} source javascript source
      * @return {boolean} success flag
      */
-    injectScript (source) {
-      if (typeof source !== 'string' || source.length < 380) {
+    injectScript (source: string) {
+      if (source.length < 380) {
         return false;
       }
       const th = document.getElementsByTagName('body')[0];
@@ -53,7 +53,7 @@ declare var chrome: any
      * @param  {string} status statusAttr
      * @return {string} return inject javascript string
      */
-    createTag (id, host, env, elementId, attr, status) {
+    createTag (id: string, host: string, env: string, elementId: string, attr: string, status: string) {
       if (id.length < 3 || host.length < 14) {
         return '';
       }
@@ -78,7 +78,7 @@ declare var chrome: any
         ));
       });
     }
-    getAttributeStatus (attr) {
+    getAttributeStatus (attr: string) {
       return document.getElementById(this.id).getAttribute(attr);
     }
     getPageIdOrError () {
@@ -91,16 +91,18 @@ declare var chrome: any
     }
     createBadgeText () {
       const status = this.getBadgeStatus();
-      if (status === 'used' || status === 'ok') {
-        return this.getPageIdOrError();
-      }
-      if (!status) {
-        return 'err';
-      }
-      if (status.length >= 4) {
+      if (status.length > 4) {
         throw new Error(`Too long the status message: ${status}`);
       }
-      return status;
+
+      switch (status) {
+        case 'used':
+          return this.getPageIdOrError();
+        case 'ok':
+          return 'ok';
+        default:
+          return 'err';
+      }
     }
     getBadgeStatus () {
       try {
@@ -124,7 +126,7 @@ declare var chrome: any
       this.renderBadge('?');
       return {};
     }
-    renderBadge (text, status = '?') {
+    renderBadge (text: string, status: string = '?') {
       chrome.runtime.sendMessage({
         config: 'status',
         status,
