@@ -1,12 +1,8 @@
+/* @flow */
 module.exports = {
   extends: [
-    '@uncovertruth/eslint-config',
-    "plugin:flowtype/recommended"
+    '@uncovertruth/eslint-config-flowtype',
   ],
-  plugins: [
-    "flowtype"
-  ],
-  parser: 'babel-eslint',
   env: {
     'node': true
   },
