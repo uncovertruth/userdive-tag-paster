@@ -18,7 +18,7 @@
     "del": "^2.2.2",
     "eslint": "^3.9.0",
     "eslint-plugin-flowtype": "^2.25.0",
-    "flow-bin": "^0.34.0",
+    "flow-bin": "^0.35.0",
     "flowtype": "^2.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
