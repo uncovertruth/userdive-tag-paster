@@ -7,7 +7,7 @@
     "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
   "dependencies": {
-    "riot": "^2.6.4"
+    "riot": "^3.0.0"
   },
   "devDependencies": {
     "@uncovertruth/eslint-config-flowtype": "0.0.1",
