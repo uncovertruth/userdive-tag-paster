@@ -31,7 +31,7 @@ declare var chrome: any
      * @param  {string} source javascript source
      * @return {boolean} success flag
      */
-    injectScript (source: string) {
+    injectScript (source: string): boolean {
       if (source.length < 380) {
         return false;
       }
@@ -53,13 +53,13 @@ declare var chrome: any
      * @param  {string} status statusAttr
      * @return {string} return inject javascript string
      */
-    createTag (id: string, host: string, env: string, elementId: string, attr: string, status: string) {
+    createTag (id: string, host: string, env: string, elementId: string, attr: string, status: string): string {
       if (id.length < 3 || host.length < 14) {
         return '';
       }
       return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,s,i,u){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};i=t.createElement(r);u=t.getElementsByTagName(r)[0];i.async=1;i.src=c;i.charset=s;u.parentNode.insertBefore(i,u)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{const t=JSON.stringify(e.UDTracker.cookie.fetch());r.setAttribute("${status}",t)}catch(c){r.setAttribute("${attr}","err")}},2e3)})(window,document);`;
     }
-    load () {
+    load (): void {
       chrome.runtime.sendMessage({config: 'get'}, (response) => {
         const config = response || {};
         for (const domain of config.ignore.split('\n')) {
@@ -78,10 +78,10 @@ declare var chrome: any
         ));
       });
     }
-    getAttributeStatus (attr: string) {
+    getAttributeStatus (attr: string): string {
       return document.getElementById(this.id).getAttribute(attr);
     }
-    getPageIdOrError () {
+    getPageIdOrError (): string {
       try {
         return this.getCookieStatus().pageId.toString();
       } catch (err) {
@@ -89,7 +89,7 @@ declare var chrome: any
       }
       return 'err';
     }
-    createBadgeText () {
+    createBadgeText (): string {
       const status = this.getBadgeStatus();
       if (status.length > 4) {
         throw new Error(`Too long the status message: ${status}`);
@@ -104,7 +104,7 @@ declare var chrome: any
           return 'err';
       }
     }
-    getBadgeStatus () {
+    getBadgeStatus (): string {
       try {
         return this.getAttributeStatus(this.badgeStatusAttribute);
       } catch (err) {
@@ -135,20 +135,22 @@ declare var chrome: any
     }
     assignStatusHandler () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.pass !== 'get') {
+        if (request.status !== 'cookie') {
           return;
         }
         try {
           sendResponse({status: this.getCookieStatus()});
-          this.renderBadge(this.createBadgeText());
+          this.renderBadge(
+            this.createBadgeText(),
+            this.getBadgeStatus()
+          );
         } catch (err) {
           this.renderBadge('err');
         }
       });
     }
   }
-  /* eslint no-new: 1 */
-  new Provider(
+  return new Provider(
     'unto-duckling-peril',
     'data-userdive-tracker-status',
     'data-userdive-cookie-status'

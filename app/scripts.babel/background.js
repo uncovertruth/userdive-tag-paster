@@ -26,7 +26,7 @@ declare var chrome: any;
         this.updateBadge({text: ''});
       });
     }
-    updateBadge (text = '?', status = 'err') {
+    updateBadge (text: string | {text: string} = '?', status: string = 'err'): void {
       switch (status) {
         case 'ok':
           chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
@@ -45,7 +45,7 @@ declare var chrome: any;
           chrome.browserAction.setBadgeText({'text': '?'});
       }
     }
-    get (key) {
+    get (key: string): string {
       const value = localStorage[key];
       if (value) {
         return value;

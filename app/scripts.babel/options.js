@@ -1,20 +1,23 @@
+/* @flow */
 'use strict';
+
+declare var chrome: any;
 
 (function (root, document, chrome) {
   class Options {
-    constructor () {
+    constructor (): void {
       this.start();
     }
-    start () {
+    start (): void {
       this.assignEventHandlers();
       this.restoreConfigurations();
     }
-    assignEventHandlers () {
+    assignEventHandlers (): void {
       this.selector('#save').addEventListener('click', (evt) => {
         this.save(evt);
       });
     }
-    restoreConfigurations () {
+    restoreConfigurations (): void {
       chrome.runtime.getBackgroundPage((backgroundPage) => {
         this.selector('#analytics-id').value = backgroundPage.bg.get('USERDIVEId');
         this.selector('#env').value = backgroundPage.bg.get('USERDIVEEnv');
@@ -22,10 +25,10 @@
         this.selector('#ignore').value = backgroundPage.bg.get('USERDIVEIgnore');
       });
     }
-    selector (selector) {
+    selector (selector: string): any {
       return document.querySelector(selector);
     }
-    save (evt) {
+    save (evt): void {
       chrome.runtime.getBackgroundPage((backgroundPage) => {
         backgroundPage.bg.set('USERDIVEEnv', this.selector('#env').value);
         backgroundPage.bg.set('USERDIVEHost', this.selector('#host').value);
@@ -38,6 +41,5 @@
     }
   }
 
-  /* eslint no-new: 1 */
-  new Options();
+  return new Options();
 })(window, document, chrome);
