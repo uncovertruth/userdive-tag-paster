@@ -1,30 +1,23 @@
 /* @flow */
 'use strict';
 declare var chrome: any
-(function (chrome, document, riot) {
+(function (global, chrome, document) {
   class StateView {
     constructor () {
-      this.updateState();
-    }
-    getCookieState (tabId) {
-      chrome.tabs.sendMessage(tabId, {pass: 'get'}, (response) => {
-        if (!response || !response.status) {
-          return;
-        }
-        this.mountTag(response.status);
+      global.addEventListener('load', (evt) => {
+        this.render();
       });
     }
-    mountTag (status) {
-      const tagName = 'info';
-      riot.mount(tagName, {data: status});
-    }
-    updateState () {
+    render () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        this.getCookieState(tabs[0].id);
+        chrome.tabs.sendMessage(tabs[0].id, {status: 'cookie'}, (response) => {
+          if (!response) {
+            return;
+          }
+          global.riot.mount('info', {data: response.status});
+        });
       });
     }
   }
-
-  /* eslint no-new: 1 */
-  new StateView();
-})(chrome, document, window.riot);
+  return new StateView();
+})(window, chrome, document);
