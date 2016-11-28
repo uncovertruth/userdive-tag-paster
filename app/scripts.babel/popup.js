@@ -10,11 +10,11 @@ declare var chrome: any
     }
     render () {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        chrome.tabs.sendMessage(tabs[0].id, {status: 'cookie'}, (response) => {
+        chrome.tabs.sendMessage(tabs[0].id, {content: 'fetchCookie'}, (response) => {
           if (!response) {
             return;
           }
-          global.riot.mount('info', {data: response.status});
+          global.riot.mount('info', {data: response.data});
         });
       });
     }

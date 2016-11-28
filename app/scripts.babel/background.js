@@ -8,7 +8,7 @@ declare var chrome: any;
     }
     assignEventHandlers () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        switch (request.config) {
+        switch (request.bg) {
           case 'get':
             sendResponse({
               'env': this.get('USERDIVEEnv'),
@@ -17,33 +17,28 @@ declare var chrome: any;
               'ignore': this.get('USERDIVEIgnore')
             });
             break;
-          case 'status':
-            this.updateBadge(request.text, request.status);
+          case 'badge':
+            sendResponse({
+              text: this.updateBadge(request.text)
+            });
             break;
         }
       });
       chrome.tabs.onActivated.addListener((response) => {
-        this.updateBadge({text: ''});
+        this.renderBadge('', '');
       });
     }
-    updateBadge (text: string | {text: string} = '?', status: string = 'err'): void {
-      switch (status) {
-        case 'ok':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#42b812'});
-          chrome.browserAction.setBadgeText({text});
-          break;
-        case 'used':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#1a3fdb'});
-          chrome.browserAction.setBadgeText({text});
-          break;
-        case 'err':
-          chrome.browserAction.setBadgeBackgroundColor({color: '#d60915'});
-          chrome.browserAction.setBadgeText({text});
-          break;
-        default:
-          chrome.browserAction.setBadgeBackgroundColor({color: '#CCCCCC'});
-          chrome.browserAction.setBadgeText({'text': '?'});
+    renderBadge (text: string, color: string): string {
+      chrome.browserAction.setBadgeBackgroundColor({color});
+      chrome.browserAction.setBadgeText({text});
+      return text;
+    }
+    updateBadge (text: string | number): void {
+      if (typeof text === 'number') {
+        this.renderBadge(text.toString(), '#42b812');
+        return;
       }
+      this.renderBadge(text.toString(), '#CCCCCC');
     }
     get (key: string): string {
       const value = localStorage[key];
