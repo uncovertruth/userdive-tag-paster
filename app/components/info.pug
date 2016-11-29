@@ -1,7 +1,7 @@
 info
   table(border="1")
-    tr(each="{name, value in data}")
+    tr(each="{value, name in data}")
       th {name}
       th {value}
   script.
-    this.data = opts.data
+    this.data = opts.data || {status: 'failed'}

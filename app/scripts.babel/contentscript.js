@@ -2,65 +2,43 @@
 'use strict';
 declare var chrome: any
 (function (global, chrome, document) {
+  type State = {
+    pageId: number | string
+  }
+
   class Provider {
     id: string;
-    badgeStatusAttribute: string;
-    cookieStatusAttribute: string;
-    constructor (id, badgeStatusAttribute, cookieStatusAttribute) {
+    stateName: string;
+    constructor (id, stateName) {
       this.id = id;
-      this.badgeStatusAttribute = badgeStatusAttribute;
-      this.cookieStatusAttribute = cookieStatusAttribute;
+      this.stateName = stateName;
 
       global.addEventListener('load', (evt) => {
-        try {
-          this.load();
-          setTimeout(() => {
-            this.renderBadge(
-              this.createBadgeText(),
-              this.getBadgeStatus()
-            );
-          }, 3000);
-        } catch (err) {
-          this.renderBadge('err');
-        }
+        this.load();
+        setTimeout(() => {
+          this.renderBadge(
+            this.getState().pageId || '?'
+          );
+        }, 3000);
       });
       this.assignStatusHandler();
     }
-    /**
-     * Inject javascript to web page
-     * @param  {string} source javascript source
-     * @return {boolean} success flag
-     */
-    injectScript (source: string): boolean {
-      if (source.length < 380) {
-        return false;
-      }
+    injectScript (source: string) {
       const th = document.getElementsByTagName('body')[0];
       const s = document.createElement('script');
       s.text = source;
       s.id = this.id;
-      s.setAttribute(this.badgeStatusAttribute, 'ok');
       th.appendChild(s);
-      return true;
     }
-    /**
-     * inject UDTracker.js
-     * @param  {string} id USERDIVE project id
-     * @param  {string} host USERDIVE tracker host
-     * @param  {string} env default production
-     * @param  {string} elementId id
-     * @param  {string} attr attr
-     * @param  {string} status statusAttr
-     * @return {string} return inject javascript string
-     */
-    createTag (id: string, host: string, env: string, elementId: string, attr: string, status: string): string {
+    createTag (id: string, host: string, env: string, elementId: string): string {
+      const stateName = this.stateName;
       if (id.length < 3 || host.length < 14) {
         return '';
       }
-      return `"use strict";(function(e,t,r,c){r=t.getElementById("${elementId}");if(e.UDTracker||e.USERDIVEObject){r.setAttribute("${attr}","used")}else{(function(e,t,r,c,n,s,i,u){e.USERDIVEObject=n;e[n]=e[n]||function(){(e[n].queue=e[n].queue||[]).push(arguments)};i=t.createElement(r);u=t.getElementsByTagName(r)[0];i.async=1;i.src=c;i.charset=s;u.parentNode.insertBefore(i,u)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}try{const t=JSON.stringify(e.UDTracker.cookie.fetch());r.setAttribute("${status}",t)}catch(c){r.setAttribute("${attr}","err")}},2e3)})(window,document);`;
+      return `"use strict";(function(e,t,n,i,r,o){r=i.getElementById("${elementId}");if(!n||!t){(function(e,t,n,i,r,o,c,s){e.USERDIVEObject=r;e[r]=e[r]||function(){(e[r].queue=e[r].queue||[]).push(arguments)};c=t.createElement(n);s=t.getElementsByTagName(n)[0];c.async=1;c.src=i;c.charset=o;s.parentNode.insertBefore(c,s)})(window,i,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e[t]("create","${id}",{env:"${env}",cookieExpires:1});e[t]("analyze")}setTimeout(function(){if(!n){console.warn("Blocked USERDIVE Scripts");return}if(!n.cookie.enableSession()){console.warn("Failed start USERDIVE");return}o=n.cookie.fetch();o.overrideUrl=n.Config.getOverrideUrl();r.setAttribute("${stateName}",JSON.stringify(o))},2e3)})(window,window.USERDIVEObject,window.UDTracker,document);`;
     }
     load (): void {
-      chrome.runtime.sendMessage({config: 'get'}, (response) => {
+      chrome.runtime.sendMessage({bg: 'get'}, (response) => {
         const config = response || {};
         for (const domain of config.ignore.split('\n')) {
           const regexp = new RegExp(domain);
@@ -72,87 +50,42 @@ declare var chrome: any
           config.id,
           config.host,
           config.env,
-          this.id,
-          this.badgeStatusAttribute,
-          this.cookieStatusAttribute
+          this.id
         ));
       });
     }
-    getAttributeStatus (attr: string): string {
-      return document.getElementById(this.id).getAttribute(attr);
+    getState (): State {
+      const element = document.getElementById(this.id);
+      if (!element) {
+        return {
+          'status': 'Blocked',
+          'pageId': '?'
+        };
+      }
+      return JSON.parse(element.getAttribute(this.stateName)) || {
+        'status': 'Load Failed',
+        'pageId': '?'
+      };
     }
-    getPageIdOrError (): string {
-      try {
-        return this.getCookieStatus().pageId.toString();
-      } catch (err) {
-        console.warn(`Failed getCookieStatus ${err}`);
-      }
-      return 'err';
-    }
-    createBadgeText (): string {
-      const status = this.getBadgeStatus();
-      if (status.length > 4) {
-        throw new Error(`Too long the status message: ${status}`);
-      }
-
-      switch (status) {
-        case 'used':
-          return this.getPageIdOrError();
-        case 'ok':
-          return 'ok';
-        default:
-          return 'err';
-      }
-    }
-    getBadgeStatus (): string {
-      try {
-        return this.getAttributeStatus(this.badgeStatusAttribute);
-      } catch (err) {
-        console.warn(`Failed: getBadgeStatus ${err}`);
-      }
-      // cannot find element if blocked
-      return 'err';
-    }
-    getCookieStatus () {
-      let cookie;
-      try {
-        cookie = JSON.parse(this.getAttributeStatus(this.cookieStatusAttribute));
-      } catch (err) {
-        console.warn(`Failed: getCookieStatus ${err}`);
-      }
-      if (cookie) {
-        return cookie;
-      }
-      this.renderBadge('?');
-      return {};
-    }
-    renderBadge (text: string, status: string = '?') {
+    renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
-        config: 'status',
-        status,
+        bg: 'badge',
         text
       });
     }
     assignStatusHandler () {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.status !== 'cookie') {
+        if (request.content !== 'fetchCookie') {
           return;
         }
-        try {
-          sendResponse({status: this.getCookieStatus()});
-          this.renderBadge(
-            this.createBadgeText(),
-            this.getBadgeStatus()
-          );
-        } catch (err) {
-          this.renderBadge('err');
-        }
+        const data = this.getState();
+        this.renderBadge(data.pageId);
+        sendResponse({data});
       });
     }
   }
   return new Provider(
-    'unto-duckling-peril',
-    'data-userdive-tracker-status',
-    'data-userdive-cookie-status'
+    'wmd3MCLG6HXn',
+    'vyQqaa4SnJ48'
   );
 })(window, chrome, document);
