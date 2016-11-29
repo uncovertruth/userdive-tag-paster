@@ -22,4 +22,4 @@
     state.overrideUrl = global.UDTarcker.Config.getOverrideUrl();
     element.setAttribute('${stateName}', JSON.stringify(state));
   }, 2000);
-})(window, window.USERDIVEObject, window.UDTracker, document);
+})(window, document);
