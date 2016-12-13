@@ -62,8 +62,8 @@ declare var chrome: any
           'pageId': '?'
         };
       }
-      const value: any = element.getAttribute(this.stateName);
-      if (value == null) {
+      const value: string = element.getAttribute(this.stateName) || '';
+      if (!value) {
         return {
           'status': 'Load Failed',
           'pageId': '?'
