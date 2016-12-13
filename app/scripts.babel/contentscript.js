@@ -62,10 +62,14 @@ declare var chrome: any
           'pageId': '?'
         };
       }
-      return JSON.parse(element.getAttribute(this.stateName)) || {
-        'status': 'Load Failed',
-        'pageId': '?'
-      };
+      const value: string = element.getAttribute(this.stateName) || '';
+      if (!value) {
+        return {
+          'status': 'Load Failed',
+          'pageId': '?'
+        };
+      }
+      return JSON.parse(value);
     }
     renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
