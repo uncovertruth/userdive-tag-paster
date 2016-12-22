@@ -1,6 +1,7 @@
 [ignore]
 app/scripts/
 dist/
+.*/node_modules/stylelint
 
 [include]
 
