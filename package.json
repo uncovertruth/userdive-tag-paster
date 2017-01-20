@@ -13,7 +13,7 @@
     "@uncovertruth/eslint-config-flowtype": "^0.0.2",
     "@uncovertruth/stylelint-config": "^0.0.3",
     "babel-core": "^6.21.0",
-    "babel-plugin-transform-flow-strip-types": "^6.21.0",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-es2015": "^6.18.0",
     "del": "^2.2.2",
     "eslint": "^3.12.2",
