@@ -1986,9 +1986,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.38.0:
-  version "0.38.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.38.0.tgz#3ae096d401c969cc8b5798253fb82381e2d0237a"
+flow-bin@^0.39.0:
+  version "0.39.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.39.0.tgz#b1012a14460df1aa79d3a728e10f93c6944226d0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -4906,9 +4906,9 @@ riot@3.0.7:
     simple-dom "0.3.2"
     simple-html-tokenizer "^0.2.6"
 
-riot@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/riot/-/riot-3.1.1.tgz#fbaa787796063d25ec2e08900c95e1e53d7fd556"
+riot@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/riot/-/riot-3.2.1.tgz#236b7a33ab69ad75ab4ef28192a0536cd0aa085d"
   dependencies:
     riot-cli "^3.0.0"
     riot-compiler "^3.1.4"
