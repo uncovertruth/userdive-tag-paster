@@ -10,7 +10,7 @@
     "riot": "^3.2.1"
   },
   "devDependencies": {
-    "@uncovertruth/eslint-config-flowtype": "^0.0.2",
+    "@uncovertruth/eslint-config-flowtype": "^0.1.0",
     "@uncovertruth/stylelint-config": "^0.0.4",
     "babel-core": "^6.21.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
