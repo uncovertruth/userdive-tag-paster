@@ -1,4 +1,4 @@
-/* eslint no-template-curly-in-string: 0 */
+/* eslint no-template-curly-in-string: 0 eslint-comments/no-unlimited-disable: 1 */
 'use strict';
 (function (global, document, element, state) {
   element = document.getElementById('${elementId}');
@@ -11,11 +11,11 @@
   }
   setTimeout(function () {
     if (!global.UDTracker) {
-      console.warn('Blocked USERDIVE Scripts');
+      console.warn('Blocked USERDIVE Scripts');  // eslint-disable-line no-console
       return;
     }
     if (!global.UDTracker.cookie.enableSession()) {
-      console.warn('Failed start USERDIVE');
+      console.warn('Failed start USERDIVE');  // eslint-disable-line no-console
       return;
     }
     state = global.UDTracker.cookie.fetch();

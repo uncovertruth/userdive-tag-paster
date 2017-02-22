@@ -30,7 +30,7 @@ gulp.task('images', () => {
       svgoPlugins: [{cleanupIDs: false}]
     }))
       .on('error', function (err) {
-        console.log(err);
+        console.log(err);  // eslint-disable-line no-console
         this.end();
       })))
     .pipe(gulp.dest('dist/images'));
