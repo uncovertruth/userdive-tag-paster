@@ -17,7 +17,7 @@ declare var Vue: any
             return;
           }
           const pageInfo = response ? response.data : {status: 'failed'};
-          = new Vue({
+          new Vue({
             el: '#app',
             data: {
               pageInfo
