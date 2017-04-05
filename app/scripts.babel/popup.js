@@ -16,10 +16,11 @@ declare var Vue: any
           if (!response) {
             return;
           }
-          new Vue({
+          const pageInfo = response ? response.data : {status: 'failed'};
+          = new Vue({
             el: '#app',
             data: {
-              cookieData: response.data
+              pageInfo
             }
           });
         });

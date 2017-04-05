@@ -6,12 +6,12 @@ html
     link(href="styles/main.css")
     // endbuild
     script(src="scripts/vue.min.js")
-    // build:js scripts/popup.js
-    script(src="scripts/popup.js")
-    // endbuild
   body
     div#app
       table(border=1)
-        tr(v-for="(val, key) in cookieData")
-          th {{key}}
-          th {{val}}
+        tr(v-for="(val, key) in pageInfo")
+          th {{ key }}
+          th {{ val }}
+    // build:js scripts/popup.js
+    script(src="scripts/popup.js")
+    // endbuild
