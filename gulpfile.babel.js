@@ -6,7 +6,7 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', ['compilePugToJs'], () => {
+gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
@@ -89,7 +89,6 @@ gulp.task('watch', ['babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['build']);
   gulp.watch('bower.json', ['wiredep']);
-  gulp.watch('app/components/*.pug', ['compilePugToJs']);
 });
 
 gulp.task('size', () => {
@@ -128,14 +127,6 @@ gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
 });
 
-gulp.task('compilePugToJs', () => {
-  return gulp.src('./app/components/*.pug')
-  .pipe($.riot({
-    template: 'pug'
-  }))
-  .pipe(gulp.dest('./app/scripts'));
-});
-
 gulp.task('compilePugToHtml', () => {
   return gulp.src('./app/*.pug')
   .pipe($.pug({
@@ -145,6 +136,6 @@ gulp.task('compilePugToHtml', () => {
 });
 
 gulp.task('distModules', () => {
-  gulp.src('node_modules/riot/riot.csp.min.js')
+  gulp.src('node_modules/vue/dist/vue.min.js')
   .pipe(gulp.dest('./dist/scripts/'));
 });

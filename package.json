@@ -6,9 +6,7 @@
   "bugs": {
     "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
-  "dependencies": {
-    "riot": "^3.3.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@uncovertruth/eslint-config-flowtype": "^1.0.0-beta.0",
     "@uncovertruth/stylelint-config": "^0.0.4",
@@ -30,7 +28,6 @@
     "gulp-livereload": "^3.8.1",
     "gulp-load-plugins": "^1.5.0",
     "gulp-pug": "^3.2.0",
-    "gulp-riot": "^1.1.0",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.4.1",
     "gulp-uglify": "^2.0.0",
@@ -43,6 +40,7 @@
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.9.0",
+    "vue": "^2.2.6",
     "wiredep": "^4.0.0"
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
@@ -59,7 +57,7 @@
     "lint:css": "stylelint app/styles/*.css",
     "lint:flow": "flow",
     "lint:js": "eslint . --cache",
-    "lint:pug": "pug-lint ./app/*.pug ./app/components/*.pug",
+    "lint:pug": "pug-lint ./app/*.pug",
     "prebuild": "npm run clean",
     "release": "gulp package",
     "tag": "uglifyjs app/scripts.babel/tag.js -m",

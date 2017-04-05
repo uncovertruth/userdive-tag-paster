@@ -1,6 +1,8 @@
 /* @flow */
+/* eslint no-new:0 */
 'use strict';
 declare var chrome: any
+declare var Vue: any
 (function (global, chrome, document) {
   class StateView {
     constructor () {
@@ -14,7 +16,12 @@ declare var chrome: any
           if (!response) {
             return;
           }
-          global.riot.mount('info', {data: response.data});
+          new Vue({
+            el: '#app',
+            data: {
+              cookieData: response.data
+            }
+          });
         });
       });
     }
