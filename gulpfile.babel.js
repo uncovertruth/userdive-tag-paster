@@ -120,7 +120,7 @@ gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
     ['extras', 'html', 'images'],
-    'size', 'distModules', cb);
+    'size', cb);
 });
 
 gulp.task('default', ['clean'], (cb) => {
@@ -133,9 +133,4 @@ gulp.task('compilePugToHtml', () => {
     pretty: true
   }))
   .pipe(gulp.dest('./app/'));
-});
-
-gulp.task('distModules', () => {
-  gulp.src('node_modules/vue/dist/vue.min.js')
-  .pipe(gulp.dest('./dist/scripts/'));
 });
