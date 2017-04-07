@@ -2,7 +2,9 @@ import path from 'path';
 import webpack from 'webpack';
 
 module.exports = {
-  entry: './app/scripts.babel/popup.js',
+  entry: {
+    popoup: './app/scripts.babel/popup.js'
+  },
   output: {
     path: path.resolve(__dirname, 'app/scripts'),
     filename: 'bundle.js'
@@ -10,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
@@ -19,6 +21,7 @@ module.exports = {
       },
       {
         test: /\.vue$/,
+        exclude: /node_modules/,
         loader: 'vue-loader'
       }
     ]
@@ -29,5 +32,8 @@ module.exports = {
         NODE_ENV: '"production"'
       }
     })
-  ]
+  ],
+  resolve: {
+    extensions: ['.js', '.vue']
+  }
 };

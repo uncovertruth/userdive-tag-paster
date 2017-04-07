@@ -5,13 +5,9 @@ html
     // build:css styles/main.css
     link(href="styles/main.css")
     // endbuild
-    script(src="scripts/vue.min.js")
   body
-    div#app
-      table(border=1)
-        tr(v-for="(val, key) in pageInfo")
-          th {{ key }}
-          th {{ val }}
-    // build:js scripts/popup.js
-    script(src="scripts/popup.js")
+    #info
+      info
+    // build:js scripts/bundle.js
+    script(src="scripts/bundle.js")
     // endbuild
