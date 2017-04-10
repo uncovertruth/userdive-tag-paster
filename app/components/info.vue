@@ -1,6 +1,6 @@
 <template lang="jade">
 table(border=1)
-  tr(v-for='(val, key) in data')
+  tr(v-for='(val, key) in pageInfo')
     td {{ val }}
     td {{ key }}
 </template>
@@ -8,13 +8,6 @@ table(border=1)
 <script>
 export default {
   name: 'info',
-  data () {
-    return {
-      data: JSON.parse(document.getElementById('info').getAttribute('data'))
-    }
-  }
+  props: ['pageInfo']
 }
 </script>
-
-<style lang="css">
-</style>

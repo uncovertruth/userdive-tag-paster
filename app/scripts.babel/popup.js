@@ -1,7 +1,7 @@
 /* @flow */
 /* eslint no-new:0 */
 'use strict';
-import Vue from 'vue/dist/vue.runtime.esm';
+import Vue from 'vue';
 import Info from '../components/info';
 declare var chrome: any
 
@@ -23,18 +23,15 @@ declare var chrome: any
       });
     }
     mount (pageInfo) {
-      this.setAttr(pageInfo);
       setTimeout(() => {
         new Vue({
           el: '#info',
+          data: {
+            datas: JSON.parse(pageInfo)
+          },
           render: h => h(Info)
         });
-      }, 100);
-    }
-    setAttr (pageInfo) {
-      const dom: any = document.getElementById('info');
-      const data = JSON.stringify(pageInfo);
-      dom.setAttribute('data', data);
+      }, 1000);
     }
   }
   return new StateView();
