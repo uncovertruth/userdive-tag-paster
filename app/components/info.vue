@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
 table(border=1)
   tr(v-for='(val, key) in pageInfo')
     td {{ val }}
