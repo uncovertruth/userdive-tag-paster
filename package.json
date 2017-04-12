@@ -59,7 +59,9 @@
     "url": "git+ssh://git@github.com/uncovertruth/userdive-tag-paster.git"
   },
   "scripts": {
-    "build": "npm-run-all -p build:*",
+    "build": "npm-run-all build:*",
+    "build:clean": "npm run clean",
+    "build:webpack": "webpack",
     "build:gulp": "gulp build",
     "clean": "find app -name '*.html' -delete && rimraf dist app/scripts package",
     "lint": "npm-run-all -p lint:*",
@@ -67,8 +69,6 @@
     "lint:flow": "flow",
     "lint:js": "eslint . --cache",
     "lint:pug": "pug-lint ./app/*.pug",
-    "prebuild": "npm run clean",
-    "prebuild:gulp": "webpack",
     "release": "gulp package",
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "test": "npm run lint",
