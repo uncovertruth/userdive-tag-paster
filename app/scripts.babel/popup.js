@@ -36,24 +36,20 @@ declare var chrome: any
 
     setAttr (pageInfo): Promise<void> {
       return new Promise((resolve, reject) => {
-        let dom: any;
-        try {
-          dom = document.getElementById('info');
-        } catch (err) {
-          reject(err);
-        }
+        const dom: any = document.getElementById('info');
 
         if (!dom) reject(new Error('couldn\'t find a DOM: #info'));
 
         if (!pageInfo) reject(new Error('couldn\'t recieve page datas'));
 
         const data: string = JSON.stringify(pageInfo);
+
         try {
           dom.setAttribute('data', data);
-          resolve();
         } catch (err) {
           reject(err);
         }
+        resolve();
       });
     }
   }
