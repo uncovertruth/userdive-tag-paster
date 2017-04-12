@@ -29,17 +29,31 @@ declare var chrome: any
           el: '#info',
           render: h => h(Info)
         });
-      }).catch(() => {
-        throw new Error('couldn\'t set page\'s informations');
+      }).catch((err) => {
+        throw err;
       });
     }
 
     setAttr (pageInfo): Promise<void> {
       return new Promise((resolve, reject) => {
-        const dom: any = document.getElementById('info');
+        let dom: any;
+        try {
+          dom = document.getElementById('info');
+        } catch (err) {
+          reject(err);
+        }
+
+        if (!dom) reject(new Error('couldn\'t find a DOM: #info'));
+
+        if (!pageInfo) reject(new Error('couldn\'t recieve page datas'));
+
         const data: string = JSON.stringify(pageInfo);
-        dom.setAttribute('data', data);
-        resolve();
+        try {
+          dom.setAttribute('data', data);
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
       });
     }
   }
