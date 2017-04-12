@@ -6,8 +6,13 @@ table(border=1)
 </template>
 
 <script>
+/* @flow */
 export default {
   name: 'info',
-  props: ['pageInfo']
+  data () {
+    return {
+      pageInfo: JSON.parse(document.getElementById('info').getAttribute('data'))
+    }
+  }
 }
 </script>

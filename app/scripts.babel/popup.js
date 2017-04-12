@@ -12,7 +12,7 @@ declare var chrome: any
         this.render();
       });
     }
-    render () {
+    render (): void {
       chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         chrome.tabs.sendMessage(tabs[0].id, {content: 'fetchCookie'}, (response) => {
           if (!response) {
@@ -22,16 +22,25 @@ declare var chrome: any
         });
       });
     }
-    mount (pageInfo) {
-      setTimeout(() => {
+    mount (pageInfo): void {
+      const afterSet: Promise<void> = this.setAttr(pageInfo);
+      afterSet.then(() => {
         new Vue({
           el: '#info',
-          data: {
-            datas: JSON.parse(pageInfo)
-          },
           render: h => h(Info)
         });
-      }, 1000);
+      }).catch(() => {
+        throw new Error('couldn\'t set page\'s informations');
+      });
+    }
+
+    setAttr (pageInfo): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const dom: any = document.getElementById('info');
+        const data: string = JSON.stringify(pageInfo);
+        dom.setAttribute('data', data);
+        resolve();
+      });
     }
   }
   return new StateView();

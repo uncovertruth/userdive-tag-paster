@@ -2,10 +2,12 @@
 app/scripts/
 dist/
 .*/node_modules/stylelint
-.*/node_modules/vue
+.*/node_modules/vue/src
 
 [include]
 
 [libs]
 
 [options]
+module.file_ext=.vue
+module.file_ext=.js
