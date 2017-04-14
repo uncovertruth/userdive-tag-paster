@@ -47,6 +47,12 @@ module.exports = (config) => {
       'karma-webpack',
       'karma-mocha',
       'karma-chrome-launcher'
-    ]
+    ],
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    }
   });
 };
