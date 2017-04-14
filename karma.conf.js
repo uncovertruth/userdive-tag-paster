@@ -10,7 +10,31 @@ module.exports = (config) => {
     preprocessors: {
       'test/*.js': ['webpack']
     },
-    webpack: {},
+    webpack: {
+      module: {
+        rules: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015']
+            }
+          },
+          {
+            test: /\.vue$/,
+            exclude: /node_modules/,
+            loader: 'vue-loader'
+          }
+        ]
+      },
+      resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+          vue: 'vue/dist/vue.runtime.esm'
+        }
+      }
+    },
     reporters: ['progress'],
     port: 3000,
     colors: true,
@@ -18,6 +42,11 @@ module.exports = (config) => {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: true,
-    concurrency: Infinity
+    concurrency: Infinity,
+    plugins: [
+      'karma-webpack',
+      'karma-mocha',
+      'karma-chrome-launcher'
+    ]
   });
 };
