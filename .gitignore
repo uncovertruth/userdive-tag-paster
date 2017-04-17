@@ -3,6 +3,7 @@ app/scripts/
 dist/
 package/
 *.html
+!info.html
 
 ### https://raw.github.com/github/gitignore/ed91cc6c01cb044505585b8aa77d8e017bffece7/Node.gitignore
 
