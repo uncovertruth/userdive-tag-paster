@@ -1,3 +1,5 @@
+const webpackConfigs = require('./webpack.karma.js');
+
 module.exports = (config) => {
   config.set({
     basePath: '',
@@ -10,31 +12,7 @@ module.exports = (config) => {
     preprocessors: {
       'test/*.js': ['webpack']
     },
-    webpack: {
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            options: {
-              presets: ['es2015']
-            }
-          },
-          {
-            test: /\.vue$/,
-            exclude: /node_modules/,
-            loader: 'vue-loader'
-          }
-        ]
-      },
-      resolve: {
-        extensions: ['.js', '.vue'],
-        alias: {
-          vue: 'vue/dist/vue.runtime.esm'
-        }
-      }
-    },
+    webpack: webpackConfigs,
     reporters: ['progress'],
     port: 3000,
     colors: true,
