@@ -10,4 +10,3 @@ dist/
 
 [options]
 module.file_ext=.vue
-module.file_ext=.js
