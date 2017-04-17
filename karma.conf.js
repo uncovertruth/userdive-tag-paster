@@ -3,14 +3,16 @@ const webpackConfigs = require('./webpack.karma.js');
 module.exports = (config) => {
   config.set({
     basePath: '',
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'fixture'],
     files: [
-      'test/*.js'
+      'test/*.js',
+      'test/fixture/*.html'
     ],
     exclude: [
     ],
     preprocessors: {
-      'test/*.js': ['webpack']
+      'test/*.js': ['webpack'],
+      'test/fixture/*.html': ['html2js']
     },
     webpack: webpackConfigs,
     reporters: ['progress'],
@@ -24,7 +26,9 @@ module.exports = (config) => {
     plugins: [
       'karma-webpack',
       'karma-mocha',
-      'karma-chrome-launcher'
+      'karma-chrome-launcher',
+      'karma-fixture',
+      'karma-html2js-preprocessor'
     ],
     customLaunchers: {
       Chrome_travis_ci: {
