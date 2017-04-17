@@ -1,8 +1,6 @@
 /* @flow */
-/* eslint no-new:0 */
 'use strict';
-import Vue from 'vue';
-import Info from '../components/info';
+import Render from './render';
 declare var chrome: any
 
 (function (global, chrome, document) {
@@ -25,10 +23,7 @@ declare var chrome: any
     mount (pageInfo): void {
       const afterSet: Promise<void> = this.setAttr(pageInfo);
       afterSet.then(() => {
-        new Vue({
-          el: '#info',
-          render: h => h(Info)
-        });
+        Render();
       }).catch((err) => {
         throw err;
       });
