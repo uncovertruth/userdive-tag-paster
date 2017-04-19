@@ -39,7 +39,7 @@
     "main-bower-files": "^2.13.1",
     "npm-run-all": "^4.0.2",
     "pug-lint": "^2.3.0",
-    "pug-lint-config-uncovertruth": "0.0.1",
+    "pug-lint-config-uncovertruth": "0.0.2",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.9.0",
