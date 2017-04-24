@@ -4,7 +4,7 @@
 import Vue from 'vue';
 import Info from '../components/info';
 
-module.exports = (pageInfo, callback) => {
+module.exports = (callback) => {
   new Vue({
     el: '#info',
     render: h => h(Info)

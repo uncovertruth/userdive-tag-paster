@@ -4,15 +4,20 @@ module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['mocha', 'fixture'],
+    client: {
+      mocha: {
+        ui: 'bdd'
+      }
+    },
     files: [
       'test/*.js',
-      'test/fixture/*.html'
+      'test/*.html'
     ],
     exclude: [
     ],
     preprocessors: {
       'test/*.js': ['webpack'],
-      'test/fixture/*.html': ['html2js']
+      'test/*.html': ['html2js']
     },
     webpack: webpackConfigs,
     reporters: ['progress'],
