@@ -1,4 +1,4 @@
-const webpackConfigs = require('./webpack.karma.js');
+const webpackConfigs = require('../webpack.karma.js');
 
 module.exports = (config) => {
   config.set({
@@ -10,21 +10,22 @@ module.exports = (config) => {
       }
     },
     files: [
-      'test/*.js',
-      'test/*.html'
+      '*.js',
+      '*.html'
     ],
     exclude: [
     ],
     preprocessors: {
-      'test/*.js': ['webpack'],
-      'test/*.html': ['html2js']
+      '*.js': ['webpack'],
+      '*.html': ['html2js']
+    },
+    processPath: function (filePath) {
+      return filePath.replace(/\.html$/, '');
     },
     webpack: webpackConfigs,
-    reporters: ['progress'],
     port: 3000,
     colors: true,
     logLevel: config.LOG_INFO,
-    autoWatch: true,
     browsers: ['Chrome'],
     singleRun: true,
     concurrency: Infinity,
