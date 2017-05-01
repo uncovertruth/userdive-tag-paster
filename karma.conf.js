@@ -3,7 +3,7 @@ const webpackConfigs = require('./webpack.karma.js');
 module.exports = (config) => {
   config.set({
     basePath: '',
-    frameworks: ['mocha', 'fixture'],
+    frameworks: ['mocha'],
     client: {
       mocha: {
         ui: 'bdd'
@@ -32,7 +32,6 @@ module.exports = (config) => {
       'karma-webpack',
       'karma-mocha',
       'karma-chrome-launcher',
-      'karma-fixture',
       'karma-html2js-preprocessor'
     ],
     customLaunchers: {
