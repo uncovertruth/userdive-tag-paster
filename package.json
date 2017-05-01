@@ -42,7 +42,7 @@
     "pug-lint-config-uncovertruth": "0.0.2",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
-    "stylelint": "^7.9.0",
+    "stylelint": "^7.10.1",
     "wiredep": "^4.0.0"
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
