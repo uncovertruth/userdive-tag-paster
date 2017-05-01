@@ -9,5 +9,5 @@ module.exports = (callback) => {
     el: '#info',
     render: h => h(Info)
   });
-  callback();
+  if (callback) callback();
 };

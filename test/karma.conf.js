@@ -11,13 +11,13 @@ module.exports = (config) => {
     },
     files: [
       '*.js',
-      '*.html'
+      'fixtures/*.html'
     ],
     exclude: [
     ],
     preprocessors: {
       '*.js': ['webpack'],
-      '*.html': ['html2js']
+      'fixtures/*.html': ['html2js']
     },
     processPath: function (filePath) {
       return filePath.replace(/\.html$/, '');
