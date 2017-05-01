@@ -5,7 +5,6 @@ import Render from '../app/scripts.babel/render';
 declare var describe: any;
 declare var it: any;
 declare var before: any;
-declare var __html__: any;
 
 describe('Vue unit test', () => {
   before(() => {

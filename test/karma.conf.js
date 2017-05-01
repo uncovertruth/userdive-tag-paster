@@ -4,11 +4,6 @@ module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['mocha'],
-    client: {
-      mocha: {
-        ui: 'bdd'
-      }
-    },
     files: [
       '*.js',
       'fixtures/*.html'
