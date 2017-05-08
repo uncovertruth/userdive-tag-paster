@@ -9,7 +9,7 @@ module.exports = {
     popup: './app/scripts.babel/popup.js'
   },
   output: {
-    path: path.resolve(__dirname, 'app/scripts'),
+    path: path.resolve(__dirname, 'dist/scripts'),
     filename: '[name].bundle.js'
   },
   plugins: [
