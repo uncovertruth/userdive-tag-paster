@@ -43,7 +43,7 @@ export default (config) => {
     }
   };
   if (process.env.TRAVIS) {
-    config.browsers = ['Chrome_travis_ci'];
+    karmaConfig.browsers = ['Chrome_travis_ci'];
   }
   config.set(karmaConfig);
 };
