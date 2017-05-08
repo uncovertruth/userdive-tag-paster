@@ -6,7 +6,7 @@ module.exports = {
   module: moduleConfig,
   resolve: resolveConfig,
   entry: {
-    popup: './app/scripts.babel/popup.js'
+    popup: './app/popup.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist/scripts'),
