@@ -1,4 +1,4 @@
-import { moduleConfig, resolveConfig } from '../webpack.base.js';
+import { moduleConfig, resolveConfig } from '../webpack.base';
 
 export default (config) => {
   config.set({

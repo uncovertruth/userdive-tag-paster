@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
-import Render from './scripts.babel/render';
+import Render from './render';
 declare var chrome: any
 
 (function (global, chrome, document) {

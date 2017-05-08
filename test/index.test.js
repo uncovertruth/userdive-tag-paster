@@ -1,6 +1,6 @@
 /* @flow */
 import assert from 'assert';
-import Render from '../app/scripts.babel/render';
+import Render from '../app/render';
 import { describe, it, before } from 'mocha';
 
 describe('Vue unit test', () => {
