@@ -1,7 +1,7 @@
 import { moduleConfig, resolveConfig } from '../webpack.base';
 
 export default (config) => {
-  config.set({
+  const karmaConfig = {
     basePath: '',
     frameworks: ['mocha'],
     client: {
@@ -41,8 +41,9 @@ export default (config) => {
         flags: ['--no-sandbox']
       }
     }
-  });
+  };
   if (process.env.TRAVIS) {
     config.browsers = ['Chrome_travis_ci'];
   }
+  config.set(karmaConfig);
 };
