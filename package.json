@@ -65,7 +65,7 @@
     "url": "git+ssh://git@github.com/uncovertruth/userdive-tag-paster.git"
   },
   "scripts": {
-    "build": "npm-run-all build:*",
+    "build": "npm-run-all -p build:*",
     "build:webpack": "webpack",
     "build:gulp": "gulp build",
     "clean": "find app -name '*.html' -delete && rimraf dist app/scripts package",
