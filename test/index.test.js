@@ -1,5 +1,5 @@
 /* @flow */
-import assert from 'power-assert';
+import assert from 'assert';
 import Render from '../app/scripts.babel/render';
 import { describe, it, before } from 'mocha';
 
