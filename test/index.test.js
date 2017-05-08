@@ -1,10 +1,7 @@
 /* @flow */
 import assert from 'power-assert';
 import Render from '../app/scripts.babel/render';
-
-declare var describe: any;
-declare var it: any;
-declare var before: any;
+import { describe, it, before } from 'mocha';
 
 describe('Vue unit test', () => {
   before(() => {
