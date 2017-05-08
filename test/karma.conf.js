@@ -1,9 +1,15 @@
-const webpackConfigs = require('../webpack.karma.js');
+const moduleConfig = require('../webpack.base.js').moduleConfig;
+const resolveConfig = require('../webpack.base.js').resolveConfig;
 
 module.exports = (config) => {
   config.set({
     basePath: '',
     frameworks: ['mocha'],
+    client: {
+      mocha: {
+        opts: './mocha.opts'
+      }
+    },
     files: [
       '*.js',
       'fixtures/*.html'
@@ -17,7 +23,13 @@ module.exports = (config) => {
     processPath: function (filePath) {
       return filePath.replace(/\.html$/, '');
     },
-    webpack: webpackConfigs,
+    webpack: {
+      module: moduleConfig,
+      resolve: resolveConfig,
+      node: {
+        fs: 'empty'
+      }
+    },
     port: 3000,
     colors: true,
     logLevel: config.LOG_INFO,

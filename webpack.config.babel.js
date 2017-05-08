@@ -1,30 +1,16 @@
 import path from 'path';
 import webpack from 'webpack';
+import { moduleConfig, resolveConfig } from './webpack.base.js';
 
 module.exports = {
+  module: moduleConfig,
+  resolve: resolveConfig,
   entry: {
-    popoup: './app/scripts.babel/popup.js'
+    popup: './app/scripts.babel/popup.js'
   },
   output: {
     path: path.resolve(__dirname, 'app/scripts'),
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        options: {
-          presets: ['es2015']
-        }
-      },
-      {
-        test: /\.vue$/,
-        exclude: /node_modules/,
-        loader: 'vue-loader'
-      }
-    ]
+    filename: '[name].bundle.js'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -32,11 +18,5 @@ module.exports = {
         NODE_ENV: '"production"'
       }
     })
-  ],
-  resolve: {
-    extensions: ['.js', '.vue'],
-    alias: {
-      vue: 'vue/dist/vue.runtime.esm'
-    }
-  }
+  ]
 };
