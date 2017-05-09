@@ -1,45 +1,50 @@
 /* @flow */
-'use strict';
+'use strict'
 
-declare var chrome: any;
+declare var chrome: any
 
-(function (root, document, chrome) {
+;(function (root, document, chrome) {
   class Options {
     constructor (): void {
-      this.start();
+      this.start()
     }
     start (): void {
-      this.assignEventHandlers();
-      this.restoreConfigurations();
+      this.assignEventHandlers()
+      this.restoreConfigurations()
     }
     assignEventHandlers (): void {
-      this.selector('#save').addEventListener('click', (evt) => {
-        this.save(evt);
-      });
+      this.selector('#save').addEventListener('click', evt => {
+        this.save(evt)
+      })
     }
     restoreConfigurations (): void {
-      chrome.runtime.getBackgroundPage((backgroundPage) => {
-        this.selector('#analytics-id').value = backgroundPage.bg.get('USERDIVEId');
-        this.selector('#env').value = backgroundPage.bg.get('USERDIVEEnv');
-        this.selector('#host').value = backgroundPage.bg.get('USERDIVEHost');
-        this.selector('#ignore').value = backgroundPage.bg.get('USERDIVEIgnore');
-      });
+      chrome.runtime.getBackgroundPage(backgroundPage => {
+        this.selector('#analytics-id').value = backgroundPage.bg.get(
+          'USERDIVEId'
+        )
+        this.selector('#env').value = backgroundPage.bg.get('USERDIVEEnv')
+        this.selector('#host').value = backgroundPage.bg.get('USERDIVEHost')
+        this.selector('#ignore').value = backgroundPage.bg.get('USERDIVEIgnore')
+      })
     }
     selector (selector: string): any {
-      return document.querySelector(selector);
+      return document.querySelector(selector)
     }
     save (evt): void {
-      chrome.runtime.getBackgroundPage((backgroundPage) => {
-        backgroundPage.bg.set('USERDIVEEnv', this.selector('#env').value);
-        backgroundPage.bg.set('USERDIVEHost', this.selector('#host').value);
-        backgroundPage.bg.set('USERDIVEId', this.selector('#analytics-id').value);
-        backgroundPage.bg.set('USERDIVEIgnore', this.selector('#ignore').value);
-      });
-      chrome.tabs.getCurrent((tab) => {
-        chrome.tabs.remove(tab.id);
-      });
+      chrome.runtime.getBackgroundPage(backgroundPage => {
+        backgroundPage.bg.set('USERDIVEEnv', this.selector('#env').value)
+        backgroundPage.bg.set('USERDIVEHost', this.selector('#host').value)
+        backgroundPage.bg.set(
+          'USERDIVEId',
+          this.selector('#analytics-id').value
+        )
+        backgroundPage.bg.set('USERDIVEIgnore', this.selector('#ignore').value)
+      })
+      chrome.tabs.getCurrent(tab => {
+        chrome.tabs.remove(tab.id)
+      })
     }
   }
 
-  return new Options();
-})(window, document, chrome);
+  return new Options()
+})(window, document, chrome)

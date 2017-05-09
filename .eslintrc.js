@@ -1,15 +1,10 @@
 /* @flow */
 module.exports = {
-  extends: [
-    '@uncovertruth/eslint-config-flowtype',
-  ],
+  extends: ['@uncovertruth/eslint-config-flowtype'],
   env: {
-    'node': true
+    node: true
   },
   globals: {
-    'chrome': true
-  },
-  rules: {
-    'semi': [2, 'always']
+    chrome: true
   }
 }

@@ -51,6 +51,7 @@
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
     "stylelint": "^7.10.1",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "vue-loader": "^12.0.3",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.2",
@@ -66,8 +67,8 @@
   },
   "scripts": {
     "build": "npm-run-all -p build:*",
-    "build:webpack": "webpack",
     "build:gulp": "gulp build",
+    "build:webpack": "webpack",
     "clean": "find app -name '*.html' -delete && rimraf dist app/scripts package",
     "lint": "npm-run-all -p lint:*",
     "lint:css": "stylelint app/styles/*.css",
@@ -78,8 +79,8 @@
     "release": "gulp package",
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "test": "npm-run-all test:*",
-    "test:lint": "npm run lint",
     "test:karma": "karma start test/karma.conf.js --single-run",
+    "test:lint": "npm run lint",
     "watch": "gulp watch"
   }
 }
