@@ -1,3 +1,4 @@
+/* @flow */
 import gulp from 'gulp'
 import gulpLoadPlugins from 'gulp-load-plugins'
 import del from 'del'
