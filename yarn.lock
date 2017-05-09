@@ -3138,7 +3138,7 @@ gulp-cache@^0.4.6:
     try-json-parse "^0.1.1"
     vinyl "^1.1.0"
 
-gulp-chrome-manifest@0.0.13:
+gulp-chrome-manifest@^0.0.13:
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/gulp-chrome-manifest/-/gulp-chrome-manifest-0.0.13.tgz#f16655e70406e431d24decd6162d75545c876ab2"
   dependencies:
@@ -5807,7 +5807,7 @@ pug-lint-config-clock@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/pug-lint-config-clock/-/pug-lint-config-clock-2.0.0.tgz#77db919cd76c40d9dcdc22e079d202cb6c507f50"
 
-pug-lint-config-uncovertruth@0.0.2:
+pug-lint-config-uncovertruth@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/pug-lint-config-uncovertruth/-/pug-lint-config-uncovertruth-0.0.2.tgz#6a1235fcfaee5c5b5e8c6a08a3f59d06b32043f7"
   dependencies:
