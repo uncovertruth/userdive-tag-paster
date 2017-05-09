@@ -1,4 +1,4 @@
 /* @flow */
 module.exports = {
-  'extends': ['@uncovertruth/stylelint-config']
+  extends: ['@uncovertruth/stylelint-config']
 }

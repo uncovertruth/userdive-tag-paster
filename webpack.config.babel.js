@@ -1,6 +1,7 @@
-import path from 'path';
-import webpack from 'webpack';
-import { moduleConfig, resolveConfig } from './webpack.base.js';
+import path from 'path'
+import webpack from 'webpack'
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import { moduleConfig, resolveConfig } from './webpack.base'
 
 module.exports = {
   module: moduleConfig,
@@ -15,8 +16,12 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: 'production'
       }
+    }),
+    new UglifyJSPlugin({
+      sourceMap: true,
+      comments: false
     })
   ]
-};
+}
