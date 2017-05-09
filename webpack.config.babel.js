@@ -1,0 +1,22 @@
+import path from 'path';
+import webpack from 'webpack';
+import { moduleConfig, resolveConfig } from './webpack.base.js';
+
+module.exports = {
+  module: moduleConfig,
+  resolve: resolveConfig,
+  entry: {
+    popup: './app/popup.js'
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist/scripts'),
+    filename: '[name].bundle.js'
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    })
+  ]
+};

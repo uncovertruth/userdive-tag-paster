@@ -6,7 +6,7 @@ import {stream as wiredep} from 'wiredep';
 
 const $ = gulpLoadPlugins();
 
-gulp.task('extras', ['compilePugToJs'], () => {
+gulp.task('extras', () => {
   return gulp.src([
     'app/*.*',
     'app/_locales/**',
@@ -89,7 +89,6 @@ gulp.task('watch', ['babel', 'html'], () => {
 
   gulp.watch('app/scripts.babel/**/*.js', ['build']);
   gulp.watch('bower.json', ['wiredep']);
-  gulp.watch('app/components/*.pug', ['compilePugToJs']);
 });
 
 gulp.task('size', () => {
@@ -121,19 +120,11 @@ gulp.task('build', (cb) => {
   runSequence(
     'babel', 'chromeManifest',
     ['extras', 'html', 'images'],
-    'size', 'distModules', cb);
+    'size', cb);
 });
 
 gulp.task('default', ['clean'], (cb) => {
   runSequence('build', cb);
-});
-
-gulp.task('compilePugToJs', () => {
-  return gulp.src('./app/components/*.pug')
-  .pipe($.riot({
-    template: 'pug'
-  }))
-  .pipe(gulp.dest('./app/scripts'));
 });
 
 gulp.task('compilePugToHtml', () => {
@@ -142,9 +133,4 @@ gulp.task('compilePugToHtml', () => {
     pretty: true
   }))
   .pipe(gulp.dest('./app/'));
-});
-
-gulp.task('distModules', () => {
-  gulp.src('node_modules/riot/riot.csp.min.js')
-  .pipe(gulp.dest('./dist/scripts/'));
 });
