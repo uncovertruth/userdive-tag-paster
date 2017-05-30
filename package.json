@@ -18,7 +18,7 @@
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
     "cross-env": "^5.0.0",
-    "css-loader": "^0.28.1",
+    "css-loader": "^0.28.4",
     "del": "^2.2.2",
     "eslint": "^3.19.0",
     "flow-bin": "^0.47.0",
