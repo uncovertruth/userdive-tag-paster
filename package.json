@@ -14,7 +14,7 @@
     "@uncovertruth/stylelint-config": "^0.3.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
-    "babel-preset-env": "^1.4.0",
+    "babel-preset-env": "^1.5.1",
     "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
     "cross-env": "^5.0.0",
