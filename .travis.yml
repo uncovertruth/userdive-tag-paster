@@ -1,6 +1,9 @@
 sudo: false
 language: node_js
-node_js: stable
+node_js:
+- stable
+- 7
+- 6
 before_install:
 - export CHROME_BIN=chromium-browser
 - export DISPLAY=:99.0
