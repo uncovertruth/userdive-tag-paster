@@ -15,7 +15,6 @@ gulp.task('extras', () => {
       'app/_locales/**',
       '!app/scripts.babel',
       '!app/*.json',
-      '!app/*.pug',
       '!app/*.html'
     ],
     {
@@ -49,7 +48,7 @@ gulp.task('images', () => {
     .pipe(gulp.dest('dist/images'))
 })
 
-gulp.task('html', ['compilePugToHtml'], () => {
+gulp.task('html', () => {
   return gulp
     .src('app/*.html')
     .pipe($.sourcemaps.init())
@@ -148,15 +147,4 @@ gulp.task('build', cb => {
 
 gulp.task('default', ['clean'], cb => {
   runSequence('build', cb)
-})
-
-gulp.task('compilePugToHtml', () => {
-  return gulp
-    .src('./app/*.pug')
-    .pipe(
-      $.pug({
-        pretty: true
-      })
-    )
-    .pipe(gulp.dest('./app/'))
 })
