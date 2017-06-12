@@ -2,7 +2,7 @@
 import { describe, it, before } from 'mocha'
 import assert from 'assert'
 
-import Render from '../app/render'
+import Render from '../app/js/render'
 
 describe('Vue unit test', () => {
   before(() => {

@@ -7,16 +7,19 @@ module.exports = {
   module: moduleConfig,
   resolve: resolveConfig,
   entry: {
-    popup: './app/popup.js'
+    'app/scripts/contentscript': path.resolve(__dirname, 'app/js/contentscript.js'),
+    'app/scripts/background': path.resolve(__dirname, 'app/js/background.js'),
+    'dist/scripts/options': path.resolve(__dirname, 'app/js/options.js'),
+    'dist/scripts/popup': path.resolve(__dirname, 'app/js/popup.js')
   },
   output: {
-    path: path.resolve(__dirname, 'dist/scripts'),
-    filename: '[name].bundle.js'
+    path: __dirname,
+    filename: '[name].js'
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: 'production'
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new UglifyJSPlugin({
