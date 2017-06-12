@@ -76,7 +76,6 @@
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "test": "npm-run-all test:*",
     "test:karma": "karma start --single-run",
-    "test:lint": "npm run lint",
-    "watch": "gulp watch"
+    "test:lint": "npm run lint"
   }
 }

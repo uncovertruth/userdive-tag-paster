@@ -26,5 +26,6 @@ module.exports = {
       sourceMap: true,
       comments: false
     })
-  ]
+  ],
+  devtool: 'source-map'
 }
