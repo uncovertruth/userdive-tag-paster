@@ -21,7 +21,7 @@
     "css-loader": "^0.28.4",
     "del": "^3.0.0",
     "eslint": "^3.19.0",
-    "flow-bin": "^0.47.0",
+    "flow-bin": "^0.48.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.6",
