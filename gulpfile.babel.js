@@ -5,7 +5,7 @@ import runSequence from 'run-sequence'
 
 const $ = gulpLoadPlugins()
 
-gulp.task('chromeManifest', () => {
+gulp.task('chromeManifest', ['js'], () => {
   return gulp
     .src('app/manifest.json')
     .pipe(
@@ -20,6 +20,15 @@ gulp.task('chromeManifest', () => {
     .pipe(gulp.dest('dist'))
 })
 
+gulp.task('js', () => {
+  return gulp
+    .src([
+      'app/scripts/options.js',
+      'app/scripts/popup.js'
+    ])
+    .pipe(gulp.dest('dist/scripts'))
+})
+
 gulp.task('size', () => {
   return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }))
 })
@@ -29,7 +38,7 @@ gulp.task('package', function () {
   const app = require('./package.json')
 
   if (app.version !== manifest.version) {
-    throw new Error('Pleas update verions')
+    throw new Error('Please update verions')
   }
 
   return gulp

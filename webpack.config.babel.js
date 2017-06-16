@@ -7,13 +7,14 @@ module.exports = {
   module: moduleConfig,
   resolve: resolveConfig,
   entry: {
-    'app/scripts/contentscript': path.resolve(__dirname, 'app/js/contentscript.js'),
-    'app/scripts/background': path.resolve(__dirname, 'app/js/background.js'),
-    'dist/scripts/options': path.resolve(__dirname, 'app/js/options.js'),
-    'dist/scripts/popup': path.resolve(__dirname, 'app/js/popup.js')
+    'contentscript': path.resolve(__dirname, 'app/js/contentscript.js'),
+    'background': path.resolve(__dirname, 'app/js/background.js'),
+    'options': path.resolve(__dirname, 'app/js/options.js'),
+    'popup': path.resolve(__dirname, 'app/js/popup.js')
   },
   output: {
-    path: __dirname,
+    // path: path.resolve(__dirname, 'dist/scripts/'),
+    path: path.resolve(__dirname, 'app/scripts'),
     filename: '[name].js'
   },
   plugins: [
@@ -26,6 +27,5 @@ module.exports = {
       sourceMap: true,
       comments: false
     })
-  ],
-  devtool: 'source-map'
+  ]
 }
