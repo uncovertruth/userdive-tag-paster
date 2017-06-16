@@ -60,10 +60,10 @@
     "url": "git+ssh://git@github.com/uncovertruth/userdive-tag-paster.git"
   },
   "scripts": {
-    "build": "npm-run-all -p build:*",
+    "build": "npm-run-all build:*",
+    "build:pug": "pug app/*.pug --out dist/",
+    "build:webpack": "cross-env NODE_ENV=production webpack",
     "build:gulp": "gulp build",
-    "before-gulp:pug": "pug app/*.pug --out dist/",
-    "before-gulp:webpack": "cross-env NODE_ENV=production webpack",
     "clean": "find app -name '*.html' -delete && rimraf dist app/scripts package",
     "lint": "npm-run-all -p lint:*",
     "lint:css": "stylelint app/styles/*.css",
@@ -71,7 +71,6 @@
     "lint:js": "eslint . --cache",
     "lint:pug": "pug-lint ./app/*.pug",
     "prebuild": "npm run clean",
-    "prebuild:gulp": "npm-run-all -p before-gulp:*",
     "release": "gulp package",
     "tag": "uglifyjs app/scripts.babel/tag.js -m",
     "test": "npm-run-all test:*",
