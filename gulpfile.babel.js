@@ -1,7 +1,6 @@
 /* @flow */
 import gulp from 'gulp'
 import gulpLoadPlugins from 'gulp-load-plugins'
-import del from 'del'
 import runSequence from 'run-sequence'
 
 const $ = gulpLoadPlugins()
@@ -44,24 +43,8 @@ gulp.task('chromeManifest', () => {
     .pipe(gulp.dest('dist'))
 })
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']))
-
 gulp.task('size', () => {
   return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }))
-})
-
-gulp.task('package', function () {
-  const manifest = require('./dist/manifest.json')
-  const app = require('./package.json')
-
-  if (app.version !== manifest.version) {
-    throw new Error('Pleas update verions')
-  }
-
-  return gulp
-    .src('dist/**')
-    .pipe($.zip(app.name + '-' + manifest.version + '.zip'))
-    .pipe(gulp.dest('package'))
 })
 
 gulp.task('build', cb => {
@@ -73,6 +56,6 @@ gulp.task('build', cb => {
   )
 })
 
-gulp.task('default', ['clean'], cb => {
+gulp.task('default', cb => {
   runSequence('build', cb)
 })
