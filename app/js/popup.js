@@ -1,5 +1,6 @@
 /* @flow */
 'use strict'
+import '../styles/main.css'
 import Render from './render'
 declare var chrome: any
 

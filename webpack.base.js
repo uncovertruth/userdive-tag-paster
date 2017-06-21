@@ -9,6 +9,13 @@ exports.moduleConfig = {
       test: /\.vue$/,
       exclude: /node_modules/,
       loader: 'vue-loader'
+    },
+    {
+      test: /\.css$/,
+      loader: [
+        'style-loader',
+        'css-loader?modules'
+      ]
     }
   ]
 }
