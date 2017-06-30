@@ -40,7 +40,7 @@
     "pug-lint": "^2.4.0",
     "pug-lint-config-uncovertruth": "^0.0.2",
     "rimraf": "^2.6.1",
-    "run-sequence": "^1.2.2",
+    "run-sequence": "^2.0.0",
     "style-loader": "^0.18.2",
     "stylelint": "^7.11.0",
     "uglifyjs-webpack-plugin": "^0.4.3",
