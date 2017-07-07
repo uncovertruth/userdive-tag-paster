@@ -12,14 +12,17 @@ declare var chrome: any
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
-
       global.addEventListener('load', evt => {
-        this.load()
-        setTimeout(() => {
-          this.renderBadge(this.getState().pageId || '?')
-        }, 3000)
+        chrome.runtime.sendMessage({bg: 'appStatus'}, response => {
+          if (response.status) {
+            this.load()
+            setTimeout(() => {
+              this.renderBadge(this.getState().pageId || '?')
+            }, 3000)
+            this.assignStatusHandler()
+          }
+        })
       })
-      this.assignStatusHandler()
     }
     injectScript (source: string) {
       const th = document.getElementsByTagName('body')[0]

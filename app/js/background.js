@@ -1,9 +1,16 @@
 /* @flow */
 'use strict'
 declare var chrome: any
+type AppStatus = {
+  status: 'disable' | 'enable'
+}
 ;(function (global, chrome, localStorage) {
   class Background {
+    appStatus: string
+
     constructor () {
+      this.appStatus = 'APPSTATUS'
+      this.set(this.appStatus, true)
       this.assignEventHandlers()
     }
     assignEventHandlers () {
@@ -22,6 +29,16 @@ declare var chrome: any
               text: this.updateBadge(request.text)
             })
             break
+          case 'changeStatus':
+            this.changeAppStatus()
+            sendResponse({
+              status: this.appStatus()
+            })
+            break
+          case 'appStatus':
+            sendResponse({
+              status: this.appStatus()
+            })
         }
       })
       chrome.tabs.onActivated.addListener(response => {
@@ -49,6 +66,17 @@ declare var chrome: any
     }
     set (key, value) {
       localStorage[key] = value
+    }
+
+    changeAppStatus (): void {
+      localStorage[this.appStatus] = !localStorage[this.appStatus]
+    }
+
+    appStatus (): AppStatus {
+      if (this.get(this.appStatus)) {
+        return 'enable'
+      }
+      return 'disable'
     }
   }
   global.bg = new Background()
