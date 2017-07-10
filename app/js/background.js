@@ -4,7 +4,7 @@ declare var chrome: any
 
 ;(function (global, chrome, localStorage) {
   class Background {
-    statusName: tring
+    statusName: string
     statusEnable: string
     statusDisable: string
 
