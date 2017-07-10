@@ -20,6 +20,11 @@ declare var chrome: any
             if (!response) {
               return
             }
+
+            if (!response.data) {
+              throw new Error("couldn't recieve page datas")
+            }
+
             this.mount(response.data)
           }
         )
@@ -29,7 +34,13 @@ declare var chrome: any
       const afterSet: Promise<void> = this.setAttr(pageInfo)
       afterSet
         .then(() => {
-          Render()
+          Render(() => {
+            document.getElementById('change-status').addEventListener('click', evt => {
+              chrome.runtime.getBackgroundPage(backgroundPage => {
+                backgroundPage.bg.changeAppStatus()
+              })
+            })
+          })
         })
         .catch(err => {
           throw err
@@ -40,9 +51,9 @@ declare var chrome: any
       return new Promise((resolve, reject) => {
         const dom: any = document.getElementById('info')
 
-        if (!dom) reject(new Error("couldn't find a DOM: #info"))
-
-        if (!pageInfo) reject(new Error("couldn't recieve page datas"))
+        if (!dom) {
+          reject(new Error("couldn't find a DOM: #info"))
+        }
 
         const data: string = JSON.stringify(pageInfo)
 

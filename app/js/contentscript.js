@@ -14,13 +14,13 @@ declare var chrome: any
       this.stateName = stateName
       global.addEventListener('load', evt => {
         chrome.runtime.sendMessage({bg: 'appStatus'}, response => {
-          if (response.status) {
+          if (response.status === 'enable') {
             this.load()
             setTimeout(() => {
               this.renderBadge(this.getState().pageId || '?')
             }, 3000)
-            this.assignStatusHandler()
           }
+          this.assignStatusHandler()
         })
       })
     }

@@ -1,16 +1,18 @@
 /* @flow */
 'use strict'
 declare var chrome: any
-type AppStatus = {
-  status: 'disable' | 'enable'
-}
+
 ;(function (global, chrome, localStorage) {
   class Background {
-    appStatus: string
+    statusName: tring
+    statusEnable: string
+    statusDisable: string
 
     constructor () {
-      this.appStatus = 'APPSTATUS'
-      this.set(this.appStatus, true)
+      this.statusName = 'APPSTATUS'
+      this.statusEnable = 'enable'
+      this.statusDisable = 'disable'
+      this.appStatus()
       this.assignEventHandlers()
     }
     assignEventHandlers () {
@@ -29,16 +31,17 @@ type AppStatus = {
               text: this.updateBadge(request.text)
             })
             break
-          case 'changeStatus':
+          case 'appStatus':
+            sendResponse({
+              status: this.appStatus()
+            })
+            break
+          case 'changeAppStatus':
             this.changeAppStatus()
             sendResponse({
               status: this.appStatus()
             })
             break
-          case 'appStatus':
-            sendResponse({
-              status: this.appStatus()
-            })
         }
       })
       chrome.tabs.onActivated.addListener(response => {
@@ -64,19 +67,26 @@ type AppStatus = {
       }
       return ''
     }
-    set (key, value) {
+    set (key, value): void {
       localStorage[key] = value
     }
 
-    changeAppStatus (): void {
-      localStorage[this.appStatus] = !localStorage[this.appStatus]
+    appStatus (): string {
+      if (!this.get(this.statusName)) {
+        this.set(this.statusName, this.statusEnable)
+      }
+      return this.get(this.statusName)
     }
 
-    appStatus (): AppStatus {
-      if (this.get(this.appStatus)) {
-        return 'enable'
+    changeAppStatus (): void {
+      const status: string = this.appStatus()
+      const enable: string = this.statusEnable
+      const disable: string = this.statusDisable
+      if (status === enable) {
+        this.set(this.statusName, disable)
+      } else if (status === disable) {
+        this.set(this.statusName, enable)
       }
-      return 'disable'
     }
   }
   global.bg = new Background()

@@ -1,8 +1,10 @@
 <template lang="pug">
-table(border=1)
-  tr(v-for='(val, key) in pageInfo')
-    td {{ key }}
-    td {{ val }}
+div
+  button#change-status
+  table(border=1)
+    tr(v-for='(val, key) in pageInfo')
+      td {{ key }}
+      td {{ val }}
 </template>
 
 <script>
