@@ -37,9 +37,8 @@ declare var chrome: any
             })
             break
           case 'changeAppStatus':
-            this.changeAppStatus()
             sendResponse({
-              status: this.appStatus()
+              status: this.changeAppStatus()
             })
             break
         }
@@ -78,14 +77,16 @@ declare var chrome: any
       return this.get(this.statusName)
     }
 
-    changeAppStatus (): void {
+    changeAppStatus (): string {
       const status: string = this.appStatus()
       const enable: string = this.statusEnable
       const disable: string = this.statusDisable
       if (status === enable) {
         this.set(this.statusName, disable)
+        return 'toDisable'
       } else if (status === disable) {
         this.set(this.statusName, enable)
+        return 'toEnable'
       }
     }
   }

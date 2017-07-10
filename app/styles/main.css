@@ -1,3 +1,8 @@
+body {
+  height: 175;
+  width: 350;
+}
+
 table {
   font-size: 15;
   text-align: center;

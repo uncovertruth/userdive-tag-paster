@@ -1,6 +1,6 @@
 <template lang="pug">
-div
-  button#change-status
+div#info
+  button#change-status change status
   table(border=1)
     tr(v-for='(val, key) in pageInfo')
       td {{ key }}
@@ -18,3 +18,9 @@ export default {
   }
 }
 </script>
+
+<style>
+button {
+  margin: 5px;
+}
+</style>

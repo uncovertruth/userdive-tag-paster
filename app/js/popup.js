@@ -1,7 +1,7 @@
 /* @flow */
 'use strict'
 import '../styles/main.css'
-import Render from './render'
+import renderVue from './render'
 declare var chrome: any
 
 ;(function (global, chrome, document) {
@@ -11,7 +11,7 @@ declare var chrome: any
         this.render()
       })
     }
-    render (): void {
+    render () {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(
           tabs[0].id,
@@ -34,11 +34,9 @@ declare var chrome: any
       const afterSet: Promise<void> = this.setAttr(pageInfo)
       afterSet
         .then(() => {
-          Render(() => {
+          renderVue((vm) => {
             document.getElementById('change-status').addEventListener('click', evt => {
-              chrome.runtime.getBackgroundPage(backgroundPage => {
-                backgroundPage.bg.changeAppStatus()
-              })
+              this.changeAppStatus(vm)
             })
           })
         })
@@ -54,7 +52,6 @@ declare var chrome: any
         if (!dom) {
           reject(new Error("couldn't find a DOM: #info"))
         }
-
         const data: string = JSON.stringify(pageInfo)
 
         try {
@@ -64,6 +61,35 @@ declare var chrome: any
         }
         resolve()
       })
+    }
+    changeAppStatus (vm): void {
+      this.cleanHtml(vm)
+      chrome.runtime.sendMessage({bg: 'changeAppStatus'}, response => {
+        this.reRender(response.status)
+      })
+    }
+    reRender (message) {
+      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { content: message },
+          response => {
+            this.mount(response.data)
+          }
+        )
+      })
+    }
+    cleanHtml (vm) {
+      vm.$destroy()
+      const dom = document.getElementById('info')
+      if (!dom) {
+        return
+      }
+      while (dom.firstChild) {
+        dom.removeChild(dom.firstChild)
+      }
+      const info = document.createElement('info')
+      document.getElementById('info').appendChild(info)
     }
   }
   return new StateView()

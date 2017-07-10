@@ -12,15 +12,18 @@ declare var chrome: any
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
+      this.renderBadge('...')
       global.addEventListener('load', evt => {
         chrome.runtime.sendMessage({bg: 'appStatus'}, response => {
           if (response.status === 'enable') {
             this.load()
             setTimeout(() => {
-              this.renderBadge(this.getState().pageId || '?')
+              this.getState().then((data) => {
+                this.renderBadge(data.pageId || '?')
+              })
             }, 3000)
           }
-          this.assignStatusHandler()
+          this.listen()
         })
       })
     }
@@ -57,22 +60,35 @@ declare var chrome: any
         )
       })
     }
-    getState (): State {
-      const element = document.getElementById(this.id)
-      if (!element) {
-        return {
-          status: 'Blocked',
-          pageId: '?'
-        }
-      }
-      const value: string = element.getAttribute(this.stateName) || ''
-      if (!value) {
-        return {
-          status: 'Load Failed',
-          pageId: '?'
-        }
-      }
-      return JSON.parse(value)
+    getState (): Prpmise<State> {
+      return new Promise((resolve, reject) => {
+        chrome.runtime.sendMessage({ bg: 'appStatus' }, response => {
+          if (response.status === 'enable') {
+            const element = document.getElementById(this.id)
+            if (!element) {
+              resolve({
+                status: 'Blocked',
+                pageId: '?'
+              })
+              return
+            }
+            const value: string = element.getAttribute(this.stateName) || ''
+            if (!value) {
+              resolve({
+                status: 'Load Failed',
+                pageId: '?'
+              })
+              return
+            }
+            resolve(JSON.parse(value))
+          } else if (response.status === 'disable') {
+            resolve({
+              status: 'off'
+            })
+          }
+          return true
+        })
+      })
     }
     renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
@@ -80,15 +96,44 @@ declare var chrome: any
         text
       })
     }
-    assignStatusHandler () {
-      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.content !== 'fetchCookie') {
-          return
+    listen () {
+      chrome.runtime.onMessage.addListener(
+        (request, sender, sendResponse) => {
+          switch (request.content) {
+            case 'fetchCookie':
+              this.assignStatusHandler(sendResponse)
+              break
+            case 'toEnable':
+              this.toEnable(sendResponse)
+              break
+            case 'toDisable':
+              this.toDisable(sendResponse)
+          }
+          return true
         }
-        const data = this.getState()
-        this.renderBadge(data.pageId)
+      )
+    }
+    assignStatusHandler (sendResponse) {
+      this.getState().then((data) => {
+        this.renderBadge(data.pageId || '?')
         sendResponse({ data })
       })
+    }
+    toDisable (sendResponse) {
+      const body = document.getElementsByTagName('body')[0]
+      body.removeChild(document.getElementById(this.id))
+      this.renderBadge('?')
+      sendResponse({ data: { status: 'off' } })
+    }
+    toEnable (sendResponse) {
+      this.renderBadge('...')
+      this.load()
+      setTimeout(() => {
+        this.getState().then((data) => {
+          this.renderBadge(data.pageId || '?')
+          sendResponse({ data })
+        })
+      }, 3000)
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')
