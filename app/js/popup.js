@@ -64,14 +64,14 @@ declare var chrome: any
     }
     reverseActivation (): void {
       chrome.runtime.sendMessage({bg: 'reverseActivation'}, response => {
-        this.notice(response.status)
+        this.noticeToContent(response.isActive)
       })
     }
-    notice (message) {
+    noticeToContent (isActive) {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(
           tabs[0].id,
-          { content: message },
+          { content: isActive },
           response => {
             this.mount(response.data)
           }

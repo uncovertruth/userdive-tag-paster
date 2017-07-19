@@ -9,13 +9,17 @@ declare var chrome: any
   class Provider {
     id: string
     stateName: string
+    enable: boolean
+    disable: boolean
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
+      this.enable = true
+      this.disable = false
       this.renderBadge('...')
       global.addEventListener('load', evt => {
-        chrome.runtime.sendMessage({bg: 'appStatus'}, response => {
-          if (response.status === 'enable') {
+        chrome.runtime.sendMessage({bg: 'isActive'}, response => {
+          if (response.isActive) {
             this.load()
             setTimeout(() => {
               this.getState().then((data) => {
@@ -62,8 +66,8 @@ declare var chrome: any
     }
     getState (): Prpmise<State> {
       return new Promise((resolve, reject) => {
-        chrome.runtime.sendMessage({ bg: 'appStatus' }, response => {
-          if (response.status === 'enable') {
+        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
+          if (response.isActive) {
             const element = document.getElementById(this.id)
             if (!element) {
               resolve({
@@ -81,7 +85,7 @@ declare var chrome: any
               return
             }
             resolve(JSON.parse(value))
-          } else if (response.status === 'disable') {
+          } else if (response.isActive) {
             resolve({
               status: 'off'
             })
@@ -103,10 +107,10 @@ declare var chrome: any
             case 'fetchCookie':
               this.assignStatusHandler(sendResponse)
               break
-            case 'toEnable':
+            case this.enable:
               this.toEnable(sendResponse)
               break
-            case 'toDisable':
+            case this.disable:
               this.toDisable(sendResponse)
           }
           return true

@@ -4,15 +4,11 @@ declare var chrome: any
 
 ;(function (global, chrome, localStorage) {
   class Background {
-    statusName: string
-    statusEnable: string
-    statusDisable: string
+    isActivate: string
 
     constructor () {
-      this.statusName = 'APPSTATUS'
-      this.statusEnable = 'enable'
-      this.statusDisable = 'disable'
-      this.appStatus()
+      this.activate = 'ACTIVATE'
+      this.isActive()
       this.assignEventHandlers()
     }
     assignEventHandlers () {
@@ -31,14 +27,14 @@ declare var chrome: any
               text: this.updateBadge(request.text)
             })
             break
-          case 'appStatus':
+          case 'isActive':
             sendResponse({
-              status: this.appStatus()
+              isActive: this.isActive()
             })
             break
           case 'reverseActivation':
             sendResponse({
-              status: this.reverse()
+              isActive: this.reverseActivation()
             })
             break
         }
@@ -70,24 +66,21 @@ declare var chrome: any
       localStorage[key] = value
     }
 
-    appStatus (): string {
-      if (!this.get(this.statusName)) {
-        this.set(this.statusName, this.statusEnable)
+    isActive (): boolean {
+      if (!this.get(this.activate)) {
+        this.set(this.activate, 'true')
       }
-      return this.get(this.statusName)
+      return this.get(this.activate) === 'true'
     }
 
-    reverse (): string {
-      const status: string = this.appStatus()
-      const enable: string = this.statusEnable
-      const disable: string = this.statusDisable
-      if (status === enable) {
-        this.set(this.statusName, disable)
-        return 'toDisable'
-      } else if (status === disable) {
-        this.set(this.statusName, enable)
-        return 'toEnable'
+    reverseActivation (): string {
+      const status: boolean = this.isActive()
+      if (status) {
+        this.set(this.activate, 'false')
+        return this.isActive()
       }
+      this.set(this.activate, 'true')
+      return this.isActive()
     }
   }
   global.bg = new Background()
