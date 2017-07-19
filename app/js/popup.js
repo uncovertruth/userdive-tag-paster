@@ -34,9 +34,9 @@ declare var chrome: any
       const afterSet: Promise<void> = this.setAttr(pageInfo)
       afterSet
         .then(() => {
-          renderVue((vm) => {
+          renderVue(() => {
             document.getElementById('change-status').addEventListener('click', evt => {
-              this.changeAppStatus(vm)
+              this.reverseActivation()
             })
           })
         })
@@ -62,13 +62,12 @@ declare var chrome: any
         resolve()
       })
     }
-    changeAppStatus (vm): void {
-      this.cleanHtml(vm)
-      chrome.runtime.sendMessage({bg: 'changeAppStatus'}, response => {
-        this.reRender(response.status)
+    reverseActivation (): void {
+      chrome.runtime.sendMessage({bg: 'reverseActivation'}, response => {
+        this.notice(response.status)
       })
     }
-    reRender (message) {
+    notice (message) {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(
           tabs[0].id,
@@ -78,18 +77,6 @@ declare var chrome: any
           }
         )
       })
-    }
-    cleanHtml (vm) {
-      vm.$destroy()
-      const dom = document.getElementById('info')
-      if (!dom) {
-        return
-      }
-      while (dom.firstChild) {
-        dom.removeChild(dom.firstChild)
-      }
-      const info = document.createElement('info')
-      document.getElementById('info').appendChild(info)
     }
   }
   return new StateView()

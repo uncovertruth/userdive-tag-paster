@@ -36,9 +36,9 @@ declare var chrome: any
               status: this.appStatus()
             })
             break
-          case 'changeAppStatus':
+          case 'reverseActivation':
             sendResponse({
-              status: this.changeAppStatus()
+              status: this.reverse()
             })
             break
         }
@@ -77,7 +77,7 @@ declare var chrome: any
       return this.get(this.statusName)
     }
 
-    changeAppStatus (): string {
+    reverse (): string {
       const status: string = this.appStatus()
       const enable: string = this.statusEnable
       const disable: string = this.statusDisable
