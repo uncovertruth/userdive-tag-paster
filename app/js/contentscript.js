@@ -64,7 +64,7 @@ declare var chrome: any
         )
       })
     }
-    getState (): Prpmise<State> {
+    getState (): Promise<State> {
       return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
           if (response.isActive) {
