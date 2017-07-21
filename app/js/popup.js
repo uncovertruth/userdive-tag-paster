@@ -22,7 +22,7 @@ declare var chrome: any
             }
 
             if (!response.data) {
-              throw new Error("couldn't recieve page datas")
+              throw new Error("couldn't recieve page data")
             }
 
             this.mount(response.data)
