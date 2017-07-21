@@ -10,8 +10,8 @@
     "vue": "^2.3.4"
   },
   "devDependencies": {
-    "@uncovertruth/eslint-config-flowtype": "^1.1.0",
-    "@uncovertruth/stylelint-config": "^0.4.0",
+    "@uncovertruth/eslint-config-flowtype": "^1.0.0",
+    "@uncovertruth/stylelint-config": "^0.5.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.6.0",
@@ -42,8 +42,8 @@
     "rimraf": "^2.6.1",
     "run-sequence": "^2.0.0",
     "style-loader": "^0.18.2",
-    "stylelint": "^7.12.0",
-    "uglifyjs-webpack-plugin": "^0.4.6",
+    "stylelint": "^8.0.0",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "vue-loader": "^13.0.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.4",
