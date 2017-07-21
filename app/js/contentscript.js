@@ -2,10 +2,6 @@
 'use strict'
 declare var chrome: any
 ;(function (global, chrome, document) {
-  type State = {
-    pageId: number | string
-  }
-
   class Provider {
     id: string
     stateName: string
@@ -14,22 +10,28 @@ declare var chrome: any
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
-      this.enable = true
-      this.disable = false
-      this.renderBadge('...')
+      this.activeValue = true
+      this.disableValue = false
       global.addEventListener('load', evt => {
-        chrome.runtime.sendMessage({bg: 'isActive'}, response => {
+        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
           if (response.isActive) {
-            this.load()
-            setTimeout(() => {
-              this.getState().then((data) => {
-                this.renderBadge(data.pageId || '?')
-              })
-            }, 3000)
+            this.readyState()
           }
           this.listen()
         })
       })
+    }
+    readyState (cb) {
+      this.renderBadge('...')
+      this.load()
+      setTimeout(() => {
+        this.loadState().then((data) => {
+          this.renderBadge(data.pageId || '?')
+          if (cb) {
+            cb(data)
+          }
+        })
+      }, 3000)
     }
     injectScript (source: string) {
       const th = document.getElementsByTagName('body')[0]
@@ -64,7 +66,7 @@ declare var chrome: any
         )
       })
     }
-    getState (): Promise<State> {
+    loadState () {
       return new Promise((resolve, reject) => {
         chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
           if (response.isActive) {
@@ -93,6 +95,38 @@ declare var chrome: any
           return true
         })
       })
+      /*
+      const asyncSendMessage = util.promisify(chrome.runtime.sendMessage)
+      return asyncSendMessage({ bg: 'isActive' })
+        .then(response => {
+          if (!response.isActive) {
+            return ({
+              status: 'off'
+            })
+          }
+          const element = document.getElementById(this.id)
+          if (!element) {
+            const msg = {
+              status: 'Blocked',
+              pageId: '?'
+            }
+            throw new Error(JSON.stringify(msg))
+          }
+          const val = element.getAttribute(this.stateName) || ''
+          if (!val) {
+            const msg = {
+              status: 'Load Failed',
+              pageId: '?'
+            }
+            throw new Error(JSON.stringify(msg))
+          }
+          return JSON.parse(val)
+        }).then(() => {
+          return { status: 'off' }
+        }).catch(err => {
+          return JSON.parse(err.message)
+      })
+      */
     }
     renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
@@ -107,10 +141,12 @@ declare var chrome: any
             case 'fetchCookie':
               this.assignStatusHandler(sendResponse)
               break
-            case this.enable:
-              this.toEnable(sendResponse)
+            case this.activeValue:
+              this.readyState((data) => {
+                sendResponse({ data })
+              })
               break
-            case this.disable:
+            case this.disableValue:
               this.toDisable(sendResponse)
           }
           return true
@@ -118,7 +154,7 @@ declare var chrome: any
       )
     }
     assignStatusHandler (sendResponse) {
-      this.getState().then((data) => {
+      this.loadState().then((data) => {
         this.renderBadge(data.pageId || '?')
         sendResponse({ data })
       })
@@ -128,16 +164,6 @@ declare var chrome: any
       body.removeChild(document.getElementById(this.id))
       this.renderBadge('?')
       sendResponse({ data: { status: 'off' } })
-    }
-    toEnable (sendResponse) {
-      this.renderBadge('...')
-      this.load()
-      setTimeout(() => {
-        this.getState().then((data) => {
-          this.renderBadge(data.pageId || '?')
-          sendResponse({ data })
-        })
-      }, 3000)
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')

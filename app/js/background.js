@@ -4,11 +4,13 @@ declare var chrome: any
 
 ;(function (global, chrome, localStorage) {
   class Background {
-    isActivate: string
+    activateKey: string
+    activeValue: string
 
     constructor () {
-      this.activate = 'ACTIVATE'
-      this.isActive()
+      this.activateKey = 'ACTIVATE'
+      this.activeValue = 'active'
+      this.set(this.activateKey, this.activeValue)
       this.assignEventHandlers()
     }
     assignEventHandlers () {
@@ -67,19 +69,16 @@ declare var chrome: any
     }
 
     isActive (): boolean {
-      if (!this.get(this.activate)) {
-        this.set(this.activate, 'true')
-      }
-      return this.get(this.activate) === 'true'
+      return this.get(this.activateKey) === this.activeValue
     }
 
-    reverseActivation (): string {
+    reverseActivation (): boolean {
       const status: boolean = this.isActive()
       if (status) {
-        this.set(this.activate, 'false')
+        this.set(this.activateKey, '')
         return this.isActive()
       }
-      this.set(this.activate, 'true')
+      this.set(this.activateKey, this.activeValue)
       return this.isActive()
     }
   }

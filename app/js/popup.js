@@ -63,7 +63,7 @@ declare var chrome: any
       })
     }
     reverseActivation (): void {
-      chrome.runtime.sendMessage({bg: 'reverseActivation'}, response => {
+      chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
         this.noticeToContent(response.isActive)
       })
     }
