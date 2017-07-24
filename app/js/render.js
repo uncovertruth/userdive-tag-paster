@@ -4,10 +4,10 @@
 import Vue from 'vue'
 import Info from '../components/info'
 
-export default callback => {
-  new Vue({
+export default onClick => {
+  const vue = new Vue({
     el: '#info',
     render: h => h(Info)
   })
-  if (callback) callback()
+  vue.el('change-status').$on('click', () => onClick)
 }

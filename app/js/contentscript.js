@@ -5,15 +5,11 @@ declare var chrome: any
   class Provider {
     id: string
     stateName: string
-    enable: boolean
-    disable: boolean
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
-      this.activeValue = true
-      this.disableValue = false
       global.addEventListener('load', evt => {
-        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
+        chrome.runtime.sendMessage({bg: 'isActive'}, response => {
           if (response.isActive) {
             this.readyState()
           }
@@ -21,7 +17,7 @@ declare var chrome: any
         })
       })
     }
-    readyState (cb): void {
+    readyState (cb: Function): void {
       this.renderBadge('...')
       this.load()
       setTimeout(() => {
@@ -53,7 +49,7 @@ declare var chrome: any
       return `"use strict";(function(e,t,r,n){r=t.getElementById("${elementId}");if(!e.UDTracker||!e.USERDIVEObject){(function(e,t,r,n,c,i,o,a){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};o=t.createElement(r);a=t.getElementsByTagName(r)[0];o.async=1;o.src=n;o.charset=i;a.parentNode.insertBefore(o,a)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}if(!e.UDTracker.cookie.enableSession()){console.warn("Failed start USERDIVE");return}n=e.UDTracker.cookie.fetch();n.overrideUrl=e.UDTracker.Config.getOverrideUrl();r.setAttribute("${stateName}",JSON.stringify(n))},2e3)})(window,document);`
     }
     load (): void {
-      chrome.runtime.sendMessage({ bg: 'get' }, response => {
+      chrome.runtime.sendMessage({bg: 'get'}, response => {
         const config = response || {}
         for (const domain of config.ignore.split('\n')) {
           const regexp = new RegExp(domain)
@@ -67,45 +63,26 @@ declare var chrome: any
       })
     }
     loadState (): Promise<object> {
-      let state = {}
-      return this.asPromised(cb => {
-        chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
-      }).then(response => {
-        if (!response.isActive) {
-          state = {
-            status: 'OFF'
+      return this.asPromised(cb =>
+        chrome.runtime.sendMessage({bg: 'isActive'}, cb)
+      )
+        .then(response => {
+          if (!response.isActive) {
+            throw new Error('OFF')
           }
-          throw new Error()
-        }
-      }).then(() => {
-        const element = document.getElementById(this.id)
-        if (!element) {
-          state = {
-            status: 'Blocked',
-            pageId: '?'
+        })
+        .then(() => {
+          const element = document.getElementById(this.id)
+          if (!element) {
+            throw new Error('Blocked')
           }
-          throw new Error()
-        }
-        return element
-      }).then(element => {
-        const value = element.getAttribute(this.stateName)
-        if (!value) {
-          state = {
-            status: 'Load Failed',
-            pageId: '?'
-          }
-          throw new Error()
-        }
-        return JSON.parse(value)
-      }).catch(() => {
-        if (!state.status) {
-          state = {
-            status: 'Loading'
-          }
-        }
-        return state
-      })
+          return element
+        })
+        .then(element => {
+          return JSON.parse(element.getAttribute(this.stateName))
+        })
     }
+
     asPromised (block: Function): Promise<Function | Error> {
       return new Promise((resolve, reject) => {
         block((...results) => {
@@ -123,35 +100,33 @@ declare var chrome: any
       })
     }
     listen (): void {
-      chrome.runtime.onMessage.addListener(
-        (request, sender, sendResponse) => {
-          switch (request.content) {
-            case 'fetchCookie':
-              this.assignStatusHandler(sendResponse)
-              break
-            case this.activeValue:
-              this.readyState(data => {
-                sendResponse({ data })
-              })
-              break
-            case this.disableValue:
-              this.toDisable(sendResponse)
-          }
-          return true
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        switch (request.content) {
+          case 'fetchCookie':
+            this.assignStatusHandler(sendResponse)
+            break
+          case true:
+            this.readyState(data => sendResponse({data}))
+            break
+          default:
+            const body: any = document.body
+            body.removeChild(document.getElementById(this.id))
+            this.renderBadge('?')
+            sendResponse({userData: {}})
         }
-      )
-    }
-    assignStatusHandler (sendResponse: Function): void {
-      this.loadState().then(data => {
-        this.renderBadge(data.pageId || '?')
-        sendResponse({ data })
+        return true
       })
     }
-    toDisable (sendResponse: Function): void {
-      const body = document.getElementsByTagName('body')[0]
-      body.removeChild(document.getElementById(this.id))
-      this.renderBadge('?')
-      sendResponse({ data: { status: 'OFF' } })
+    assignStatusHandler (sendResponse: Function): void {
+      this.loadState()
+        .then(data => {
+          this.renderBadge(data.pageId)
+          sendResponse({data})
+        })
+        .catch(err => {
+          console.log(err) // TODO errer check
+          this.renderBadge('?')
+        })
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')
