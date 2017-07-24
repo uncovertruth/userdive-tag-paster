@@ -1,12 +1,11 @@
 /* @flow */
 'use strict'
-import '../styles/main.css'
-import Render from './render'
+import renderVue from './render'
 declare var chrome: any
 
 ;(function (global, chrome, document) {
   class StateView {
-    constructor () {
+    constructor (): void {
       global.addEventListener('load', evt => {
         this.render()
       })
@@ -20,6 +19,11 @@ declare var chrome: any
             if (!response) {
               return
             }
+
+            if (!response.data) {
+              throw new Error("couldn't recieve page data")
+            }
+
             this.mount(response.data)
           }
         )
@@ -29,7 +33,11 @@ declare var chrome: any
       const afterSet: Promise<void> = this.setAttr(pageInfo)
       afterSet
         .then(() => {
-          Render()
+          renderVue(() => {
+            document.getElementById('change-status').addEventListener('click', evt => {
+              this.reverseActivation()
+            })
+          })
         })
         .catch(err => {
           throw err
@@ -40,10 +48,9 @@ declare var chrome: any
       return new Promise((resolve, reject) => {
         const dom: any = document.getElementById('info')
 
-        if (!dom) reject(new Error("couldn't find a DOM: #info"))
-
-        if (!pageInfo) reject(new Error("couldn't recieve page datas"))
-
+        if (!dom) {
+          reject(new Error("couldn't find a DOM: #info"))
+        }
         const data: string = JSON.stringify(pageInfo)
 
         try {
@@ -52,6 +59,23 @@ declare var chrome: any
           reject(err)
         }
         resolve()
+      })
+    }
+    reverseActivation (): void {
+      this.mount({ status: 'Loading' })
+      chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
+        this.noticeToContent(response.isActive)
+      })
+    }
+    noticeToContent (isActive: Boolean): void {
+      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { content: isActive },
+          response => {
+            this.mount(response.data)
+          }
+        )
       })
     }
   }

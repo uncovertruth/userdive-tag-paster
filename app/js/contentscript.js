@@ -2,26 +2,38 @@
 'use strict'
 declare var chrome: any
 ;(function (global, chrome, document) {
-  type State = {
-    pageId: number | string
-  }
-
   class Provider {
     id: string
     stateName: string
+    enable: boolean
+    disable: boolean
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
-
+      this.activeValue = true
+      this.disableValue = false
       global.addEventListener('load', evt => {
-        this.load()
-        setTimeout(() => {
-          this.renderBadge(this.getState().pageId || '?')
-        }, 3000)
+        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
+          if (response.isActive) {
+            this.readyState()
+          }
+          this.listen()
+        })
       })
-      this.assignStatusHandler()
     }
-    injectScript (source: string) {
+    readyState (cb): void {
+      this.renderBadge('...')
+      this.load()
+      setTimeout(() => {
+        this.loadState().then(data => {
+          this.renderBadge(data.pageId || '?')
+          if (cb) {
+            cb(data)
+          }
+        })
+      }, 3000)
+    }
+    injectScript (source: string): void {
       const th = document.getElementsByTagName('body')[0]
       const s = document.createElement('script')
       s.text = source
@@ -54,22 +66,55 @@ declare var chrome: any
         )
       })
     }
-    getState (): State {
-      const element = document.getElementById(this.id)
-      if (!element) {
-        return {
-          status: 'Blocked',
-          pageId: '?'
+    loadState (): Promise<object> {
+      let state = {}
+      return this.asPromised(cb => {
+        chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
+      }).then(response => {
+        if (!response.isActive) {
+          state = {
+            status: 'OFF'
+          }
+          throw new Error()
         }
-      }
-      const value: string = element.getAttribute(this.stateName) || ''
-      if (!value) {
-        return {
-          status: 'Load Failed',
-          pageId: '?'
+      }).then(() => {
+        const element = document.getElementById(this.id)
+        if (!element) {
+          state = {
+            status: 'Blocked',
+            pageId: '?'
+          }
+          throw new Error()
         }
-      }
-      return JSON.parse(value)
+        return element
+      }).then(element => {
+        const value = element.getAttribute(this.stateName)
+        if (!value) {
+          state = {
+            status: 'Load Failed',
+            pageId: '?'
+          }
+          throw new Error()
+        }
+        return JSON.parse(value)
+      }).catch(() => {
+        if (!state.status) {
+          state = {
+            status: 'Loading'
+          }
+        }
+        return state
+      })
+    }
+    asPromised (block: Function): Promise<Function | Error> {
+      return new Promise((resolve, reject) => {
+        block((...results) => {
+          if (chrome.runtime.lastError) {
+            reject(chrome.extension.lastError)
+          }
+          resolve(...results)
+        })
+      })
     }
     renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
@@ -77,15 +122,36 @@ declare var chrome: any
         text
       })
     }
-    assignStatusHandler () {
-      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-        if (request.content !== 'fetchCookie') {
-          return
+    listen (): void {
+      chrome.runtime.onMessage.addListener(
+        (request, sender, sendResponse) => {
+          switch (request.content) {
+            case 'fetchCookie':
+              this.assignStatusHandler(sendResponse)
+              break
+            case this.activeValue:
+              this.readyState(data => {
+                sendResponse({ data })
+              })
+              break
+            case this.disableValue:
+              this.toDisable(sendResponse)
+          }
+          return true
         }
-        const data = this.getState()
-        this.renderBadge(data.pageId)
+      )
+    }
+    assignStatusHandler (sendResponse: Function): void {
+      this.loadState().then(data => {
+        this.renderBadge(data.pageId || '?')
         sendResponse({ data })
       })
+    }
+    toDisable (sendResponse: Function): void {
+      const body = document.getElementsByTagName('body')[0]
+      body.removeChild(document.getElementById(this.id))
+      this.renderBadge('?')
+      sendResponse({ data: { status: 'OFF' } })
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')
