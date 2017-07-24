@@ -1,11 +1,10 @@
-<template lang="pug">
+<template lang='pug'>
 div#info
-  label status: {{ status }}
-    button#change-status {{ buttonLabel }}
-  table(border=1)
+  table
     tr(v-for='(val, key) in pageInfo')
       td {{ key }}
       td {{ val }}
+  button#change-status Turn {{ buttonLabel }}
 </template>
 
 <script>
@@ -24,24 +23,36 @@ export default {
       }
       return true
     },
-    status: function () {
-      if(this.activation) {
-        return 'ON'
-      }
-      return 'OFF'
-    },
     buttonLabel: function () {
       if (this.activation) {
-        return 'Disble'
+        return 'OFF'
       }
-      return 'Enable'
+      return 'ON'
     }
   }
 }
 </script>
 
-<style>
-button {
-  margin: 5px;
+<style lang='scss'>
+#info {
+  width: 350px;
+  button {
+    padding: 5px 10px;
+    background-color: #ddd;
+    box-shadow: none;
+    border: none;
+    margin: 5px;
+    font-size: 14px;
+    float: right;
+  }
+
+  table {
+    width: 320px;
+
+    td {
+      border-bottom: solid 1px #ccc;
+      font-size: 13px;
+    }
+  }
 }
 </style>
