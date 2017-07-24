@@ -101,8 +101,7 @@ declare var chrome: any
           return JSON.parse(err.message)
         }
         return {
-          status: 'Error',
-          pageId: '?'
+          status: 'Loading'
         }
       })
     }
@@ -151,7 +150,7 @@ declare var chrome: any
       const body = document.getElementsByTagName('body')[0]
       body.removeChild(document.getElementById(this.id))
       this.renderBadge('?')
-      sendResponse({ data: { status: 'off' } })
+      sendResponse({ data: { status: 'OFF' } })
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')
