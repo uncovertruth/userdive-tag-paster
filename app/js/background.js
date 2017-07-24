@@ -1,12 +1,19 @@
 /* @flow */
 'use strict'
 declare var chrome: any
+
 ;(function (global, chrome, localStorage) {
   class Background {
+    activateKey: string
+    activeValue: string
+
     constructor () {
+      this.activateKey = 'ACTIVATE'
+      this.activeValue = 'active'
+      this.set(this.activateKey, this.activeValue)
       this.assignEventHandlers()
     }
-    assignEventHandlers () {
+    assignEventHandlers (): void {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         switch (request.bg) {
           case 'get':
@@ -20,6 +27,16 @@ declare var chrome: any
           case 'badge':
             sendResponse({
               text: this.updateBadge(request.text)
+            })
+            break
+          case 'isActive':
+            sendResponse({
+              isActive: this.isActive()
+            })
+            break
+          case 'reverseActivation':
+            sendResponse({
+              isActive: this.reverseActivation()
             })
             break
         }
@@ -47,8 +64,22 @@ declare var chrome: any
       }
       return ''
     }
-    set (key, value) {
-      localStorage[key] = value
+    set (key: string, value: any): void {
+      localStorage[key] = value.toString()
+    }
+
+    isActive (): boolean {
+      return this.get(this.activateKey) === this.activeValue
+    }
+
+    reverseActivation (): boolean {
+      const status: boolean = this.isActive()
+      if (status) {
+        this.set(this.activateKey, '')
+        return this.isActive()
+      }
+      this.set(this.activateKey, this.activeValue)
+      return this.isActive()
     }
   }
   global.bg = new Background()
