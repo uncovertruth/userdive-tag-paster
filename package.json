@@ -7,10 +7,10 @@
     "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
   "dependencies": {
-    "vue": "^2.3.4"
+    "vue": "^2.4.2"
   },
   "devDependencies": {
-    "@uncovertruth/eslint-config-flowtype": "^1.0.0",
+    "@uncovertruth/eslint-config-flowtype": "^1.1.0",
     "@uncovertruth/stylelint-config": "^0.5.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
@@ -19,8 +19,8 @@
     "babel-register": "^6.24.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
-    "eslint": "^4.2.0",
-    "flow-bin": "^0.49.1",
+    "eslint": "^4.3.0",
+    "flow-bin": "^0.51.0",
     "gulp": "^3.9.1",
     "gulp-chrome-manifest": "^0.0.13",
     "gulp-load-plugins": "^1.5.0",
@@ -45,11 +45,11 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "stylelint": "^8.0.0",
-    "uglifyjs-webpack-plugin": "^0.4.3",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "vue-loader": "^13.0.0",
     "vue-style-loader": "^3.0.1",
-    "vue-template-compiler": "^2.3.4",
-    "webpack": "^3.1.0"
+    "vue-template-compiler": "^2.4.2",
+    "webpack": "^3.3.0"
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
   "keywords": [],
