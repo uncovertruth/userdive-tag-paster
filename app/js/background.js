@@ -13,7 +13,7 @@ declare var chrome: any
       this.set(this.activateKey, this.activeValue)
       this.assignEventHandlers()
     }
-    assignEventHandlers () {
+    assignEventHandlers (): void {
       chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         switch (request.bg) {
           case 'get':
@@ -64,8 +64,8 @@ declare var chrome: any
       }
       return ''
     }
-    set (key, value): void {
-      localStorage[key] = value
+    set (key: string, value: any): void {
+      localStorage[key] = value.toString()
     }
 
     isActive (): boolean {

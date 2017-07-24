@@ -6,12 +6,12 @@ declare var chrome: any
 
 ;(function (global, chrome, document) {
   class StateView {
-    constructor () {
+    constructor (): void {
       global.addEventListener('load', evt => {
         this.render()
       })
     }
-    render () {
+    render (): void {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(
           tabs[0].id,
@@ -63,11 +63,12 @@ declare var chrome: any
       })
     }
     reverseActivation (): void {
+      this.mount({ status: 'Loading' })
       chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
         this.noticeToContent(response.isActive)
       })
     }
-    noticeToContent (isActive) {
+    noticeToContent (isActive: Boolean): void {
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
         chrome.tabs.sendMessage(
           tabs[0].id,

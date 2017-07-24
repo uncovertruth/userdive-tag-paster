@@ -1,6 +1,6 @@
 <template lang="pug">
 div#info
-  button#change-status change status
+  button#change-status Activation
   table(border=1)
     tr(v-for='(val, key) in pageInfo')
       td {{ key }}

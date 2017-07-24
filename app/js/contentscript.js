@@ -21,11 +21,11 @@ declare var chrome: any
         })
       })
     }
-    readyState (cb) {
+    readyState (cb): void {
       this.renderBadge('...')
       this.load()
       setTimeout(() => {
-        this.loadState().then((data) => {
+        this.loadState().then(data => {
           this.renderBadge(data.pageId || '?')
           if (cb) {
             cb(data)
@@ -33,7 +33,7 @@ declare var chrome: any
         })
       }, 3000)
     }
-    injectScript (source: string) {
+    injectScript (source: string): void {
       const th = document.getElementsByTagName('body')[0]
       const s = document.createElement('script')
       s.text = source
@@ -66,67 +66,55 @@ declare var chrome: any
         )
       })
     }
-    loadState () {
-      return new Promise((resolve, reject) => {
-        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
-          if (response.isActive) {
-            const element = document.getElementById(this.id)
-            if (!element) {
-              resolve({
-                status: 'Blocked',
-                pageId: '?'
-              })
-              return
-            }
-            const value: string = element.getAttribute(this.stateName) || ''
-            if (!value) {
-              resolve({
-                status: 'Load Failed',
-                pageId: '?'
-              })
-              return
-            }
-            resolve(JSON.parse(value))
-          } else if (response.isActive) {
-            resolve({
-              status: 'off'
-            })
+    loadState (): Promise<object> {
+      return this.asPromised(cb => {
+        chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
+      }).then(response => {
+        if (!response.isActive) {
+          const msg = {
+            status: 'OFF'
           }
-          return true
+          throw new Error(JSON.stringify(msg))
+        }
+      }).then(() => {
+        const element = document.getElementById(this.id)
+        if (!element) {
+          const msg = {
+            status: 'Blocked',
+            pageId: '?'
+          }
+          throw new Error(JSON.stringify(msg))
+        }
+        return element
+      }).then(element => {
+        const value = element.getAttribute(this.stateName)
+        if (!value) {
+          const msg = {
+            status: 'Load Failed',
+            pageId: '?'
+          }
+          throw new Error(JSON.stringify(msg))
+        }
+        return JSON.parse(value)
+      }).catch(err => {
+        if (err.essage) {
+          return JSON.parse(err.message)
+        }
+        return {
+          status: 'Error',
+          pageId: '?'
+        }
+      })
+    }
+    asPromised (block: Function): Promise<Function | Error> {
+      return new Promise((resolve, reject) => {
+        block((...results) => {
+          if (chrome.runtime.lastError) {
+            reject(chrome.extension.lastError)
+          }
+          resolve(...results)
         })
       })
-      /*
-      const asyncSendMessage = util.promisify(chrome.runtime.sendMessage)
-      return asyncSendMessage({ bg: 'isActive' })
-        .then(response => {
-          if (!response.isActive) {
-            return ({
-              status: 'off'
-            })
-          }
-          const element = document.getElementById(this.id)
-          if (!element) {
-            const msg = {
-              status: 'Blocked',
-              pageId: '?'
-            }
-            throw new Error(JSON.stringify(msg))
-          }
-          const val = element.getAttribute(this.stateName) || ''
-          if (!val) {
-            const msg = {
-              status: 'Load Failed',
-              pageId: '?'
-            }
-            throw new Error(JSON.stringify(msg))
-          }
-          return JSON.parse(val)
-        }).then(() => {
-          return { status: 'off' }
-        }).catch(err => {
-          return JSON.parse(err.message)
-      })
-      */
     }
     renderBadge (text: string | number): void {
       chrome.runtime.sendMessage({
@@ -134,7 +122,7 @@ declare var chrome: any
         text
       })
     }
-    listen () {
+    listen (): void {
       chrome.runtime.onMessage.addListener(
         (request, sender, sendResponse) => {
           switch (request.content) {
@@ -142,7 +130,7 @@ declare var chrome: any
               this.assignStatusHandler(sendResponse)
               break
             case this.activeValue:
-              this.readyState((data) => {
+              this.readyState(data => {
                 sendResponse({ data })
               })
               break
@@ -153,13 +141,13 @@ declare var chrome: any
         }
       )
     }
-    assignStatusHandler (sendResponse) {
-      this.loadState().then((data) => {
+    assignStatusHandler (sendResponse: Function): void {
+      this.loadState().then(data => {
         this.renderBadge(data.pageId || '?')
         sendResponse({ data })
       })
     }
-    toDisable (sendResponse) {
+    toDisable (sendResponse: Function): void {
       const body = document.getElementsByTagName('body')[0]
       body.removeChild(document.getElementById(this.id))
       this.renderBadge('?')
