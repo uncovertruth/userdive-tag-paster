@@ -98,7 +98,6 @@ declare var chrome: any
         }
         return JSON.parse(value)
       }).catch(() => {
-        console.log(state)
         if (!state.status) {
           state = {
             status: 'Loading'
