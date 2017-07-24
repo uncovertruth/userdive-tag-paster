@@ -17,14 +17,14 @@ export default {
     }
   },
   computed: {
-    activation: function () {
+    isActive: function () {
       if (this.pageInfo.status === 'OFF') {
         return false
       }
       return true
     },
     buttonLabel: function () {
-      if (this.activation) {
+      if (this.isActive) {
         return 'OFF'
       }
       return 'ON'

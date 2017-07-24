@@ -67,42 +67,44 @@ declare var chrome: any
       })
     }
     loadState (): Promise<object> {
+      let state = {}
       return this.asPromised(cb => {
         chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
       }).then(response => {
         if (!response.isActive) {
-          const msg = {
+          state = {
             status: 'OFF'
           }
-          throw new Error(JSON.stringify(msg))
+          throw new Error()
         }
       }).then(() => {
         const element = document.getElementById(this.id)
         if (!element) {
-          const msg = {
+          state = {
             status: 'Blocked',
             pageId: '?'
           }
-          throw new Error(JSON.stringify(msg))
+          throw new Error()
         }
         return element
       }).then(element => {
         const value = element.getAttribute(this.stateName)
         if (!value) {
-          const msg = {
+          state = {
             status: 'Load Failed',
             pageId: '?'
           }
-          throw new Error(JSON.stringify(msg))
+          throw new Error()
         }
         return JSON.parse(value)
-      }).catch(err => {
-        if (err.essage) {
-          return JSON.parse(err.message)
+      }).catch(() => {
+        console.log(state)
+        if (!state.status) {
+          state = {
+            status: 'Loading'
+          }
         }
-        return {
-          status: 'Loading'
-        }
+        return state
       })
     }
     asPromised (block: Function): Promise<Function | Error> {
