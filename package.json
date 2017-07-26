@@ -19,7 +19,7 @@
     "babel-register": "^6.24.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
-    "eslint": "^4.0.0",
+    "eslint": "^4.3.0",
     "flow-bin": "^0.51.0",
     "gulp": "^3.9.1",
     "gulp-chrome-manifest": "^0.0.13",
