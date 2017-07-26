@@ -13,23 +13,23 @@ export default {
   name: 'info',
   data () {
     return {
-      pageInfo: JSON.parse(document.getElementById('info').getAttribute('data'))
-    }
-  },
-  computed: {
-    isActive: function () {
-      if (this.pageInfo.status === 'OFF') {
-        return false
-      }
-      return true
-    },
-    buttonLabel: function () {
-      if (this.isActive) {
-        return 'OFF'
-      }
-      return 'ON'
+      pageInfo: {}
     }
   }
+  // computed: {
+  //   isActive: function () {
+  //     if (this.pageInfo.status === 'OFF') {
+  //       return false
+  //     }
+  //     return true
+  //   },
+  //   buttonLabel: function () {
+  //     if (this.isActive) {
+  //       return 'OFF'
+  //     }
+  //     return 'ON'
+  //   }
+  // }
 }
 </script>
 
