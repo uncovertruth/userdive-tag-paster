@@ -1,5 +1,4 @@
 /* @flow */
-/* eslint no-new: 0 */
 'use strict'
 import Vue from 'vue'
 import Info from '../components/info'

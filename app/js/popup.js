@@ -16,12 +16,12 @@ declare var chrome: any
           if (!response || !response.data) {
             throw new Error("couldn't recieve page data")
           }
-          this.createVue(response.data)
+          this.displayAndWatch(response.data)
         }
         )
       })
     }
-    createVue (userData: object) {
+    displayAndWatch (userData: object) {
       componentFactory(userData, () => {
         this.reverseActivation()
       })
@@ -31,7 +31,7 @@ declare var chrome: any
         const isActive = !!response.isActive
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
           chrome.tabs.sendMessage(tabs[0].id, { content: isActive }, response => {
-            this.createVue(response.data)
+            this.displayAndWatch(response.data)
           }
           )
         })
