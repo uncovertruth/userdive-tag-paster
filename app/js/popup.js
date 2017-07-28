@@ -22,15 +22,13 @@ declare var chrome: any
       })
     }
     createVue (userData: object) {
-      componentFactory(userData, vm => {
-        vm.$set(vm.pageInfo, 'honya', 'morake')
-      })
+      componentFactory(userData)
     }
     reverseActivation (): void {
       chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
           chrome.tabs.sendMessage(tabs[0].id, { content: response.isActive }, response => {
-            this.mount(response.data)
+            this.createVue(response.data)
           }
           )
         })

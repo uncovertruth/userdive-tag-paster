@@ -4,32 +4,14 @@ div#info
     tr(v-for='(val, key) in pageInfo')
       td {{ key }}
       td {{ val }}
-  button#change-status Turn {{ buttonLabel }}
+  button#change-status Turn {{ pageInfo.status === 'OFF' ? 'ON': 'OFF' }}
 </template>
 
 <script>
 /* @flow */
 export default {
   name: 'info',
-  data () {
-    return {
-      pageInfo: {}
-    }
-  }
-  // computed: {
-  //   isActive: function () {
-  //     if (this.pageInfo.status === 'OFF') {
-  //       return false
-  //     }
-  //     return true
-  //   },
-  //   buttonLabel: function () {
-  //     if (this.isActive) {
-  //       return 'OFF'
-  //     }
-  //     return 'ON'
-  //   }
-  // }
+  props: ['pageInfo']
 }
 </script>
 
