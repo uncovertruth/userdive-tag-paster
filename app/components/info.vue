@@ -4,14 +4,20 @@ div#info
     tr(v-for='(val, key) in pageInfo')
       td {{ key }}
       td {{ val }}
-  button#change-status Turn {{ pageInfo.status === 'OFF' ? 'ON': 'OFF' }}
+  button(v-on:click='changeStatus')
+    | Turn {{ pageInfo.status === 'OFF' ? 'ON': 'OFF' }}
 </template>
 
 <script>
 /* @flow */
 export default {
   name: 'info',
-  props: ['pageInfo']
+  props: ['pageInfo'],
+  methods: {
+    changeStatus: function () {
+      this.$parent.$emit('changeStatus')
+    }
+  }
 }
 </script>
 

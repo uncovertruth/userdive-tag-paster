@@ -1,16 +1,12 @@
 /* @flow */
 'use strict'
 declare var chrome: any
+const activateKey = 'ACTIVATE'
 
 ;(function (global, chrome, localStorage) {
   class Background {
-    activateKey: string
-    activeValue: string
-
     constructor () {
-      this.activateKey = 'ACTIVATE'
-      this.activeValue = 'active'
-      this.set(this.activateKey, this.activeValue)
+      this.set(activateKey, 'active')
       this.assignEventHandlers()
     }
     assignEventHandlers (): void {
@@ -29,16 +25,16 @@ declare var chrome: any
               text: this.updateBadge(request.text)
             })
             break
-          case 'isActive':
+          case 'activate':
             sendResponse({
-              isActive: this.isActive()
+              isActive: this.get(activateKey)
             })
             break
           case 'reverseActivation':
+            this.reverseActivation()
             sendResponse({
-              isActive: this.reverseActivation()
+              isActive: this.get(activateKey)
             })
-            break
         }
       })
       chrome.tabs.onActivated.addListener(response => {
@@ -57,29 +53,17 @@ declare var chrome: any
       }
       this.renderBadge(text.toString(), '#CCCCCC')
     }
+    reverseActivation () {
+      if (this.get(activateKey)) {
+        return this.set(activateKey, '')
+      }
+      return this.set(activateKey, 'active')
+    }
     get (key: string): string {
-      const value = localStorage[key]
-      if (value) {
-        return value
-      }
-      return ''
+      return localStorage[key] || ''
     }
-    set (key: string, value: any): void {
-      localStorage[key] = value.toString()
-    }
-
-    isActive (): boolean {
-      return this.get(this.activateKey) === this.activeValue
-    }
-
-    reverseActivation (): boolean {
-      const status: boolean = this.isActive()
-      if (status) {
-        this.set(this.activateKey, '')
-        return this.isActive()
-      }
-      this.set(this.activateKey, this.activeValue)
-      return this.isActive()
+    set (key: string, value: ?string): void {
+      localStorage[key] = value
     }
   }
   global.bg = new Background()

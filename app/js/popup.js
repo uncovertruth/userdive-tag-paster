@@ -22,12 +22,15 @@ declare var chrome: any
       })
     }
     createVue (userData: object) {
-      componentFactory(userData)
+      componentFactory(userData, () => {
+        this.reverseActivation()
+      })
     }
     reverseActivation (): void {
       chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
+        const isActive = !!response.isActive
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-          chrome.tabs.sendMessage(tabs[0].id, { content: response.isActive }, response => {
+          chrome.tabs.sendMessage(tabs[0].id, { content: isActive }, response => {
             this.createVue(response.data)
           }
           )
