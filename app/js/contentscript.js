@@ -5,15 +5,11 @@ declare var chrome: any
   class Provider {
     id: string
     stateName: string
-    enable: boolean
-    disable: boolean
     constructor (id, stateName) {
       this.id = id
       this.stateName = stateName
-      this.activeValue = true
-      this.disableValue = false
       global.addEventListener('load', evt => {
-        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
+        chrome.runtime.sendMessage({ bg: 'activate' }, response => {
           if (response.isActive) {
             this.readyState()
           }
@@ -21,7 +17,7 @@ declare var chrome: any
         })
       })
     }
-    readyState (cb): void {
+    readyState (cb: Function): void {
       this.renderBadge('...')
       this.load()
       setTimeout(() => {
@@ -67,44 +63,22 @@ declare var chrome: any
       })
     }
     loadState (): Promise<object> {
-      let state = {}
       return this.asPromised(cb => {
-        chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
-      }).then(response => {
-        if (!response.isActive) {
-          state = {
-            status: 'OFF'
-          }
-          throw new Error()
-        }
-      }).then(() => {
-        const element = document.getElementById(this.id)
-        if (!element) {
-          state = {
-            status: 'Blocked',
-            pageId: '?'
-          }
-          throw new Error()
-        }
-        return element
-      }).then(element => {
-        const value = element.getAttribute(this.stateName)
-        if (!value) {
-          state = {
-            status: 'Load Failed',
-            pageId: '?'
-          }
-          throw new Error()
-        }
-        return JSON.parse(value)
-      }).catch(() => {
-        if (!state.status) {
-          state = {
-            status: 'Loading'
-          }
-        }
-        return state
+        chrome.runtime.sendMessage({ bg: 'activate' }, cb)
       })
+        .then(response => {
+          if (!response.isActive) {
+            throw new Error('OFF')
+          }
+        }).then(() => {
+          const element = document.getElementById(this.id)
+          if (!element) {
+            throw new Error('Blocked')
+          }
+          return element
+        }).then(element => {
+          return JSON.parse(element.getAttribute(this.stateName))
+        })
     }
     asPromised (block: Function): Promise<Function | Error> {
       return new Promise((resolve, reject) => {
@@ -123,29 +97,44 @@ declare var chrome: any
       })
     }
     listen (): void {
-      chrome.runtime.onMessage.addListener(
-        (request, sender, sendResponse) => {
-          switch (request.content) {
-            case 'fetchCookie':
-              this.assignStatusHandler(sendResponse)
-              break
-            case this.activeValue:
-              this.readyState(data => {
-                sendResponse({ data })
-              })
-              break
-            case this.disableValue:
-              this.toDisable(sendResponse)
-          }
-          return true
+      chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+        switch (request.content) {
+          case 'fetchCookie':
+            this.assignStatusHandler(sendResponse)
+            break
+          case true:
+            this.readyState(data => sendResponse({ data }))
+            break
+          default:
+            document.body.removeChild(document.getElementById(this.id))
+            this.renderBadge('?')
+            sendResponse({ data: { status: 'OFF' } })
         }
+        return true
+      }
       )
     }
     assignStatusHandler (sendResponse: Function): void {
-      this.loadState().then(data => {
-        this.renderBadge(data.pageId || '?')
-        sendResponse({ data })
-      })
+      this.loadState()
+        .then(data => {
+          this.renderBadge(data.pageId)
+          sendResponse({ data })
+        })
+        .catch(err => {
+          switch (err.message) {
+            case 'OFF':
+              /* eslint-disable  no-console */
+              console.warn('paster function is disable. Please click Turn ON button in popup window.')
+              /* eslint-enable */
+              break
+            case 'Blocked':
+              /* eslint-disable  no-console */
+              console.warn('paster function was blocked by ignored domains option. Please check it.')
+              /* eslint-enable */
+              break
+          }
+          this.renderBadge('?')
+        })
     }
     toDisable (sendResponse: Function): void {
       const body = document.getElementsByTagName('body')[0]

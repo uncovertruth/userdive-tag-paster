@@ -1,13 +1,22 @@
 /* @flow */
-/* eslint no-new: 0 */
 'use strict'
 import Vue from 'vue'
 import Info from '../components/info'
 
-export default callback => {
-  new Vue({
+export default (userData, onClick) => {
+  const vm = new Vue({
     el: '#info',
-    render: h => h(Info)
+    methods: {},
+    render: h => {
+      return h(
+        Info,
+        {
+          props: {
+            pageInfo: userData
+          }
+        }
+      )
+    }
   })
-  if (callback) callback()
+  vm.$on('changeStatus', () => onClick())
 }
