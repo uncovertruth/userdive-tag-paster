@@ -123,9 +123,11 @@ declare var chrome: any
         .catch(err => {
           switch (err.message) {
             case 'OFF':
+              sendResponse({ data: { status: 'OFF' } })
               console.warn('paster function is disable. Please click Turn ON button in popup window.') // eslint-disable-line no-console
               break
             case 'Blocked':
+              sendResponse({ data: { status: 'Blocked' } })
               console.warn('paster function was blocked by ignored domains option. Please check it.') // eslint-disable-line no-console
               break
           }
