@@ -1,12 +1,12 @@
 /* @flow */
 'use strict'
 declare var chrome: any
-const ACTIVATEKEY = 'ACTIVATE'
+const ACTIVATE_KEY = 'ACTIVATE'
 
 ;(function (global, chrome, localStorage) {
   class Background {
     constructor () {
-      this.set(ACTIVATEKEY, 'active')
+      this.set(ACTIVATE_KEY, 'active')
       this.assignEventHandlers()
     }
     assignEventHandlers (): void {
@@ -27,13 +27,13 @@ const ACTIVATEKEY = 'ACTIVATE'
             break
           case 'activate':
             sendResponse({
-              isActive: this.get(ACTIVATEKEY)
+              isActive: this.get(ACTIVATE_KEY)
             })
             break
           case 'reverseActivation':
             this.reverseActivation()
             sendResponse({
-              isActive: this.get(ACTIVATEKEY)
+              isActive: this.get(ACTIVATE_KEY)
             })
         }
       })
@@ -54,10 +54,10 @@ const ACTIVATEKEY = 'ACTIVATE'
       this.renderBadge(text.toString(), '#CCCCCC')
     }
     reverseActivation () {
-      if (this.get(ACTIVATEKEY)) {
-        return this.set(ACTIVATEKEY, '')
+      if (this.get(ACTIVATE_KEY)) {
+        return this.set(ACTIVATE_KEY, '')
       }
-      return this.set(ACTIVATEKEY, 'active')
+      return this.set(ACTIVATE_KEY, 'active')
     }
     get (key: string): string {
       return localStorage[key] || ''
