@@ -31,7 +31,7 @@ declare var chrome: any
         const isActive = !!response.isActive
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
           chrome.tabs.sendMessage(tabs[0].id, { content: isActive }, response => {
-            this.displayAndWatch(response.data)
+            this.show(response.data)
           }
           )
         })
