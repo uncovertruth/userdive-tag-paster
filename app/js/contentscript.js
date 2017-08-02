@@ -123,24 +123,14 @@ declare var chrome: any
         .catch(err => {
           switch (err.message) {
             case 'OFF':
-              /* eslint-disable  no-console */
-              console.warn('paster function is disable. Please click Turn ON button in popup window.')
-              /* eslint-enable */
+              console.warn('paster function is disable. Please click Turn ON button in popup window.') // eslint-disable-line no-console
               break
             case 'Blocked':
-              /* eslint-disable  no-console */
-              console.warn('paster function was blocked by ignored domains option. Please check it.')
-              /* eslint-enable */
+              console.warn('paster function was blocked by ignored domains option. Please check it.') // eslint-disable-line no-console
               break
           }
           this.renderBadge('?')
         })
-    }
-    toDisable (sendResponse: Function): void {
-      const body = document.getElementsByTagName('body')[0]
-      body.removeChild(document.getElementById(this.id))
-      this.renderBadge('?')
-      sendResponse({ data: { status: 'OFF' } })
     }
   }
   return new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')
