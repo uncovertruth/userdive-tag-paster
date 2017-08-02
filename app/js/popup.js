@@ -16,12 +16,12 @@ declare var chrome: any
           if (!response || !response.data) {
             throw new Error("couldn't recieve page data")
           }
-          this.displayData(response.data)
+          this.show(response.data)
         }
         )
       })
     }
-    displayData (userData: object) {
+    show (userData: object): void {
       componentFactory(userData, () => {
         this.reverseActivation()
       })
