@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Info from '../components/info'
 
-export default (userData, onClick) => {
+export default (userData: object, onClick: Function) => {
   const vm = new Vue({
     el: '#info',
     methods: {},
