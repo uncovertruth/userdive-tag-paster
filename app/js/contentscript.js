@@ -10,24 +10,38 @@ declare var chrome: any
       this.stateName = stateName
       global.addEventListener('load', evt => {
         chrome.runtime.sendMessage({ bg: 'activate' }, response => {
-          if (response.isActive) {
-            this.readyState()
-          }
           this.listen()
+          if (!response.isActive) {
+            console.warn('paster is disable. Please click Turn ON button in popup window.') // eslint-disable-line no-console
+            return
+          }
+          this.readyState()
         })
       })
     }
     readyState (cb: Function): void {
       this.renderBadge('...')
       this.load()
-      setTimeout(() => {
-        this.loadState().then(data => {
-          this.renderBadge(data.pageId || '?')
-          if (cb) {
-            cb(data)
+        .then(() => {
+          setTimeout(() => {
+            this.loadState().then(data => {
+              this.renderBadge(data.pageId || '?')
+              if (cb) {
+                cb(data)
+              }
+            })
+          }, 3000)
+        })
+        .catch(err => {
+          switch (err.message) {
+            case 'Setting':
+              console.warn(`Please set option.`) // eslint-disable-line no-console
+              break
+            case 'Blocked':
+              console.warn('Paster was blocked by ignored domains option. Please check it.') // eslint-disable-line no-console
+              break
           }
         })
-      }, 3000)
     }
     injectScript (source: string): void {
       const th = document.getElementsByTagName('body')[0]
@@ -48,19 +62,33 @@ declare var chrome: any
       }
       return `"use strict";(function(e,t,r,n){r=t.getElementById("${elementId}");if(!e.UDTracker||!e.USERDIVEObject){(function(e,t,r,n,c,i,o,a){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};o=t.createElement(r);a=t.getElementsByTagName(r)[0];o.async=1;o.src=n;o.charset=i;a.parentNode.insertBefore(o,a)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}if(!e.UDTracker.cookie.enableSession()){console.warn("Failed start USERDIVE");return}n=e.UDTracker.cookie.fetch();n.overrideUrl=e.UDTracker.Config.getOverrideUrl();r.setAttribute("${stateName}",JSON.stringify(n))},2e3)})(window,document);`
     }
-    load (): void {
-      chrome.runtime.sendMessage({ bg: 'get' }, response => {
-        const config = response || {}
-        for (const domain of config.ignore.split('\n')) {
-          const regexp = new RegExp(domain)
-          if (regexp.test(global.location.href)) {
-            return
-          }
-        }
-        this.injectScript(
-          this.createTag(config.id, config.host, config.env, this.id)
-        )
+    load (): Promise<void> {
+      return this.asPromised(cb => {
+        chrome.runtime.sendMessage({ bg: 'get' }, cb)
       })
+        .then(response => {
+          const config = response || {}
+          for (const key in config) {
+            if (!config[key] && key !== 'ignore') {
+              throw new Error('Setting')
+            }
+          }
+          return config
+        })
+        .then(config => {
+          for (const domain of config.ignore.split('\n')) {
+            const regexp = new RegExp(domain)
+            if (regexp.test(global.location.href)) {
+              throw new Error('Blocked')
+            }
+          }
+          return config
+        })
+        .then(config => {
+          this.injectScript(
+            this.createTag(config.id, config.host, config.env, this.id)
+          )
+        })
     }
     loadState (): Promise<object> {
       return this.asPromised(cb => {
@@ -106,7 +134,10 @@ declare var chrome: any
             this.readyState(data => sendResponse({ data }))
             break
           default:
-            document.body.removeChild(document.getElementById(this.id))
+            const tag = document.getElementById(this.id)
+            if (tag) {
+              document.body.removeChild(tag)
+            }
             this.renderBadge('?')
             sendResponse({ data: { status: 'OFF' } })
         }
@@ -124,11 +155,9 @@ declare var chrome: any
           switch (err.message) {
             case 'OFF':
               sendResponse({ data: { status: 'OFF' } })
-              console.warn('paster function is disable. Please click Turn ON button in popup window.') // eslint-disable-line no-console
               break
             case 'Blocked':
               sendResponse({ data: { status: 'Blocked' } })
-              console.warn('paster function was blocked by ignored domains option. Please check it.') // eslint-disable-line no-console
               break
           }
           this.renderBadge('?')
