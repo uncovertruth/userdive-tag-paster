@@ -55,7 +55,8 @@ const IS_ACTIVE = 'IS_ACTIVE'
     }
     toggleExtension (): void {
       if (this.get(IS_ACTIVE)) {
-        return this.set(IS_ACTIVE, '')
+        this.set(IS_ACTIVE, '')
+        return
       }
       this.set(IS_ACTIVE, 'active')
     }
