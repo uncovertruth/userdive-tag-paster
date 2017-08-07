@@ -1,5 +1,4 @@
 /* @flow */
-'use strict'
 import Vue from 'vue'
 import Info from '../components/info'
 
