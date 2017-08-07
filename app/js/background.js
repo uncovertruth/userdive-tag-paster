@@ -57,7 +57,7 @@ const IS_ACTIVE = 'IS_ACTIVE'
       if (this.get(IS_ACTIVE)) {
         return this.set(IS_ACTIVE, '')
       }
-      return this.set(IS_ACTIVE, 'active')
+      this.set(IS_ACTIVE, 'active')
     }
     get (key: string): string {
       return localStorage[key] || ''
