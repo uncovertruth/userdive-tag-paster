@@ -23,11 +23,11 @@ declare var chrome: any
     }
     show (userData: object): void {
       componentFactory(userData, () => {
-        this.reverseActivation()
+        this.toggleExtension()
       })
     }
-    reverseActivation (): void {
-      chrome.runtime.sendMessage({ bg: 'reverseActivation' }, response => {
+    toggleExtension (): void {
+      chrome.runtime.sendMessage({ bg: 'toggleExtension' }, response => {
         const isActive = !!response.isActive
         chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
           chrome.tabs.sendMessage(tabs[0].id, { content: isActive }, response => {

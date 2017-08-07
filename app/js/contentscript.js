@@ -9,7 +9,7 @@ declare var chrome: any
       this.id = id
       this.stateName = stateName
       global.addEventListener('load', evt => {
-        chrome.runtime.sendMessage({ bg: 'activate' }, response => {
+        chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
           this.listen()
           if (!response.isActive) {
             console.warn('paster is disable. Please click Turn ON button in popup window.') // eslint-disable-line no-console
@@ -62,7 +62,7 @@ declare var chrome: any
       }
       return `"use strict";(function(e,t,r,n){r=t.getElementById("${elementId}");if(!e.UDTracker||!e.USERDIVEObject){(function(e,t,r,n,c,i,o,a){e.USERDIVEObject=c;e[c]=e[c]||function(){(e[c].queue=e[c].queue||[]).push(arguments)};o=t.createElement(r);a=t.getElementsByTagName(r)[0];o.async=1;o.src=n;o.charset=i;a.parentNode.insertBefore(o,a)})(window,t,"script","//${host}/static/UDTracker.js?"+(new Date).getTime(),"ud","UTF-8");e.ud("create","${id}",{env:"${env}",cookieExpires:1});e.ud("analyze")}setTimeout(function(){if(!e.UDTracker){console.warn("Blocked USERDIVE Scripts");return}if(!e.UDTracker.cookie.enableSession()){console.warn("Failed start USERDIVE");return}n=e.UDTracker.cookie.fetch();n.overrideUrl=e.UDTracker.Config.getOverrideUrl();r.setAttribute("${stateName}",JSON.stringify(n))},2e3)})(window,document);`
     }
-    load (): Promise<void> {
+    load (): Promise<?Error> {
       return this.asPromised(cb => {
         chrome.runtime.sendMessage({ bg: 'get' }, cb)
       })
@@ -90,9 +90,9 @@ declare var chrome: any
           )
         })
     }
-    loadState (): Promise<object> {
+    loadState (): Promise<Object | Error> {
       return this.asPromised(cb => {
-        chrome.runtime.sendMessage({ bg: 'activate' }, cb)
+        chrome.runtime.sendMessage({ bg: 'isActive' }, cb)
       })
         .then(response => {
           if (!response.isActive) {
