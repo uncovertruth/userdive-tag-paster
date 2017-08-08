@@ -14,10 +14,13 @@ cache:
   - node_modules
 env:
   matrix:
-  - CI_MODE=build
-  - CI_MODE=test
+  - CMD=build
+  - CMD=test
+  - CMD=lint
 script:
-- npm run $CI_MODE
+- npm run $CMD
+after_success:
+- '[ "$CMD" == "test" ] && npm run coverage'
 notifications:
   email: false
   slack:

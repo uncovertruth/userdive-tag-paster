@@ -9,6 +9,9 @@ const karmaConfig = {
     'test/*.js': ['webpack'],
     'test/fixtures/*.html': ['html2js']
   },
+  coverageReporter: {
+    reporters: [{ type: 'lcov' }, { type: 'text' }]
+  },
   webpack: {
     module: moduleConfig,
     resolve: resolveConfig,
@@ -17,6 +20,7 @@ const karmaConfig = {
     }
   },
   browsers: ['Chrome'],
+  reporters: ['mocha', 'coverage'],
   singleRun: true,
   customLaunchers: {
     Chrome_travis_ci: {

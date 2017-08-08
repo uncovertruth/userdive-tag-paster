@@ -1,3 +1,13 @@
 {
-  "presets": ["env", "flow"]
+  "presets": ["env", "flow"],
+  "env": {
+    "development": {
+      "presets": [
+        "power-assert",
+      ],
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
 }
