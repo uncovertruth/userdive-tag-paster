@@ -83,11 +83,11 @@
     "url": "git+ssh://git@github.com/uncovertruth/userdive-tag-paster.git"
   },
   "scripts": {
-    "build": "run-s clean build:*",
-    "build:gulp": "gulp build",
-    "build:images": "imagemin app/images/*.png --out-dir=dist/images/",
-    "build:pug": "pug app/*.pug --out dist/",
-    "build:webpack": "cross-env NODE_ENV=production webpack",
+    "b:gulp": "gulp build",
+    "b:images": "imagemin app/images/*.png --out-dir=dist/images/",
+    "b:pug": "pug app/*.pug --out dist/",
+    "b:webpack": "cross-env NODE_ENV=production webpack",
+    "build": "run-s clean b:pug b:webpack b:images b:gulp",
     "clean": "find app -name '*.html' -delete && rimraf dist app/scripts package",
     "coverage": "codecov -t $CODECOV_TOKEN -f ./coverage/*/lcov.info",
     "lint": "run-p lint:*",
