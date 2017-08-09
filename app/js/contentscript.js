@@ -29,7 +29,12 @@ class Provider {
                 cb()
               }
             })
-            .catch(() => {})
+            .catch(() => {
+              this.renderBadge('?')
+              if (cb) {
+                cb()
+              }
+            })
         }, 3000)
       })
       .catch(err => {
@@ -186,7 +191,7 @@ class Provider {
             data = {
               status:
                 'UDTracker was blocked by current web page or other extensions.',
-              message: 'Please check this page or other extensions'
+              message: 'Please check the current page or other extensions'
             }
             break
           case 'Load failed':
