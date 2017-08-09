@@ -29,11 +29,17 @@
   }
   setTimeout(function () {
     if (!global.UDTracker) {
-      console.warn('Blocked USERDIVE Scripts') // eslint-disable-line no-console
+      element.setAttribute(
+        '${stateName}',
+        JSON.stringify({ warning: 'Blocked USERDIVE Scripts' })
+      )
       return
     }
     if (!global.UDTracker.cookie.enableSession()) {
-      console.warn('Failed start USERDIVE') // eslint-disable-line no-console
+      element.setAttribute(
+        '${stateName}',
+        JSON.stringify({ warning: 'Failed start USERDIVE' })
+      )
       return
     }
     state = global.UDTracker.cookie.fetch()
