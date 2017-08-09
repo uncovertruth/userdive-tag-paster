@@ -25,15 +25,9 @@ class Provider {
           this.loadState()
             .then(data => {
               this.renderBadge(data.pageId || '?')
-              if (cb) {
-                cb()
-              }
             })
             .catch(() => {
               this.renderBadge('?')
-              if (cb) {
-                cb()
-              }
             })
         }, 3000)
       })
