@@ -17,7 +17,7 @@ class Provider {
       })
     })
   }
-  readyState (cb: Function): void {
+  readyState (): void {
     this.renderBadge('...')
     this.load()
       .then(() => {
@@ -32,19 +32,10 @@ class Provider {
         }, 3000)
       })
       .catch(err => {
-        const data = {}
-        switch (err.message) {
-          case 'Setting':
-            console.warn('Please set options')
-            break
-          case 'Blocked':
-            console.warn(
-              'Paster was blocked by ignored domains option. Please check it.'
-            )
-            break
-        }
-        if (cb) {
-          cb(data)
+        if (err.message === 'Blocked') {
+          console.warn(
+            'Paster was blocked by ignored domains option. Please check it.'
+          )
         }
       })
   }
@@ -140,10 +131,11 @@ class Provider {
           this.assignStatusHandler(sendResponse)
           break
         case true:
-          this.load()
-          setTimeout(() => {
-            this.assignStatusHandler(sendResponse)
-          }, 3000)
+          this.load().catch(() => {}).then(() => {
+            setTimeout(() => {
+              this.assignStatusHandler(sendResponse)
+            }, 3000)
+          })
           break
         default:
           const tag = document.getElementById(this.id)
