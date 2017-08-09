@@ -102,7 +102,7 @@ class Provider {
       .then(() => {
         const element = document.getElementById(this.id)
         if (!element) {
-          throw new Error('Blocked by option')
+          throw new Error('Not enough option')
         }
         return element.getAttribute(this.stateName)
       })
@@ -175,10 +175,10 @@ class Provider {
               message: 'Please check Turn ON button'
             }
             break
-          case 'Blocked by option':
+          case 'Not enough option':
             data = {
-              status: 'Paster was blocked by ignored domain option.',
-              message: 'Please click ignored option in setting page.'
+              status: 'Paster could not paste the script: Tag.',
+              message: 'Please check the options in options page.'
             }
             break
           case 'Blocked by page':
