@@ -31,15 +31,12 @@
     if (!global.UDTracker) {
       element.setAttribute(
         '${stateName}',
-        JSON.stringify({ warning: 'Blocked USERDIVE Scripts' })
+        JSON.stringify({ status: 'Blocked' })
       )
       return
     }
     if (!global.UDTracker.cookie.enableSession()) {
-      element.setAttribute(
-        '${stateName}',
-        JSON.stringify({ warning: 'Failed start USERDIVE' })
-      )
+      element.setAttribute('${stateName}', JSON.stringify({ status: 'Failed' }))
       return
     }
     state = global.UDTracker.cookie.fetch()
