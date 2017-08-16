@@ -41,45 +41,28 @@ class Provider {
       message: 'Please wait for a few seconds'
     })
     this.renderBadge('ON')
-    this.loadUDTracker()
-      .then(() => {
-        setTimeout(() => {
-          this.loadState()
-            .then(data => {
-              this.renderBadge(data.pageId || '?')
-              this.setState(data)
-              if (cb) {
-                cb(data)
-              }
-            })
-            .catch(err => {
-              switch (err.message) {
-                case 'Blocked':
-                  this.setState({ status: 'Blocked USERDIVE Scripts' })
-                  break
-                case 'Failed start':
-                  this.setState({ status: 'Failed start USERDIVE' })
-                  break
-              }
-            })
-        }, 3000)
-      })
-      .catch(err => {
-        switch (err.message) {
-          case 'Setting':
-            this.setState({
-              status: 'Not enough options',
-              message: 'Please check options in option page'
-            })
-            break
-          case 'Ignored':
-            this.setState({
-              status: 'Blocked by ignore option',
-              message: 'Please check ignore options in option page'
-            })
-            break
-        }
-      })
+    this.loadUDTracker().then(() => {
+      setTimeout(() => {
+        this.loadState()
+          .then(data => {
+            this.renderBadge(data.pageId || '?')
+            this.setState(data)
+            if (cb) {
+              cb(data)
+            }
+          })
+          .catch(err => {
+            switch (err.message) {
+              case 'Blocked':
+                this.setState({ status: 'Blocked USERDIVE Scripts' })
+                break
+              case 'Failed start':
+                this.setState({ status: 'Failed start USERDIVE' })
+                break
+            }
+          })
+      }, 3000)
+    })
   }
   injectScript (source: string): void {
     const th = document.getElementsByTagName('body')[0]
@@ -121,6 +104,22 @@ class Provider {
         this.injectScript(
           this.createTag(config.id, config.host, config.env, this.id)
         )
+      })
+      .catch(err => {
+        switch (err.message) {
+          case 'Setting':
+            this.setState({
+              status: 'Not enough options',
+              message: 'Please check options in option page'
+            })
+            break
+          case 'Ignored':
+            this.setState({
+              status: 'Blocked by ignore option',
+              message: 'Please check ignore options in option page'
+            })
+            break
+        }
       })
   }
   loadState (): Promise<Object | Error> {
