@@ -1,12 +1,13 @@
 /* @flow */
 declare var chrome: any
-let state = {}
 class Provider {
   id: string
   stateName: string
+  state: object
   constructor (id, stateName) {
     this.id = id
     this.stateName = stateName
+    this.state = {}
     window.addEventListener('load', evt => {
       chrome.runtime.sendMessage({ bg: 'isActive' }, response => {
         this.listen()
@@ -23,17 +24,10 @@ class Provider {
     })
   }
   setState (data: object): void {
-    if (data) {
-      state = data
-      return
-    }
-    state = {}
+    this.state = data
   }
   getState (): object {
-    if (state) {
-      return state
-    }
-    return {}
+    return this.state
   }
   readyState (cb: Function): void {
     this.setState({
@@ -182,4 +176,4 @@ class Provider {
     })
   }
 }
-new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48') // eslint-disable-line no-new
+window.content = new Provider('wmd3MCLG6HXn', 'vyQqaa4SnJ48')

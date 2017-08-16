@@ -16,13 +16,13 @@ class StateView {
         tabs[0].id,
         { content: 'fetchCookie' },
         response => {
-          if (!response || !response.data) {
-            this.show({
-              status: 'failed fetching data',
-              message: 'Please reopen popup window or reload current page'
-            })
+          if (response && response.data) {
+            this.show(response.data)
           }
-          this.show(response.data)
+          this.show({
+            status: 'failed fetching data',
+            message: 'Please reopen popup window or reload current page'
+          })
         }
       )
     })

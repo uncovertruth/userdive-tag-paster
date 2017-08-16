@@ -3,6 +3,12 @@ const { moduleConfig, resolveConfig } = require('./webpack.base')
 const karmaConfig = {
   basePath: '',
   frameworks: ['mocha'],
+  client: {
+    mocha: {
+      timeout: 5000,
+      ui: 'bdd'
+    }
+  },
   files: ['test/*.js', 'test/fixtures/*.html'],
   exclude: [],
   preprocessors: {
