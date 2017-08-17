@@ -9,8 +9,9 @@ describe('Vue unit test', () => {
     document.body.innerHTML = window.__html__['test/fixtures/test.html']
     componentFactory({ key: 'value' })
   })
-  it('should render component', () => {
+  it('should render component', done => {
     const dom = document.getElementsByTagName('td')[0]
     assert.equal(dom.innerHTML, 'key')
+    done()
   })
 })

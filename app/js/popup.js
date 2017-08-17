@@ -5,17 +5,25 @@ declare var chrome: any
 class StateView {
   constructor (): void {
     window.addEventListener('load', evt => {
-      this.render()
+      setTimeout(() => {
+        this.render()
+      }, 100)
     })
   }
   render (): void {
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      chrome.tabs.sendMessage(tabs[0].id, { content: 'fetchCookie' }, response => {
-        if (!response || !response.data) {
-          throw new Error("couldn't recieve page data")
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { content: 'fetchCookie' },
+        response => {
+          if (response && response.data) {
+            this.show(response.data)
+          }
+          this.show({
+            status: 'failed fetching data',
+            message: 'Please reopen popup window or reload current page'
+          })
         }
-        this.show(response.data)
-      }
       )
     })
   }
@@ -26,11 +34,13 @@ class StateView {
   }
   toggleExtension (): void {
     chrome.runtime.sendMessage({ bg: 'toggleExtension' }, response => {
-      const isActive = !!response.isActive
       chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, { content: isActive }, response => {
-          this.show(response.data)
-        }
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { content: 'reloadPage' },
+          response => {
+            window.close()
+          }
         )
       })
     })
