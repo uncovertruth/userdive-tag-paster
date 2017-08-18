@@ -25,7 +25,6 @@ export default class Provider {
         renderBadge('OFF')
         return
       }
-      renderBadge('ON')
       this.listen()
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
     })
@@ -38,27 +37,27 @@ export default class Provider {
 
     const element = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
-      throw new Error('Ignored')
+      return {}
     }
 
     return JSON.parse(element.getAttribute(STATE_NAME))
   }
   listen (): void {
-    chrome.runtime.onMessage.addListener(
-      async (request, sender, sendResponse) => {
-        switch (request.content) {
-          case 'fetchCookie':
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      switch (request.content) {
+        case 'fetchCookie':
+          ;(async () => {
             const data = await this.loadState()
             sendResponse({ data })
-            break
-          case 'reloadPage':
-            renderBadge('...')
-            location.reload()
-            break
-        }
-        return true
+          })()
+          break
+        case 'reloadPage':
+          renderBadge('...')
+          location.reload()
+          break
       }
-    )
+      return true
+    })
   }
 }
 

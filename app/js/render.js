@@ -1,21 +1,20 @@
 /* @flow */
 import Vue from 'vue'
-import Info from '../components/info'
+import template from '../components/info'
 
-export default (userData: object, onClick: Function) => {
+export default (data: Object, onClick: Function) => {
   const vm = new Vue({
+    name: 'info',
     el: '#info',
-    methods: {},
-    render: h => {
-      return h(
-        Info,
-        {
-          props: {
-            pageInfo: userData
-          }
-        }
-      )
+    template,
+    data,
+    methods: {
+      changeStatus: function () {
+        this.$parent.$emit('changeStatus')
+      }
     }
   })
-  vm.$on('changeStatus', () => onClick())
+  vm.$on('changeStatus', onClick)
+
+  return vm
 }

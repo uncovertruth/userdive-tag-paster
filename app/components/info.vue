@@ -1,25 +1,12 @@
 <template lang='pug'>
-div#info
+#info
   table
-    tr(v-for='(val, key) in pageInfo')
+    tr(v-for='(val, key) in data')
       td {{ key }}
       td {{ val }}
   button(v-on:click='changeStatus')
-    | Turn {{ pageInfo.status === 'OFF' ? 'ON': 'OFF' }}
+    | Turn {{ data.status === 'active' ? 'ON' : 'OFF' }}
 </template>
-
-<script>
-/* @flow */
-export default {
-  name: 'info',
-  props: ['pageInfo'],
-  methods: {
-    changeStatus: function () {
-      this.$parent.$emit('changeStatus')
-    }
-  }
-}
-</script>
 
 <style lang='scss'>
 #info {

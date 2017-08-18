@@ -41,14 +41,13 @@ class Background {
       this.renderBadge(text.toString(), '#42b812')
       return
     }
-    this.renderBadge(text, '#CCCCCC')
+    this.renderBadge(text.toString(), '#CCCCCC')
   }
-  toggleExtension (): void {
-    if (this.get(IS_ACTIVE)) {
-      this.set(IS_ACTIVE, '')
-      return
+  toggleExtension (value = ''): void {
+    if (!this.get(IS_ACTIVE)) {
+      value = 'active'
     }
-    this.set(IS_ACTIVE, 'active')
+    this.set(IS_ACTIVE, value)
   }
   get (key: string): string {
     return localStorage[key] || ''

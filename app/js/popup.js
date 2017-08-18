@@ -10,33 +10,23 @@ const getTabs = (): Promise<any> =>
     chrome.tabs.query({ active: true, currentWindow: true }, resolve)
   })
 
-class StateView {
+class Extension {
   constructor (): void {
     window.addEventListener('load', async () => {
-      this.render()
-    })
-  }
-  async render (): void {
-    const tabs = await getTabs()
-    const res = await sendMessage(tabs, { content: 'fetchCookie' })
+      const tabs = await getTabs()
 
-    if (res && res.data) {
-      componentFactory(res.data, () => {
-        this.toggleExtension()
-      })
-      return
-    }
-    componentFactory(
-      {
+      const res = await sendMessage(tabs, { content: 'fetchCookie' })
+      let props = {
         status: 'failed fetching data',
         message: 'Please reopen popup window or reload current page'
-      },
-      () => {
-        this.toggleExtension()
       }
-    )
+      if (res && res.data) {
+        props = res.data
+      }
+      componentFactory(props, () => this.toggle())
+    })
   }
-  toggleExtension (): void {
+  toggle (): void {
     chrome.runtime.sendMessage({ bg: 'toggleExtension' }, async response => {
       const tabs = await getTabs()
       await sendMessage(tabs, { content: 'reloadPage' })
@@ -44,4 +34,5 @@ class StateView {
     })
   }
 }
-new StateView() // eslint-disable-line no-new
+
+new Extension() // eslint-disable-line no-new
