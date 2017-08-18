@@ -1,60 +1,40 @@
 /* @flow */
-import { sleep } from './utils'
 import { inject } from './injector'
 
-function renderBadge (text: string | number): Promise<any> {
-  return new Promise((resolve, reject) =>
-    chrome.runtime.sendMessage(
-      {
-        bg: 'badge',
-        text
-      },
-      res => resolve(res)
-    )
-  )
+function sendMessage (data): Promise<T> {
+  return new Promise(resolve => chrome.runtime.sendMessage(data, resolve))
 }
 
-function getActiveState (): Promise<any> {
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage({ bg: 'isActive' }, ({ isActive }) => {
-      if (!isActive) {
-        renderBadge('OFF')
-      }
-      renderBadge('ON')
-      resolve(isActive)
-    })
-  })
+function renderBadge (text: string | number): Promise<boolean> {
+  return sendMessage({ bg: 'badge', text })
 }
 
 function getConfig (): Promise<Object> {
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage({ bg: 'get' }, res => {
-      resolve(res)
-    })
-  })
+  return sendMessage({ bg: 'get' })
 }
 
 declare var chrome: any
 const STATE_NAME = 'vyQqaa4SnJh48'
 const INJECT_ELEMENT_ID = 'wmd3MCLG6HXn'
 
-class Provider {
+export default class Provider {
   constructor () {
     window.addEventListener('load', async e => {
-      const isActive = await getActiveState()
-      if (!isActive) {
+      const config = await getConfig()
+      if (!config.isActive) {
+        renderBadge('OFF')
         return
       }
-      const config = await getConfig()
-      inject(STATE_NAME, config)
+      renderBadge('ON')
+      this.listen()
+      inject(INJECT_ELEMENT_ID, STATE_NAME, config)
     })
   }
   async loadState (): Object {
-    const isActive = await getActiveState()
+    const { isActive } = await getConfig()
     if (!isActive) {
       return {}
     }
-    await sleep(3000)
 
     const element = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
@@ -64,18 +44,22 @@ class Provider {
     return JSON.parse(element.getAttribute(STATE_NAME))
   }
   listen (): void {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      switch (request.content) {
-        case 'fetchCookie':
-          sendResponse({ data: this.getState() })
-          break
-        case 'reloadPage':
-          this.renderBadge('...')
-          location.reload()
-          break
+    chrome.runtime.onMessage.addListener(
+      async (request, sender, sendResponse) => {
+        switch (request.content) {
+          case 'fetchCookie':
+            const data = await this.loadState()
+            sendResponse({ data })
+            break
+          case 'reloadPage':
+            renderBadge('...')
+            location.reload()
+            break
+        }
+        return true
       }
-      return true
-    })
+    )
   }
 }
+
 window.content = new Provider()

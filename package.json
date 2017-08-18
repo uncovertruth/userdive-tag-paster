@@ -99,7 +99,7 @@
     "lint:pug": "pug-lint ./app/*.pug",
     "precommit": "lint-staged",
     "release": "gulp package",
-    "tag": "uglifyjs app/scripts/tag.js -m",
+    "tag": "uglifyjs app/js/tag.js -m",
     "test": "karma start --single-run"
   }
 }

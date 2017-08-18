@@ -16,9 +16,9 @@ class Options {
   }
   restoreConfigurations (): void {
     chrome.runtime.getBackgroundPage(backgroundPage => {
-      this.selector('#analytics-id').value = backgroundPage.bg.get(
-        'USERDIVEId'
-      )
+      const isActive = !!backgroundPage.bg.get('isActive')
+      this.selector('#active').innerHTML = isActive.toString()
+      this.selector('#analytics-id').value = backgroundPage.bg.get('USERDIVEId')
       this.selector('#env').value = backgroundPage.bg.get('USERDIVEEnv')
       this.selector('#host').value = backgroundPage.bg.get('USERDIVEHost')
       this.selector('#ignore').value = backgroundPage.bg.get('USERDIVEIgnore')
@@ -31,10 +31,7 @@ class Options {
     chrome.runtime.getBackgroundPage(backgroundPage => {
       backgroundPage.bg.set('USERDIVEEnv', this.selector('#env').value)
       backgroundPage.bg.set('USERDIVEHost', this.selector('#host').value)
-      backgroundPage.bg.set(
-        'USERDIVEId',
-        this.selector('#analytics-id').value
-      )
+      backgroundPage.bg.set('USERDIVEId', this.selector('#analytics-id').value)
       backgroundPage.bg.set('USERDIVEIgnore', this.selector('#ignore').value)
     })
     chrome.tabs.getCurrent(tab => {

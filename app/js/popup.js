@@ -2,47 +2,45 @@
 import componentFactory from './render'
 declare var chrome: any
 
+const sendMessage = (tabs: any[], data): Promise<T> =>
+  new Promise(resolve => chrome.tabs.sendMessage(tabs[0].id, data, resolve))
+
+const getTabs = (): Promise<any> =>
+  new Promise(resolve => {
+    chrome.tabs.query({ active: true, currentWindow: true }, resolve)
+  })
+
 class StateView {
   constructor (): void {
-    window.addEventListener('load', evt => {
-      setTimeout(() => {
-        this.render()
-      }, 100)
+    window.addEventListener('load', async () => {
+      this.render()
     })
   }
-  render (): void {
-    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        { content: 'fetchCookie' },
-        response => {
-          if (response && response.data) {
-            this.show(response.data)
-          }
-          this.show({
-            status: 'failed fetching data',
-            message: 'Please reopen popup window or reload current page'
-          })
-        }
-      )
-    })
-  }
-  show (userData: object): void {
-    componentFactory(userData, () => {
-      this.toggleExtension()
-    })
+  async render (): void {
+    const tabs = await getTabs()
+    const res = await sendMessage(tabs, { content: 'fetchCookie' })
+
+    if (res && res.data) {
+      componentFactory(res.data, () => {
+        this.toggleExtension()
+      })
+      return
+    }
+    componentFactory(
+      {
+        status: 'failed fetching data',
+        message: 'Please reopen popup window or reload current page'
+      },
+      () => {
+        this.toggleExtension()
+      }
+    )
   }
   toggleExtension (): void {
-    chrome.runtime.sendMessage({ bg: 'toggleExtension' }, response => {
-      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        chrome.tabs.sendMessage(
-          tabs[0].id,
-          { content: 'reloadPage' },
-          response => {
-            window.close()
-          }
-        )
-      })
+    chrome.runtime.sendMessage({ bg: 'toggleExtension' }, async response => {
+      const tabs = await getTabs()
+      await sendMessage(tabs, { content: 'reloadPage' })
+      window.close()
     })
   }
 }

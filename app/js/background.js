@@ -15,7 +15,8 @@ class Background {
             env: this.get('USERDIVEEnv'),
             host: this.get('USERDIVEHost'),
             id: this.get('USERDIVEId'),
-            ignore: this.get('USERDIVEIgnore')
+            ignore: this.get('USERDIVEIgnore'),
+            isActive: this.get(IS_ACTIVE)
           })
           break
         case 'badge':
@@ -23,20 +24,11 @@ class Background {
             text: this.updateBadge(request.text)
           })
           break
-        case 'isActive':
-          sendResponse({
-            isActive: this.get(IS_ACTIVE)
-          })
-          break
         case 'toggleExtension':
           this.toggleExtension()
-          sendResponse({
-            isActive: this.get(IS_ACTIVE)
-          })
+          const isActive = this.get(IS_ACTIVE)
+          sendResponse({ isActive })
       }
-    })
-    chrome.tabs.onActivated.addListener(response => {
-      this.renderBadge('', '')
     })
   }
   renderBadge (text: string, color: string): string {
@@ -49,7 +41,7 @@ class Background {
       this.renderBadge(text.toString(), '#42b812')
       return
     }
-    this.renderBadge(text.toString(), '#CCCCCC')
+    this.renderBadge(text, '#CCCCCC')
   }
   toggleExtension (): void {
     if (this.get(IS_ACTIVE)) {
