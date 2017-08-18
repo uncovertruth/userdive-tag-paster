@@ -1,5 +1,4 @@
 app/scripts
-bower_components/
 dist/
 node_modules/
 coverage/

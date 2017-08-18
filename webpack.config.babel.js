@@ -7,13 +7,12 @@ module.exports = {
   module: moduleConfig,
   resolve: resolveConfig,
   entry: {
-    'contentscript': path.resolve(__dirname, 'app/js/contentscript.js'),
-    'background': path.resolve(__dirname, 'app/js/background.js'),
-    'options': path.resolve(__dirname, 'app/js/options.js'),
-    'popup': path.resolve(__dirname, 'app/js/popup.js')
+    contentscript: path.resolve(__dirname, 'app/js/contentscript.js'),
+    background: path.resolve(__dirname, 'app/js/background.js'),
+    options: path.resolve(__dirname, 'app/js/options.js'),
+    popup: path.resolve(__dirname, 'app/js/popup.js')
   },
   output: {
-    // path: path.resolve(__dirname, 'dist/scripts/'),
     path: path.resolve(__dirname, 'app/scripts'),
     filename: '[name].js'
   },

@@ -6,23 +6,12 @@ exports.moduleConfig = {
       loader: 'babel-loader'
     },
     {
-      test: /\.vue$/,
-      exclude: /node_modules/,
-      loader: 'vue-loader'
-    },
-    {
       test: /\.css$/,
-      loader: [
-        'style-loader',
-        'css-loader?modules'
-      ]
+      loader: ['style-loader', 'css-loader?modules']
     }
   ]
 }
 
 exports.resolveConfig = {
-  extensions: ['.js', '.vue'],
-  alias: {
-    vue: 'vue/dist/vue.runtime.esm'
-  }
+  extensions: ['.js', '.jsx']
 }

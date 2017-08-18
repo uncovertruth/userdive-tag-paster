@@ -1,8 +1,7 @@
 /* @flow */
-import componentFactory from './render'
 declare var chrome: any
 
-const sendMessage = (tabs: any[], data): Promise<T> =>
+const sendMessage = (tabs: any[], data): Promise<any> =>
   new Promise(resolve => chrome.tabs.sendMessage(tabs[0].id, data, resolve))
 
 const getTabs = (): Promise<any> =>
@@ -16,14 +15,8 @@ class Extension {
       const tabs = await getTabs()
 
       const res = await sendMessage(tabs, { content: 'fetchCookie' })
-      let props = {
-        status: 'failed fetching data',
-        message: 'Please reopen popup window or reload current page'
-      }
       if (res && res.data) {
-        props = res.data
       }
-      componentFactory(props, () => this.toggle())
     })
   }
   toggle (): void {

@@ -1,7 +1,7 @@
 /* @flow */
 import { inject } from './injector'
 
-function sendMessage (data): Promise<T> {
+function sendMessage (data): Promise<any> {
   return new Promise(resolve => chrome.runtime.sendMessage(data, resolve))
 }
 
@@ -35,7 +35,7 @@ export default class Provider {
       return {}
     }
 
-    const element = document.getElementById(INJECT_ELEMENT_ID)
+    const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
       return {}
     }

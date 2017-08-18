@@ -1,5 +1,5 @@
 {
-  "presets": ["env", "flow"],
+  "presets": ["env", "preact", "flow"],
   "plugins": [
     ["transform-runtime", {
       "helpers": false,
@@ -10,12 +10,6 @@
   ],
   "env": {
     "development": {
-      "presets": [
-        "power-assert",
-      ],
-      "plugins": [
-        "istanbul"
-      ]
     }
   }
 }
