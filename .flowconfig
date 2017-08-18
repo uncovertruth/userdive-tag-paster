@@ -1,7 +1,7 @@
 [ignore]
 .*/node_modules/stylelint
 <PROJECT_ROOT>/node_modules/preact/src/.*
-<PROJECT_ROOT>/node_modules/preact/dist/.*
+<PROJECT_ROOT>/node_modules/preact/dist/preact.js.flow
 
 [include]
 
