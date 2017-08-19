@@ -2,9 +2,8 @@
 declare var chrome: any
 const IS_ACTIVE = 'IS_ACTIVE'
 
-class Background {
+export default class Background {
   constructor () {
-    this.set(IS_ACTIVE, 'active')
     this.assignEventHandlers()
   }
   assignEventHandlers (): void {
@@ -43,7 +42,7 @@ class Background {
     }
     this.renderBadge(text.toString(), '#CCCCCC')
   }
-  toggleExtension (value = ''): void {
+  toggleExtension (value: string = ''): void {
     if (!this.get(IS_ACTIVE)) {
       value = 'active'
     }
@@ -56,4 +55,5 @@ class Background {
     localStorage[key] = value
   }
 }
+
 window.bg = new Background()

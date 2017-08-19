@@ -1,9 +1,6 @@
 /* @flow */
 import { inject } from './injector'
-
-function sendMessage (data): Promise<any> {
-  return new Promise(resolve => chrome.runtime.sendMessage(data, resolve))
-}
+import { sendMessage, onMessage } from '../chrome/runtime'
 
 function renderBadge (text: string | number): Promise<boolean> {
   return sendMessage({ bg: 'badge', text })
@@ -13,7 +10,6 @@ function getConfig (): Promise<Object> {
   return sendMessage({ bg: 'get' })
 }
 
-declare var chrome: any
 const STATE_NAME = 'vyQqaa4SnJh48'
 const INJECT_ELEMENT_ID = 'wmd3MCLG6HXn'
 
@@ -42,22 +38,18 @@ export default class Provider {
 
     return JSON.parse(element.getAttribute(STATE_NAME))
   }
-  listen (): void {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      switch (request.content) {
-        case 'fetchCookie':
-          ;(async () => {
-            const data = await this.loadState()
-            sendResponse({ data })
-          })()
-          break
-        case 'reloadPage':
-          renderBadge('...')
-          location.reload()
-          break
-      }
-      return true
-    })
+  async listen () {
+    const { request, sendResponse } = await onMessage()
+    switch (request.content) {
+      case 'fetchCookie':
+        const data = await this.loadState()
+        sendResponse({ data })
+        break
+      case 'reloadPage':
+        renderBadge('...')
+        location.reload()
+        break
+    }
   }
 }
 

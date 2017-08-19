@@ -1,6 +1,6 @@
 /* @flow */
 /** @jsx h */
-import { h, Component } from 'preact'
+import { h, Component, render as preactRender } from 'preact'
 
 type Props = {
   id: string
@@ -18,4 +18,8 @@ export default class Popup extends Component<Props> {
       </div>
     )
   }
+}
+
+export function render (props: Props, id: any) {
+  preactRender(<Popup {...props} />, id)
 }

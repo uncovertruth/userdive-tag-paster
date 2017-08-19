@@ -2,3 +2,4 @@ app/scripts
 dist/
 node_modules/
 coverage/
+flow-typed/

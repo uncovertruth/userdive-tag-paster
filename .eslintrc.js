@@ -4,8 +4,10 @@ module.exports = {
     '@uncovertruth/eslint-config-flowtype',
     '@uncovertruth/eslint-config-react'
   ],
+  plugins: ['jest'],
   env: {
-    node: true
+    node: true,
+    'jest/globals': true
   },
   globals: {
     chrome: true

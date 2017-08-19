@@ -1,7 +1,7 @@
 /* @flow */
 declare var chrome: any
 
-class Options {
+export default class Options {
   constructor (): void {
     this.start()
   }
@@ -11,7 +11,7 @@ class Options {
   }
   assignEventHandlers (): void {
     this.selector('#save').addEventListener('click', evt => {
-      this.save(evt)
+      this.save()
     })
   }
   restoreConfigurations (): void {
@@ -27,7 +27,7 @@ class Options {
   selector (selector: string): any {
     return document.querySelector(selector)
   }
-  save (evt): void {
+  save (): void {
     chrome.runtime.getBackgroundPage(backgroundPage => {
       backgroundPage.bg.set('USERDIVEEnv', this.selector('#env').value)
       backgroundPage.bg.set('USERDIVEHost', this.selector('#host').value)

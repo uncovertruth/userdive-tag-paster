@@ -1,13 +1,9 @@
 /* @flow */
-declare var chrome: any
+import { render } from '../components/popup'
+import { query, sendMessage } from '../chrome/tabs'
+import { sendMessage as runtimeSendMessage } from '../chrome/runtime'
 
-const sendMessage = (tabs: any[], data): Promise<any> =>
-  new Promise(resolve => chrome.tabs.sendMessage(tabs[0].id, data, resolve))
-
-const getTabs = (): Promise<any> =>
-  new Promise(resolve => {
-    chrome.tabs.query({ active: true, currentWindow: true }, resolve)
-  })
+const getTabs = (): Promise<any> => query({ active: true, currentWindow: true })
 
 class Extension {
   constructor (): void {
@@ -16,15 +12,15 @@ class Extension {
 
       const res = await sendMessage(tabs, { content: 'fetchCookie' })
       if (res && res.data) {
+        render(res.data, document.getElementById('info'))
       }
     })
   }
-  toggle (): void {
-    chrome.runtime.sendMessage({ bg: 'toggleExtension' }, async response => {
-      const tabs = await getTabs()
-      await sendMessage(tabs, { content: 'reloadPage' })
-      window.close()
-    })
+  async toggle () {
+    await runtimeSendMessage({ bg: 'toggleExtension' })
+    const tabs = await getTabs()
+    await sendMessage(tabs, { content: 'reloadPage' })
+    window.close()
   }
 }
 
