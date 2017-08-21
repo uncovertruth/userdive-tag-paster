@@ -1,39 +1,42 @@
 /* @flow */
-declare var chrome: any
+import ChromePromise from 'chrome-promise'
 const IS_ACTIVE = 'IS_ACTIVE'
 
 export default class Background {
+  chromep: ChromePromise
   constructor () {
+    this.chromep = new ChromePromise()
     this.assignEventHandlers()
   }
   assignEventHandlers (): void {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      switch (request.bg) {
-        case 'get':
-          sendResponse({
-            env: this.get('USERDIVEEnv'),
-            host: this.get('USERDIVEHost'),
-            id: this.get('USERDIVEId'),
-            ignore: this.get('USERDIVEIgnore'),
-            isActive: this.get(IS_ACTIVE)
-          })
-          break
-        case 'badge':
-          sendResponse({
-            text: this.updateBadge(request.text)
-          })
-          break
-        case 'toggleExtension':
-          this.toggleExtension()
-          const isActive = this.get(IS_ACTIVE)
-          sendResponse({ isActive })
+    this.chromep.runtime.onMessage.addListener(
+      (request, sender, sendResponse) => {
+        switch (request.bg) {
+          case 'get':
+            sendResponse({
+              env: this.get('USERDIVEEnv'),
+              host: this.get('USERDIVEHost'),
+              id: this.get('USERDIVEId'),
+              ignore: this.get('USERDIVEIgnore'),
+              isActive: this.get(IS_ACTIVE)
+            })
+            break
+          case 'badge':
+            sendResponse({
+              text: this.updateBadge(request.text)
+            })
+            break
+          case 'toggleExtension':
+            this.toggleExtension()
+            const isActive = this.get(IS_ACTIVE)
+            sendResponse({ isActive })
+        }
       }
-    })
+    )
   }
-  renderBadge (text: string, color: string): string {
-    chrome.browserAction.setBadgeBackgroundColor({ color })
-    chrome.browserAction.setBadgeText({ text })
-    return text
+  async renderBadge (text: string, color: string) {
+    await this.chromep.browserAction.setBadgeBackgroundColor({ color })
+    await this.chromep.browserAction.setBadgeText({ text })
   }
   updateBadge (text: string | number): void {
     if (typeof text === 'number') {
