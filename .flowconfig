@@ -1,10 +1,10 @@
 [ignore]
 .*/node_modules/stylelint
-.*/node_modules/vue/src
+<PROJECT_ROOT>/node_modules/preact/src/.*
+<PROJECT_ROOT>/node_modules/preact/dist/preact.js.flow
 
 [include]
 
 [libs]
 
 [options]
-module.file_ext=.vue

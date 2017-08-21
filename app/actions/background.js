@@ -1,13 +1,10 @@
 /* @flow */
-declare var chrome: any
 const IS_ACTIVE = 'IS_ACTIVE'
 
-class Background {
+declare var chrome: any
+
+export default class Background {
   constructor () {
-    this.set(IS_ACTIVE, 'active')
-    this.assignEventHandlers()
-  }
-  assignEventHandlers (): void {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.bg) {
         case 'get':
@@ -15,7 +12,8 @@ class Background {
             env: this.get('USERDIVEEnv'),
             host: this.get('USERDIVEHost'),
             id: this.get('USERDIVEId'),
-            ignore: this.get('USERDIVEIgnore')
+            ignore: this.get('USERDIVEIgnore'),
+            isActive: this.get(IS_ACTIVE)
           })
           break
         case 'badge':
@@ -23,40 +21,30 @@ class Background {
             text: this.updateBadge(request.text)
           })
           break
-        case 'isActive':
-          sendResponse({
-            isActive: this.get(IS_ACTIVE)
-          })
-          break
         case 'toggleExtension':
-          this.toggleExtension()
-          sendResponse({
-            isActive: this.get(IS_ACTIVE)
-          })
+          this.toggle()
+          const isActive = this.get(IS_ACTIVE)
+          sendResponse({ isActive })
       }
     })
-    chrome.tabs.onActivated.addListener(response => {
-      this.renderBadge('', '')
-    })
   }
-  renderBadge (text: string, color: string): string {
+  _renderBadge (text: string, color: string) {
     chrome.browserAction.setBadgeBackgroundColor({ color })
     chrome.browserAction.setBadgeText({ text })
-    return text
   }
   updateBadge (text: string | number): void {
     if (typeof text === 'number') {
-      this.renderBadge(text.toString(), '#42b812')
+      this._renderBadge(text.toString(), '#42b812')
       return
     }
-    this.renderBadge(text.toString(), '#CCCCCC')
+    this._renderBadge(text.toString(), '#CCCCCC')
   }
-  toggleExtension (): void {
-    if (this.get(IS_ACTIVE)) {
-      this.set(IS_ACTIVE, '')
-      return
+  toggle (value: string = ''): string {
+    if (this.get(IS_ACTIVE) === '') {
+      value = 'active'
     }
-    this.set(IS_ACTIVE, 'active')
+    this.set(IS_ACTIVE, value)
+    return value
   }
   get (key: string): string {
     return localStorage[key] || ''
@@ -65,4 +53,3 @@ class Background {
     localStorage[key] = value
   }
 }
-window.bg = new Background()
