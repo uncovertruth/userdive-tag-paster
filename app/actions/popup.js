@@ -1,15 +1,13 @@
 /* @flow */
-import ChromePromise from 'chrome-promise'
-
-const chromep = new ChromePromise()
+import thenChrome from 'then-chrome'
 
 export async function get () {
-  const tabs = await chromep.runtime.query({
+  const tabs = await thenChrome.runtime.query({
     active: true,
     currentWindow: true
   })
 
-  const data = await chromep.tabs.sendMessage(tabs[0].id, {
+  const data = await thenChrome.tabs.sendMessage(tabs[0].id, {
     content: 'fetchCookie'
   })
 
@@ -17,8 +15,11 @@ export async function get () {
 }
 
 export async function toggle () {
-  await chromep.runtime.sendMessage({ bg: 'toggleExtension' })
-  const tabs = chromep.runtime.query({ active: true, currentWindow: true })
-  await chromep.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
+  await thenChrome.runtime.sendMessage({ bg: 'toggleExtension' })
+  const tabs = await thenChrome.runtime.query({
+    active: true,
+    currentWindow: true
+  })
+  await thenChrome.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
   window.close()
 }

@@ -1,19 +1,19 @@
 /* @flow */
 import { inject } from '../injector'
-import ChromePromise from 'chrome-promise'
-
-const chromep = new ChromePromise()
+import thenChrome from 'then-chrome'
 
 function renderBadge (text: string | number): Promise<boolean> {
-  return chromep.runtime.sendMessage({ bg: 'badge', text })
+  return thenChrome.runtime.sendMessage({ bg: 'badge', text })
 }
 
 function getConfig (): Promise<Object> {
-  return chromep.runtime.sendMessage({ bg: 'get' })
+  return thenChrome.runtime.sendMessage({ bg: 'get' })
 }
 
 const STATE_NAME = 'vyQqaa4SnJh48'
 const INJECT_ELEMENT_ID = 'wmd3MCLG6HXn'
+
+declare var chrome: any
 
 export default class Provider {
   constructor () {
@@ -40,19 +40,20 @@ export default class Provider {
 
     return JSON.parse(element.getAttribute(STATE_NAME))
   }
-  async listen () {
-    const { request, sendResponse } = await chromep.runtime.onMessage()
-    switch (request.content) {
-      case 'fetchCookie':
-        const data = await this.loadState()
-        sendResponse({ data })
-        break
-      case 'reloadPage':
-        renderBadge('...')
-        location.reload()
-        break
-    }
+  listen () {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      switch (request.content) {
+        case 'fetchCookie':
+          ;(async () => {
+            const data = await this.loadState()
+            sendResponse({ data })
+          })()
+          break
+        case 'reloadPage':
+          renderBadge('...')
+          location.reload()
+          break
+      }
+    })
   }
 }
-
-window.content = new Provider()
