@@ -16,7 +16,6 @@ export async function set ({ env, host, id, ignores, isActive }: any) {
   bg.set('USERDIVEId', id)
   bg.set('USERDIVEIgnore', ignores)
 
-  thenChrome.tabs.getCurrent(tab => {
-    thenChrome.tabs.remove(tab.id)
-  })
+  const tab = await thenChrome.tabs.getCurrent()
+  thenChrome.tabs.remove(tab.id)
 }

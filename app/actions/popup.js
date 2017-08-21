@@ -2,7 +2,7 @@
 import thenChrome from 'then-chrome'
 
 export async function get () {
-  const tabs = await thenChrome.runtime.query({
+  const tabs = await thenChrome.tabs.query({
     active: true,
     currentWindow: true
   })
@@ -16,7 +16,7 @@ export async function get () {
 
 export async function toggle () {
   await thenChrome.runtime.sendMessage({ bg: 'toggleExtension' })
-  const tabs = await thenChrome.runtime.query({
+  const tabs = await thenChrome.tabs.query({
     active: true,
     currentWindow: true
   })

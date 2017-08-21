@@ -31,7 +31,7 @@ export default class Options extends Component<Store, Store> {
     this.setState({ env: target.value })
   }
   onChangeHost ({ target }: any) {
-    this.setState({ env: target.value })
+    this.setState({ host: target.value })
   }
   onChangeIgnores ({ target }: any) {
     this.setState({ ignores: target.value })
