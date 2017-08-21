@@ -1,13 +1,15 @@
 /* @flow */
 import { inject } from '../injector'
-import { sendMessage, onMessage } from '../chrome/runtime'
+import ChromePromise from 'chrome-promise'
+
+const chromep = new ChromePromise()
 
 function renderBadge (text: string | number): Promise<boolean> {
-  return sendMessage({ bg: 'badge', text })
+  return chromep.runtime.sendMessage({ bg: 'badge', text })
 }
 
 function getConfig (): Promise<Object> {
-  return sendMessage({ bg: 'get' })
+  return chromep.runtime.sendMessage({ bg: 'get' })
 }
 
 const STATE_NAME = 'vyQqaa4SnJh48'
@@ -39,7 +41,7 @@ export default class Provider {
     return JSON.parse(element.getAttribute(STATE_NAME))
   }
   async listen () {
-    const { request, sendResponse } = await onMessage()
+    const { request, sendResponse } = await chromep.runtime.onMessage()
     switch (request.content) {
       case 'fetchCookie':
         const data = await this.loadState()

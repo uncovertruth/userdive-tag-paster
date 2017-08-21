@@ -1,10 +1,10 @@
 /* @flow */
-import { getBackgroundPage } from '../chrome/runtime'
+import ChromePromise from 'chrome-promise'
 
-declare var chrome: any
+const chromep = new ChromePromise()
 
 export async function get () {
-  const { bg } = await getBackgroundPage()
+  const { bg } = await chromep.runtime.getBackgroundPage()
   bg.get('USERDIVEId')
   bg.get('USERDIVEEnv')
   bg.get('USERDIVEHost')
@@ -12,13 +12,13 @@ export async function get () {
 }
 
 export async function set ({ env, host, id, ignores, isActive }: any) {
-  const { bg } = await getBackgroundPage()
+  const { bg } = await chromep.runtime.getBackgroundPage()
   bg.set('USERDIVEEnv', env)
   bg.set('USERDIVEHost', host)
   bg.set('USERDIVEId', id)
   bg.set('USERDIVEIgnore', ignores)
 
-  chrome.tabs.getCurrent(tab => {
-    chrome.tabs.remove(tab.id)
+  chromep.tabs.getCurrent(tab => {
+    chromep.tabs.remove(tab.id)
   })
 }

@@ -8,7 +8,7 @@ module.exports = {
     chromereload: path.resolve(__dirname, 'app/entrypoint/chromereload.js'),
     contentscript: path.resolve(__dirname, 'app/entrypoint/contentscript.js'),
     options: path.resolve(__dirname, 'app/entrypoint/options.jsx'),
-    popup: path.resolve(__dirname, 'app/entrypoint/popup.js')
+    popup: path.resolve(__dirname, 'app/entrypoint/popup.jsx')
   },
   output: {
     path: path.resolve(__dirname, 'app/scripts'),

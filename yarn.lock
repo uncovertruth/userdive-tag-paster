@@ -1391,6 +1391,10 @@ chrome-manifest@^0.2.4:
     sort-json "^1.2.0"
     underscore.string "^3.0.3"
 
+chrome-promise@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/chrome-promise/-/chrome-promise-2.0.3.tgz#97f413a4880a15dd66a2185d02c21996553a2dac"
+
 ci-info@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.0.0.tgz#dc5285f2b4e251821683681c381c3388f46ec534"

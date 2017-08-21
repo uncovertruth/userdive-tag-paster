@@ -4,7 +4,7 @@ import 'jest'
 describe('contents', () => {
   const Provider = require('../app/entrypoint/contentscript').default
 
-  test('defined', () => {
+  test.skip('defined', () => {
     expect(Provider)
   })
 })
