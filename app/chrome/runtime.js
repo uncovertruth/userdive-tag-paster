@@ -16,3 +16,7 @@ export function onMessage (): Promise<any> {
     )
   )
 }
+
+export function getBackgroundPage (): Promise<any> {
+  return new Promise(resolve => chrome.runtime.getBackgroundPage(resolve))
+}

@@ -8,7 +8,7 @@ describe('options', () => {
   })
 
   test.skip('defined', () => {
-    const Options = require('../app/js/options').default
+    const Options = require('../app/entrypoint/options').default
     expect(Options)
   })
 })

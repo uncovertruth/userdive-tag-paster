@@ -86,7 +86,7 @@
     "lint:js": "eslint . --cache",
     "precommit": "lint-staged",
     "release": "gulp package",
-    "tag": "uglifyjs app/js/tag.js -m",
+    "tag": "uglifyjs app/tag.js -m",
     "test": "jest"
   }
 }

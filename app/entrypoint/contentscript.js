@@ -1,5 +1,5 @@
 /* @flow */
-import { inject } from './injector'
+import { inject } from '../injector'
 import { sendMessage, onMessage } from '../chrome/runtime'
 
 function renderBadge (text: string | number): Promise<boolean> {

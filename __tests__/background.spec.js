@@ -8,7 +8,7 @@ describe('background', () => {
   })
 
   test.skip('defined', () => {
-    const Background = require('../app/js/background').default
+    const Background = require('../app/entrypoint/background').default
     expect(Background)
   })
 })
