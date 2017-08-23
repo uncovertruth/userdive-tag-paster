@@ -17,8 +17,7 @@ export default class Options extends Component<Store, Store> {
   onSave: Function
   constructor (props: Store) {
     super(props)
-    // flow-disable-line
-    this.state = props.configs
+    this.state = props
     this.onChangeId = this.onChangeId.bind(this)
     this.onChangeEnv = this.onChangeEnv.bind(this)
     this.onChangeHost = this.onChangeHost.bind(this)
