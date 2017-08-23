@@ -56,6 +56,11 @@ export default class Provider {
     const userData = JSON.parse(element.getAttribute(STATE_NAME))
 
     switch (userData.status) {
+      case 'Loading':
+        return {
+          status: 'UDTracker is loading',
+          message: 'please wait a few seconds'
+        }
       case 'Blocked':
         return {
           status: 'UDTracker was blocked',
