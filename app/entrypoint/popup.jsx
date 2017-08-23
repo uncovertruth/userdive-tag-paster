@@ -4,4 +4,8 @@ import { h, render } from 'preact'
 import Popup from '../components/popup'
 import { get } from '../actions/popup'
 
-render(<Popup data={get()} />, document.getElementById('info'))
+window.addEventListener('load', e => {
+  ;(async () => {
+    render(<Popup data={(await get()).data} />, document.getElementById('info'))
+  })()
+})

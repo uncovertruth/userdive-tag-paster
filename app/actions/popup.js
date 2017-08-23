@@ -10,7 +10,6 @@ export async function get () {
   const data = await thenChrome.tabs.sendMessage(tabs[0].id, {
     content: 'fetchCookie'
   })
-
   return data
 }
 

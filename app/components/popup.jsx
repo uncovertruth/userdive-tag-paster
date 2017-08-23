@@ -7,12 +7,16 @@ type Props = {
 }
 
 export default class Popup extends Component<Props> {
+  constructor (props) {
+    super(props)
+    this.state = props
+  }
   render () {
     return (
       <div>
-        {Object.keys(this.props).map((d, key) =>
+        {Object.keys(this.state.data).map((d, key) =>
           <p>
-            {this.props[d]}
+            {this.state.data[d]}
           </p>
         )}
       </div>

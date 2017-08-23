@@ -54,6 +54,7 @@ export default class Provider {
           location.reload()
           break
       }
+      return true
     })
   }
 }
