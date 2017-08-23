@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default class Popup extends Component<Props> {
-  constructor (props: object) {
+  constructor (props: Object) {
     super(props)
     this.state = props
     ;(async () => {
