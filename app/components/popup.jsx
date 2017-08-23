@@ -6,8 +6,15 @@ type Props = {
   id: string
 }
 
+type userData = {
+  id: string,
+  env: string,
+  host: string,
+  ignores: string
+}
+
 export default class Popup extends Component<Props> {
-  constructor (props) {
+  constructor (props: userData) {
     super(props)
     this.state = props
   }

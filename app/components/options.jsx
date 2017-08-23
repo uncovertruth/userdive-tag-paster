@@ -17,7 +17,7 @@ export default class Options extends Component<Store, Store> {
   onSave: Function
   constructor (props: Store) {
     super(props)
-    this.state = props.configs
+    this.state = props
     this.onChangeId = this.onChangeId.bind(this)
     this.onChangeEnv = this.onChangeEnv.bind(this)
     this.onChangeHost = this.onChangeHost.bind(this)
@@ -39,6 +39,7 @@ export default class Options extends Component<Store, Store> {
     set(this.state)
   }
   render () {
+    const { id, env, host, ignores } = this.state.configs
     return (
       <div>
         <div>
@@ -47,23 +48,15 @@ export default class Options extends Component<Store, Store> {
         </div>
         <div>
           <span>Id</span>
-          <input type='text' value={this.state.id} onChange={this.onChangeId} />
+          <input type='text' value={id} onChange={this.onChangeId} />
         </div>
         <div>
           <span>Env</span>
-          <input
-            type='text'
-            value={this.state.env}
-            onChange={this.onChangeEnv}
-          />
+          <input type='text' value={env} onChange={this.onChangeEnv} />
         </div>
         <div>
           <span>Source</span>
-          <input
-            type='text'
-            value={this.state.host}
-            onChange={this.onChangeHost}
-          />
+          <input type='text' value={host} onChange={this.onChangeHost} />
         </div>
         <div>
           <span>
@@ -73,7 +66,7 @@ export default class Options extends Component<Store, Store> {
           <textarea
             rows='4'
             cols='40'
-            value={this.state.ignores}
+            value={ignores}
             onChange={this.onChangeIgnores}
           />
         </div>
