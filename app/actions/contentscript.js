@@ -18,12 +18,12 @@ declare var chrome: any
 export default class Provider {
   constructor () {
     window.addEventListener('load', async e => {
+      this.listen()
       const config = await getConfig()
       if (!config.isActive) {
         renderBadge('OFF')
         return
       }
-      this.listen()
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
     })
   }
@@ -50,8 +50,10 @@ export default class Provider {
           })()
           break
         case 'reloadPage':
-          renderBadge('...')
-          location.reload()
+          ;(async () => {
+            await renderBadge('...')
+            location.reload()
+          })()
           break
       }
       return true

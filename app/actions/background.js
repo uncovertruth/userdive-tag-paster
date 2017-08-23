@@ -5,6 +5,7 @@ declare var chrome: any
 
 export default class Background {
   constructor () {
+    this.set(IS_ACTIVE, 'active')
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.bg) {
         case 'get':
@@ -12,7 +13,7 @@ export default class Background {
             env: this.get('USERDIVEEnv'),
             host: this.get('USERDIVEHost'),
             id: this.get('USERDIVEId'),
-            ignore: this.get('USERDIVEIgnore'),
+            ignores: this.get('USERDIVEIgnore'),
             isActive: this.get(IS_ACTIVE)
           })
           break
@@ -26,6 +27,7 @@ export default class Background {
           const isActive = this.get(IS_ACTIVE)
           sendResponse({ isActive })
       }
+      return true
     })
   }
   _renderBadge (text: string, color: string) {

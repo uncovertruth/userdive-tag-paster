@@ -17,7 +17,8 @@ export default class Options extends Component<Store, Store> {
   onSave: Function
   constructor (props: Store) {
     super(props)
-    this.state = props
+    // flow-disable-line
+    this.state = props.configs
     this.onChangeId = this.onChangeId.bind(this)
     this.onChangeEnv = this.onChangeEnv.bind(this)
     this.onChangeHost = this.onChangeHost.bind(this)
@@ -39,7 +40,7 @@ export default class Options extends Component<Store, Store> {
     set(this.state)
   }
   render () {
-    const { id, env, host, ignores } = this.state.configs
+    const { id, env, host, ignores } = this.state
     return (
       <div>
         <div>

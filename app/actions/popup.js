@@ -14,11 +14,22 @@ export async function get () {
 }
 
 export async function toggle () {
-  await thenChrome.runtime.sendMessage({ bg: 'toggleExtension' })
+  const isActive = await thenChrome.runtime.sendMessage({
+    bg: 'toggleExtension'
+  })
+
   const tabs = await thenChrome.tabs.query({
     active: true,
     currentWindow: true
   })
-  await thenChrome.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
+
+  thenChrome.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
+
   window.close()
+  return isActive
+}
+
+export async function isActive () {
+  const { bg } = await thenChrome.runtime.getBackgroundPage()
+  return bg.get('IS_ACTIVE')
 }

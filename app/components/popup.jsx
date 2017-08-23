@@ -1,5 +1,6 @@
 /* @flow */
 /** @jsx h */
+import { toggle } from '../actions/popup'
 import { h, Component } from 'preact'
 
 type Props = {
@@ -18,14 +19,28 @@ export default class Popup extends Component<Props> {
     super(props)
     this.state = props
   }
+
+  toggle () {
+    const isActive = toggle()
+    this.isActive = isActive
+  }
+
   render () {
     return (
       <div>
-        {Object.keys(this.state.data).map((d, key) =>
-          <p>
-            {this.state.data[d]}
-          </p>
-        )}
+        <table>
+          {Object.keys(this.state.data).map((d, key) =>
+            <tr>
+              <th>
+                {d}
+              </th>
+              <th>
+                {this.state.data[d]}
+              </th>
+            </tr>
+          )}
+        </table>
+        <button onClick={this.toggle}>Toggle</button>
       </div>
     )
   }
