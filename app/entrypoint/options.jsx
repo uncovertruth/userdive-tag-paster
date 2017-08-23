@@ -4,4 +4,6 @@ import { h, render } from 'preact'
 import Options from '../components/options'
 import { get } from '../actions/options'
 
-render(<Options {...get()} />, document.body)
+  ;(async () => {
+  render(<Options configs={await get()} />, document.body)
+})()

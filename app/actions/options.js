@@ -3,10 +3,12 @@ import thenChrome from 'then-chrome'
 
 export async function get () {
   const { bg } = await thenChrome.runtime.getBackgroundPage()
-  bg.get('USERDIVEId')
-  bg.get('USERDIVEEnv')
-  bg.get('USERDIVEHost')
-  bg.get('USERDIVEIgnore')
+  return {
+    id: bg.get('USERDIVEId'),
+    env: bg.get('USERDIVEEnv'),
+    host: bg.get('USERDIVEHost'),
+    ignores: bg.get('USERDIVEIgnore')
+  }
 }
 
 export async function set ({ env, host, id, ignores, isActive }: any) {
