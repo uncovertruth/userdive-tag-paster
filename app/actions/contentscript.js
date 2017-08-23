@@ -1,5 +1,6 @@
 /* @flow */
 import { inject } from '../injector'
+import { sleep } from '../utils'
 import thenChrome from 'then-chrome'
 
 function renderBadge (text: string | number): Promise<boolean> {
@@ -25,20 +26,49 @@ export default class Provider {
         return
       }
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
+      ;(async () => {
+        await sleep(3000)
+        this.renderPageId()
+      })()
     })
+  }
+  async renderPageId () {
+    const state = await this.loadState()
+    renderBadge(state.pageId || '?')
   }
   async loadState (): Object {
     const { isActive } = await getConfig()
     if (!isActive) {
-      return {}
+      return {
+        status: 'OFF',
+        message: 'to enable paster, plase click buton in popup window'
+      }
     }
 
     const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
-      return {}
+      return {
+        status: 'failed inject tag',
+        message: 'please check options'
+      }
     }
 
-    return JSON.parse(element.getAttribute(STATE_NAME))
+    const userData = JSON.parse(element.getAttribute(STATE_NAME))
+
+    switch (userData.status) {
+      case 'Blocked':
+        return {
+          status: 'UDTracker was blocked',
+          message: 'please check current page script'
+        }
+      case 'Failed':
+        return {
+          status: 'UDTracker failed to start',
+          message: 'please reload current page and popup'
+        }
+    }
+
+    return userData
   }
   listen () {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
