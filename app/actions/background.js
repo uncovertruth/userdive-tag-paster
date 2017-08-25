@@ -12,7 +12,7 @@ export default class Background {
             env: this.get('USERDIVEEnv'),
             host: this.get('USERDIVEHost'),
             id: this.get('USERDIVEId'),
-            ignores: this.get('USERDIVEIgnore'),
+            ignore: this.get('USERDIVEIgnore'),
             isActive: this.get(IS_ACTIVE)
           })
           break

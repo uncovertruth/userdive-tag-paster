@@ -17,8 +17,14 @@ type Config = {
 function createTag (
   elementId: string,
   attrName: string,
-  { id, host, env }: Config
+  { id, host, env, ignore }: Config
 ): string {
+  for (const domain of (ignore || '').split('\n')) {
+    const regexp = new RegExp(domain)
+    if (regexp.test(global.location.href)) {
+      return ''
+    }
+  }
   if (id.length < 3 || host.length < 14) {
     throw new Error('invalid config')
   }

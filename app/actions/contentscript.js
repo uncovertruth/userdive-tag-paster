@@ -56,6 +56,14 @@ export default class Provider {
 
     const userData = JSON.parse(element.getAttribute(STATE_NAME))
 
+    if (!userData) {
+      return {
+        status: 'ignored domain',
+        message:
+          'this domain was ignored by option. to enable paster, please check your option.'
+      }
+    }
+
     switch (userData.status) {
       case 'Loading':
         return {
