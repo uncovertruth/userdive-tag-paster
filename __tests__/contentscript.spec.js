@@ -1,9 +1,14 @@
 /* @flow */
 import 'jest'
 import chrome from 'sinon-chrome'
+import { random } from 'faker'
+import { inject } from '../app/injector'
+import { sleep } from '../app/utils'
 
 describe('contents', () => {
   let instance
+  const elementId = 'wmd3MCLG6HXn'
+  const attrKey = 'vyQqaa4SnJh48'
   beforeEach(() => {
     global.chrome = chrome
     const Provider = require('../app/actions/contentscript').default
@@ -27,5 +32,62 @@ describe('contents', () => {
   test('is active, but inject failed', () => {
     chrome.runtime.sendMessage.yields({ isActive: true })
     return instance.loadState().then(d => expect(d))
+  })
+
+  test('is active, but UDTracker Blocked', async () => {
+    chrome.runtime.sendMessage.yields({ isActive: true })
+    const config: any = {
+      id: random.alphaNumeric(10),
+      host: random.alphaNumeric(15)
+    }
+    inject('wmd3MCLG6HXn', 'vyQqaa4SnJh48', config)
+    await sleep(3000)
+    return instance.loadState().then(d => expect(d))
+  })
+
+  test('is active, but UDTracker failed starting', async () => {
+    chrome.runtime.sendMessage.yields({ isActive: true })
+    const config: any = {
+      id: random.alphaNumeric(10),
+      host: random.alphaNumeric(15)
+    }
+    inject(elementId, attrKey, config)
+
+    setAttr(document.getElementById(elementId), attrKey, { status: 'Failed' })
+
+    return instance.loadState().then(d => expect(d))
+  })
+
+  function setAttr (dom: any, key: string, value: any) {
+    dom.setAttribute(key, JSON.stringify(value))
+  }
+
+  test('is active, should recieve page id', async () => {
+    chrome.runtime.sendMessage.yields({ isActive: true })
+    const config: any = {
+      id: random.alphaNumeric(10),
+      host: random.alphaNumeric(15)
+    }
+    inject(elementId, attrKey, config)
+
+    setAttr(document.getElementById(elementId), attrKey, { pageId: 1 })
+
+    return instance.loadState().then(d => expect(d.pageId).toEqual(1))
+  })
+
+  test('is active, should recieve page id', async () => {
+    return chrome.runtime.sendMessage.yields({ content: 'fetchCookie' })
+  })
+
+  test('render page id as badge', async () => {
+    chrome.runtime.sendMessage.yields({ isActive: true })
+    const config: any = {
+      id: random.alphaNumeric(10),
+      host: random.alphaNumeric(15)
+    }
+    inject(elementId, attrKey, config)
+    await sleep(3000)
+
+    return instance.renderPageId()
   })
 })

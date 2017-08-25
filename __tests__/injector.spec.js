@@ -6,6 +6,10 @@ import { inject } from '../app/injector'
 describe('injector', () => {
   const elementId = random.uuid()
 
+  afterEach(function () {
+    document.body.textContent = null
+  })
+
   test('vaild id', () => {
     const config: any = {
       id: random.alphaNumeric(10),
@@ -13,5 +17,13 @@ describe('injector', () => {
     }
     inject(elementId, random.uuid(), config)
     expect(document.getElementById(elementId))
+  })
+
+  test('invalid id', () => {
+    const config: any = {
+      id: '',
+      host: ''
+    }
+    inject(elementId, random.uuid(), config)
   })
 })
