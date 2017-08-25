@@ -14,7 +14,7 @@ export default class Options extends Component<Store, Store> {
   onChangeId: Function
   onChangeEnv: Function
   onChangeHost: Function
-  onChangeignore: Function
+  onChangeIgnore: Function
   onSave: Function
   constructor (props: Store) {
     super(props)
@@ -22,7 +22,7 @@ export default class Options extends Component<Store, Store> {
     this.onChangeId = this.onChangeId.bind(this)
     this.onChangeEnv = this.onChangeEnv.bind(this)
     this.onChangeHost = this.onChangeHost.bind(this)
-    this.onChangeignore = this.onChangeignore.bind(this)
+    this.onChangeIgnore = this.onChangeIgnore.bind(this)
     this.onSave = this.onSave.bind(this)
   }
   onChangeId ({ target }: any) {
@@ -34,7 +34,7 @@ export default class Options extends Component<Store, Store> {
   onChangeHost ({ target }: any) {
     this.setState({ host: target.value })
   }
-  onChangeignore ({ target }: any) {
+  onChangeIgnore ({ target }: any) {
     this.setState({ ignore: target.value })
   }
   onSave () {
@@ -69,7 +69,7 @@ export default class Options extends Component<Store, Store> {
             rows='4'
             cols='40'
             value={ignore}
-            onChange={this.onChangeignore}
+            onChange={this.onChangeIgnore}
           />
         </div>
         <button onClick={this.onSave}>Save</button>

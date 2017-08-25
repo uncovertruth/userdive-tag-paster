@@ -22,7 +22,7 @@ export default class Provider {
       const config = await getConfig()
       if (!config.isActive) {
         renderBadge('OFF')
-        this.listen()
+        this.listenReload()
         return
       }
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
@@ -38,14 +38,6 @@ export default class Provider {
     renderBadge(state.pageId || '?')
   }
   async loadState (): Object {
-    const { isActive } = await getConfig()
-    if (!isActive) {
-      return {
-        status: 'OFF',
-        message: 'to enable paster, plase click buton in popup window'
-      }
-    }
-
     const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
       return {
@@ -94,13 +86,22 @@ export default class Provider {
           })()
           break
         case 'reloadPage':
-          ;(async () => {
-            await renderBadge('...')
-            location.reload()
-          })()
+          this.reload()
           break
       }
       return true
     })
+  }
+  listenReload () {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+      if (request.content === 'reloadPage') {
+        this.reload()
+      }
+      return true
+    })
+  }
+  async reload () {
+    await renderBadge('...')
+    location.reload()
   }
 }
