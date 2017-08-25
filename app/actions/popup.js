@@ -14,7 +14,7 @@ export async function get () {
 }
 
 export async function toggle () {
-  const isActive = await thenChrome.runtime.sendMessage({
+  await thenChrome.runtime.sendMessage({
     bg: 'toggleExtension'
   })
 
@@ -26,7 +26,6 @@ export async function toggle () {
   thenChrome.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
 
   window.close()
-  return isActive
 }
 
 export async function isActive () {

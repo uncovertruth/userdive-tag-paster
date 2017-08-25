@@ -17,8 +17,10 @@ export default class Popup extends Component<Props> {
   }
 
   toggle () {
-    const isActive = toggle()
-    this.setState({ isActive })
+    toggle()
+    ;(async () => {
+      this.setState({ isActive: await isActive() })
+    })()
   }
 
   render () {

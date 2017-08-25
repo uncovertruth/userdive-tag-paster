@@ -19,10 +19,10 @@ declare var chrome: any
 export default class Provider {
   constructor () {
     window.addEventListener('load', async e => {
-      this.listen()
       const config = await getConfig()
       if (!config.isActive) {
         renderBadge('OFF')
+        this.listen()
         return
       }
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
@@ -30,6 +30,7 @@ export default class Provider {
         await sleep(3000)
         this.renderPageId()
       })()
+      this.listen()
     })
   }
   async renderPageId () {
