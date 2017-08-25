@@ -29,8 +29,8 @@ describe('background', () => {
   })
 
   test('toggle', () => {
-    expect(bg.toggle()).toBe('')
     expect(bg.toggle()).toBe('active')
+    expect(bg.toggle()).toBe('')
   })
 
   test('badge', () => {

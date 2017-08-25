@@ -5,7 +5,6 @@ declare var chrome: any
 
 export default class Background {
   constructor () {
-    this.set(IS_ACTIVE, 'active')
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.bg) {
         case 'get':
