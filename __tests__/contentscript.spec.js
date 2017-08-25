@@ -75,10 +75,6 @@ describe('contents', () => {
     return instance.loadState().then(d => expect(d.pageId).toEqual(1))
   })
 
-  test('is active, should recieve page id', async () => {
-    return chrome.runtime.sendMessage.yields({ content: 'fetchCookie' })
-  })
-
   test('render page id as badge', async () => {
     chrome.runtime.sendMessage.yields({ isActive: true })
     const config: any = {
