@@ -20,6 +20,7 @@ function createTag (
   { id, host, env, ignore }: Config
 ): string {
   for (const domain of (ignore || '').split('\n')) {
+    if (!domain) break
     const regexp = new RegExp(domain)
     if (regexp.test(global.location.href)) {
       return ''

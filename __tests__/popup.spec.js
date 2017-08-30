@@ -1,19 +1,20 @@
 /* @flow */
 /** @jsx h */
+/* eslint import/first: 0 */
 import 'jest'
-import TestUtils from 'react-dom/test-utils'
 import { h } from 'preact'
 
-jest.unmock('../app/components/popup')
-import Popup from '../app/components/popup' // eslint-disable-line import/first
+jest.unmock('preact-render-to-string')
+import render from 'preact-render-to-string'
+import Popup from '../app/components/popup'
 
 describe('popup', () => {
-  function render (data) {
-    const instance = TestUtils.renderIntoDocument(<Popup {...data} />)
-    return instance
-  }
-
   test('vaild id', () => {
-    render({ test: 'test' })
+    const data = { test: 'test' }
+    const Component = () => <Popup {...{ data }} />
+    const html = render(<Component />)
+    document.body.innerHTML = html
+    const th = document.getElementsByTagName('th')[0]
+    expect(th.innerHTML).toBe('test')
   })
 })
