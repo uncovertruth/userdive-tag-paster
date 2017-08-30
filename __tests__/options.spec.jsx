@@ -1,9 +1,9 @@
 /* @flow */
 /** @jsx h */
-/* eslint import/first: 0 */
 import 'jest'
 import { h, render } from 'preact'
 import { random } from 'faker'
+import chrome from 'sinon-chrome'
 
 import Options from '../app/components/options'
 
@@ -12,6 +12,12 @@ describe('options', () => {
 
   beforeEach(() => {
     body.innerHTML = ''
+    global.chrome = chrome
+  })
+
+  afterEach(function () {
+    chrome.flush()
+    delete global.chrome
   })
 
   function renderComponent (data) {
@@ -36,5 +42,18 @@ describe('options', () => {
     renderComponent()
     const th = document.getElementsByTagName('input')[0]
     expect(th.value).toBe('')
+  })
+
+  test('onSave', () => {
+    const configs = {
+      id: random.alphaNumeric(10),
+      env: random.alphaNumeric(10),
+      host: random.alphaNumeric(15),
+      ignore: random.alphaNumeric(10)
+    }
+    renderComponent(configs)
+
+    const button = body.getElementsByTagName('button')[0]
+    button.click()
   })
 })
