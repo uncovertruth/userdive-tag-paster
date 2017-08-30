@@ -14,11 +14,15 @@ describe('popup', () => {
 
   test('vaild id', () => {
     const wrapper = wrappeComponent({ test: 'test' })
-    expect(wrapper.find('tr'))
+    setTimeout(() => {
+      expect(wrapper.find('tr'))
+    })
   })
 
   test('toggle', () => {
     const wrapper = wrappeComponent({ test: 'test' })
-    wrapper.find('button').simulate('click')
+    setTimeout(() => {
+      wrapper.find('button').simulate('click')
+    })
   })
 })

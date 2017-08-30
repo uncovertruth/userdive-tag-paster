@@ -23,11 +23,15 @@ describe('options', () => {
 
   test('vaild configs', () => {
     const wrapper = wrappeComponent(data)
-    expect(wrapper.props().id).toEqual(id)
+    setTimeout(() => {
+      expect(wrapper.props().id).toEqual(id)
+    }, 10)
   })
 
   test('no configs', () => {
     const wrapper = wrappeComponent()
-    expect(wrapper.props().id).toEqual(undefined)
+    setTimeout(() => {
+      expect(wrapper.props().id).toEqual(undefined)
+    }, 10)
   })
 })
