@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "preact": "^8.2.1",
-    "preact-compat": "^3.17.0"
+    "preact": "^8.2.1"
   },
   "devDependencies": {
     "@uncovertruth/eslint-config-flowtype": "^1.1.0",
@@ -45,8 +44,6 @@
     "npm-run-all": "^4.0.2",
     "preact-render-to-string": "^3.6.3",
     "prettier-eslint-cli": "^4.1.1",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "rimraf": "^2.6.1",
     "run-sequence": "^2.0.0",
     "sinon-chrome": "^2.2.1",
