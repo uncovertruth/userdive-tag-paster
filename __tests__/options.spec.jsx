@@ -1,14 +1,22 @@
 /* @flow */
 /** @jsx h */
 import 'jest'
-import { h, render } from 'preact'
+import { h } from 'preact'
 import { random } from 'faker'
 import chrome from 'sinon-chrome'
+import { mount } from 'enzyme'
 
 import Options from '../app/components/options'
 
 describe('options', () => {
   const body: any = document.body
+  const id = random.alphaNumeric(10)
+  const data = {
+    id,
+    env: random.alphaNumeric(10),
+    host: random.alphaNumeric(15),
+    ignore: random.alphaNumeric(10)
+  }
 
   beforeEach(() => {
     body.innerHTML = ''
@@ -20,40 +28,18 @@ describe('options', () => {
     delete global.chrome
   })
 
-  function renderComponent (data) {
-    render(<Options {...data} />, body)
+  function wrappeComponent (data = {}) {
+    const wrapper = mount(<Options {...data} />)
+    return wrapper
   }
 
   test('vaild configs', () => {
-    const id = random.alphaNumeric(10)
-    const configs = {
-      id,
-      env: random.alphaNumeric(10),
-      host: random.alphaNumeric(15),
-      ignore: random.alphaNumeric(10)
-    }
-    renderComponent(configs)
-
-    const th = body.getElementsByTagName('input')[0]
-    expect(th.value).toBe(id)
+    const wrapper = wrappeComponent(data)
+    expect(wrapper.props().id).toEqual(id)
   })
 
   test('no configs', () => {
-    renderComponent()
-    const th = document.getElementsByTagName('input')[0]
-    expect(th.value).toBe('')
-  })
-
-  test('onSave', () => {
-    const configs = {
-      id: random.alphaNumeric(10),
-      env: random.alphaNumeric(10),
-      host: random.alphaNumeric(15),
-      ignore: random.alphaNumeric(10)
-    }
-    renderComponent(configs)
-
-    const button = body.getElementsByTagName('button')[0]
-    button.click()
+    const wrapper = wrappeComponent()
+    expect(wrapper.props().id).toEqual(undefined)
   })
 })

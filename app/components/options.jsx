@@ -72,7 +72,9 @@ export default class Options extends Component<Store, Store> {
             onChange={this.onChangeIgnore}
           />
         </div>
-        <button onClick={this.onSave}>Save</button>
+        <button id='toggle' onClick={this.onSave}>
+          Save
+        </button>
       </div>
     )
   }

@@ -1,8 +1,9 @@
 /* @flow */
 /** @jsx h */
 import 'jest'
-import { h, render } from 'preact'
+import { h } from 'preact'
 import chrome from 'sinon-chrome'
+import { mount } from 'enzyme'
 
 import Popup from '../app/components/popup'
 
@@ -19,21 +20,18 @@ describe('popup', () => {
     delete global.chrome
   })
 
-  function renderComponent (data: Object) {
-    render(<Popup {...{ data }} />, body)
+  function wrappeComponent (data = {}) {
+    const wrapper = mount(<Popup {...{ data }} />)
+    return wrapper
   }
 
   test('vaild id', () => {
-    renderComponent({ test: 'test' })
-
-    const th: any = body.getElementsByTagName('th')[0]
-    expect(th.innerHTML).toBe('test')
+    const wrapper = wrappeComponent({ test: 'test' })
+    expect(wrapper.find('tr'))
   })
 
   test('toggle', () => {
-    renderComponent({ test: 'test' })
-
-    const button = body.getElementsByTagName('button')[0]
-    button.click()
+    const wrapper = wrappeComponent({ test: 'test' })
+    wrapper.find('button').simulate('click')
   })
 })
