@@ -3,13 +3,11 @@
 import 'jest'
 import { h } from 'preact'
 import { random } from 'faker'
-import chrome from 'sinon-chrome'
 import { mount } from 'enzyme'
 
 import Options from '../app/components/options'
 
 describe('options', () => {
-  const body: any = document.body
   const id = random.alphaNumeric(10)
   const data = {
     id,
@@ -17,16 +15,6 @@ describe('options', () => {
     host: random.alphaNumeric(15),
     ignore: random.alphaNumeric(10)
   }
-
-  beforeEach(() => {
-    body.innerHTML = ''
-    global.chrome = chrome
-  })
-
-  afterEach(function () {
-    chrome.flush()
-    delete global.chrome
-  })
 
   function wrappeComponent (data = {}) {
     const wrapper = mount(<Options {...data} />)
