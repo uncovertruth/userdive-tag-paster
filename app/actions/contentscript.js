@@ -1,14 +1,15 @@
 /* @flow */
+import thenChrome from 'then-chrome'
+import { CO_GET_STATE, BG_GET_CONFIG, BG_UPDATE_BADGE } from '../constants'
 import { inject } from '../injector'
 import { sleep } from '../utils'
-import thenChrome from 'then-chrome'
 
 function renderBadge (text: string | number): Promise<boolean> {
-  return thenChrome.runtime.sendMessage({ bg: 'badge', text })
+  return thenChrome.runtime.sendMessage({ bg: BG_UPDATE_BADGE, text })
 }
 
 function getConfig (): Promise<Object> {
-  return thenChrome.runtime.sendMessage({ bg: 'get' })
+  return thenChrome.runtime.sendMessage({ bg: BG_GET_CONFIG })
 }
 
 const STATE_NAME = 'vyQqaa4SnJh48'
@@ -18,26 +19,23 @@ declare var chrome: any
 
 export default class Provider {
   constructor () {
-    window.addEventListener('load', async e => {
+    ;(async e => {
       const config = await getConfig()
       if (!config.isActive) {
         renderBadge('OFF')
-        this.listenReload()
         return
       }
       inject(INJECT_ELEMENT_ID, STATE_NAME, config)
-      ;(async () => {
-        await sleep(3000)
-        this.renderPageId()
-      })()
+      await sleep(3000)
+      this.renderPageId()
       this.listen()
-    })
+    })()
   }
   async renderPageId () {
     const state = await this.loadState()
     renderBadge(state.pageId || '?')
   }
-  async loadState (): Object {
+  async loadState (): Promise<{ [string]: string }> {
     const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
       return {
@@ -73,35 +71,18 @@ export default class Provider {
           message: 'please reload current page and popup'
         }
     }
-
     return userData
   }
   listen () {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.content) {
-        case 'fetchCookie':
+        case CO_GET_STATE:
           ;(async () => {
             const data = await this.loadState()
-            sendResponse({ data })
+            sendResponse(data)
           })()
           break
-        case 'reloadPage':
-          this.reload()
-          break
       }
-      return true
     })
-  }
-  listenReload () {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (request.content === 'reloadPage') {
-        this.reload()
-      }
-      return true
-    })
-  }
-  async reload () {
-    await renderBadge('...')
-    location.reload()
   }
 }

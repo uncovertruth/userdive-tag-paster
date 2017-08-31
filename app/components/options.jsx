@@ -41,12 +41,13 @@ export default class Options extends Component<Store, Store> {
     set(this.state)
   }
   render () {
-    const { id, env, host, ignore } = this.state
+    const { id, env, host, ignore, isActive } = this.state
     return (
       <div>
         <div>
-          <span>state</span>
-          <span id='active' />
+          <span>
+            {`state: ${isActive || 'OFF'}`}
+          </span>
         </div>
         <div>
           <span>Id</span>

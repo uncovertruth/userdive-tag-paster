@@ -4,6 +4,9 @@ module.exports = {
     '@uncovertruth/eslint-config-flowtype',
     '@uncovertruth/eslint-config-react'
   ],
+  rules: {
+    'react/prop-types': 0 // use Flow Type
+  },
   plugins: ['jest'],
   env: {
     node: true,
