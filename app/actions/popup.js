@@ -1,5 +1,6 @@
 /* @flow */
 import thenChrome from 'then-chrome'
+import { CO_GET_STATE, BG_TOGGLE } from '../constants'
 
 export async function get () {
   const tabs = await thenChrome.tabs.query({
@@ -8,27 +9,14 @@ export async function get () {
   })
 
   const data = await thenChrome.tabs.sendMessage(tabs[0].id, {
-    content: 'fetchCookie'
+    content: CO_GET_STATE
   })
   return data
 }
 
 export async function toggle () {
   await thenChrome.runtime.sendMessage({
-    bg: 'toggleExtension'
+    bg: BG_TOGGLE
   })
-
-  const tabs = await thenChrome.tabs.query({
-    active: true,
-    currentWindow: true
-  })
-
-  thenChrome.tabs.sendMessage(tabs[0].id, { content: 'reloadPage' })
-
   window.close()
-}
-
-export async function isActive () {
-  const { bg } = await thenChrome.runtime.getBackgroundPage()
-  return bg.get('IS_ACTIVE')
 }

@@ -1,45 +1,34 @@
 /* @flow */
 /** @jsx h */
-import { toggle, isActive } from '../actions/popup'
+import { toggle } from '../actions/popup'
 import { h, Component } from 'preact'
 
 type Props = {
-  id: string
+  isActive: boolean,
+  data: {
+    [string]: string
+  }
 }
 
 export default class Popup extends Component<Props> {
-  constructor (props: Object) {
-    super(props)
-    this.state = props
-    ;(async () => {
-      this.setState({ isActive: await isActive() })
-    })()
-  }
-
-  toggle () {
-    toggle()
-    ;(async () => {
-      this.setState({ isActive: await isActive() })
-    })()
-  }
-
   render () {
+    const { isActive, data } = this.props
     return (
       <div>
         <table>
-          {Object.keys(this.state.data).map((d, key) =>
-            <tr>
+          {Object.keys(data).map((d, key) =>
+            <tr key={key}>
               <th>
                 {d}
               </th>
               <th>
-                {this.state.data[d]}
+                {data[d]}
               </th>
             </tr>
           )}
         </table>
-        <button onClick={this.toggle}>
-          Turn {this.state.isActive ? 'OFF' : 'ON'}
+        <button onClick={toggle}>
+          Turn {isActive ? 'OFF' : 'ON'}
         </button>
       </div>
     )
