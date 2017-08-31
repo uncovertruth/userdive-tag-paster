@@ -26,6 +26,7 @@ export default class Background {
           const isActive = this.get(IS_ACTIVE)
           sendResponse({ isActive })
       }
+      return true
     })
   }
   _renderBadge (text: string, color: string) {
