@@ -46,7 +46,7 @@
     "rimraf": "^2.6.1",
     "run-sequence": "^2.0.0",
     "sinon-chrome": "^2.2.1",
-    "style-loader": "^0.18.2",
+    "style-loader": "^0.19.0",
     "stylelint": "^8.0.0",
     "then-chrome": "^1.0.7",
     "uglifyjs-webpack-plugin": "^0.4.6",
