@@ -1,5 +1,7 @@
 # @uncovertruth/userdive-tag-paster
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/uncovertruth/userdive-tag-paster.svg)](https://greenkeeper.io/)
+
 タグ貼る君
 
 [![Build Status][travis-image]][travis-url] [![Dependency Status][david-dm-image]][david-dm-url] [![devDependency Status][dev-david-dm-image]][dev-david-dm-url]
