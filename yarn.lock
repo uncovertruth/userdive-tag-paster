@@ -28,9 +28,9 @@
     eslint-plugin-promise "^3.5.0"
     eslint-plugin-standard "^3.0.1"
 
-"@uncovertruth/stylelint-config@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@uncovertruth/stylelint-config/-/stylelint-config-0.5.0.tgz#1b7dad1994bce92ebc30e912baca7691c2901dd3"
+"@uncovertruth/stylelint-config@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@uncovertruth/stylelint-config/-/stylelint-config-0.6.0.tgz#c91ef50761d9688646f7921ccc38c4139f362615"
   dependencies:
     stylelint-config-standard "^17.0.0"
 
@@ -2194,9 +2194,9 @@ eslint-plugin-import@^2.2.0:
     minimatch "^3.0.3"
     read-pkg-up "^2.0.0"
 
-eslint-plugin-jest@^20.0.3:
-  version "20.0.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-20.0.3.tgz#ec15eba6ac0ab44a67ebf6e02672ca9d7e7cba29"
+eslint-plugin-jest@^21.0.0:
+  version "21.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jest/-/eslint-plugin-jest-21.2.0.tgz#292044df9cf0866ad9c530e78e6528fae287b926"
 
 eslint-plugin-node@^4.2.2:
   version "4.2.3"
@@ -2678,9 +2678,9 @@ flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
 
-flow-bin@^0.53.0:
-  version "0.53.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.53.0.tgz#f7830e609ca02b12db4127114213cccc7c0771b9"
+flow-bin@^0.57.1:
+  version "0.57.2"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.57.2.tgz#0b5ed4dd38a1991047e9bee71d62a763ae61b6b7"
 
 flow-typed@^2.1.5:
   version "2.1.5"
@@ -4179,7 +4179,7 @@ jest-validate@^20.0.3:
     leven "^2.1.0"
     pretty-format "^20.0.3"
 
-jest@^20.0.4:
+jest@20.0.4:
   version "20.0.4"
   resolved "https://registry.yarnpkg.com/jest/-/jest-20.0.4.tgz#3dd260c2989d6dad678b1e9cc4d91944f6d602ac"
   dependencies:
@@ -6751,9 +6751,9 @@ strip-outer@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-style-loader@^0.18.2:
-  version "0.18.2"
-  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.18.2.tgz#cc31459afbcd6d80b7220ee54b291a9fd66ff5eb"
+style-loader@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.19.0.tgz#7258e788f0fee6a42d710eaf7d6c2412a4c50759"
   dependencies:
     loader-utils "^1.0.2"
     schema-utils "^0.3.0"
