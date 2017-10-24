@@ -38,7 +38,11 @@ module.exports = {
     }),
     new UglifyJSPlugin({
       sourceMap: true,
-      comments: false
+      uglifyOptions: {
+        output: {
+          comments: false
+        }
+      }
     })
   ]
 }
