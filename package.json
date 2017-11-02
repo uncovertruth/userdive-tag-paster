@@ -27,7 +27,7 @@
     "eslint": "^4.3.0",
     "eslint-plugin-jest": "^21.0.0",
     "faker": "^4.1.0",
-    "flow-bin": "^0.57.1",
+    "flow-bin": "^0.58.0",
     "flow-typed": "^2.1.5",
     "gulp": "^3.9.1",
     "gulp-chrome-manifest": "^0.0.13",
