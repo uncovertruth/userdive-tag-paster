@@ -13,7 +13,7 @@
   "devDependencies": {
     "@uncovertruth/eslint-config-flowtype": "^1.1.0",
     "@uncovertruth/eslint-config-react": "^0.1.0",
-    "@uncovertruth/stylelint-config": "^0.7.0",
+    "@uncovertruth/stylelint-config": "^0.8.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
