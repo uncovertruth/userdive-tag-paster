@@ -11,7 +11,7 @@
     "preact": "^8.2.1"
   },
   "devDependencies": {
-    "@uncovertruth/eslint-config-flowtype": "^1.1.0",
+    "@uncovertruth/eslint-config-flowtype": "^1.4.0",
     "@uncovertruth/eslint-config-react": "^0.1.0",
     "@uncovertruth/stylelint-config": "^0.8.0",
     "babel-core": "^6.25.0",
