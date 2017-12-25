@@ -5288,11 +5288,12 @@ mkdirp@0.5, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdir
   dependencies:
     minimist "0.0.8"
 
-mock-local-storage@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.4.tgz#ffb35defc47beb0d09bdea19028464e651018ee7"
+mock-local-storage@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.5.tgz#899ff300027cefed47816e6dc539bb059fcce489"
   dependencies:
     core-js "^0.8.3"
+    global "^4.3.2"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
