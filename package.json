@@ -24,7 +24,7 @@
     "codecov": "^3.0.0",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
-    "eslint": "^4.3.0",
+    "eslint": "^4.14.0",
     "eslint-plugin-jest": "^21.5.0",
     "faker": "^4.1.0",
     "flow-bin": "^0.61.0",
