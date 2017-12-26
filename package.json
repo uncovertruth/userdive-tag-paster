@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "preact": "^8.2.1"
+    "preact": "^8.2.7"
   },
   "devDependencies": {
     "@uncovertruth/eslint-config-flowtype": "^1.4.0",
