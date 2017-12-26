@@ -17,7 +17,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-preact": "^1.1.0",
     "babel-register": "^6.24.1",
