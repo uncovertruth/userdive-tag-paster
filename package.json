@@ -43,7 +43,7 @@
     "npm-run-all": "^4.0.2",
     "preact-render-to-string": "^3.6.3",
     "prettier-eslint-cli": "^4.7.0",
-    "rimraf": "^2.6.1",
+    "rimraf": "^2.6.2",
     "run-sequence": "^2.0.0",
     "sinon-chrome": "^2.2.1",
     "style-loader": "^0.19.1",
