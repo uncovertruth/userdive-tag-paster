@@ -1,15 +1,22 @@
 {
-  "presets": ["env", "preact", "flow"],
-  "plugins": [
-    ["transform-runtime", {
-      "helpers": false,
-      "polyfill": false,
-      "regenerator": true,
-      "moduleName": "babel-runtime"
-    }]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "safari >= 7"]
+        }
+      }
+    ],
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "pragma": "h"
+      }
+    ],
+    "@babel/preset-flow"
   ],
-  "env": {
-    "development": {
-    }
-  }
+  "plugins": [
+      "@babel/plugin-transform-runtime"
+  ]
 }
