@@ -8,8 +8,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.36",
-    "preact": "^8.2.7",
-    "regenerator-runtime": "^0.11.1"
+    "preact": "^8.2.7"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.36",
@@ -20,6 +19,7 @@
     "@uncovertruth/eslint-config-flowtype": "^1.4.0",
     "@uncovertruth/eslint-config-react": "^0.1.0",
     "@uncovertruth/stylelint-config": "^0.8.0",
+    "babel-core": "^7.0.0-0",
     "babel-jest": "^22.0.4",
     "babel-loader": "8.0.0-beta.0",
     "codecov": "^3.0.0",
@@ -68,8 +68,8 @@
       "git add"
     ],
     "*.css": [
-      "stylefmt",
-      "prettier --write --parser=postcss",
+      "prettier --write --parser postcss",
+      "stylelint --fix",
       "stylelint",
       "git add"
     ]
@@ -84,10 +84,10 @@
     "b:gulp": "gulp build",
     "b:html": "cp ./app/*.html dist/",
     "b:images": "imagemin app/images/*.png --out-dir=dist/images/",
-    "b:webpack": "cross-env NODE_ENV=production webpack",
+    "b:webpack": "webpack --env production",
     "build": "run-s clean b:webpack b:images b:html b:gulp",
     "clean": "rimraf dist app/scripts package coverage",
-    "coverage": "codecov -t $CODECOV_TOKEN -f ./coverage/lcov.info",
+    "coverage": "codecov -f ./coverage/lcov.info",
     "lint": "run-p lint:*",
     "lint:css": "stylelint app/styles/*.css",
     "lint:flow": "flow",
