@@ -10,6 +10,8 @@ env:
   - CMD=build
   - CMD=test
   - CMD=lint
+before_script:
+- npx flow-typed install -s
 script:
 - npm run $CMD
 after_success:

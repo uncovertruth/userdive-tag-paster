@@ -1,5 +1,4 @@
 /* @flow */
-import 'jest'
 import chrome from 'sinon-chrome'
 import { random } from 'faker'
 import { inject } from '../app/injector'
