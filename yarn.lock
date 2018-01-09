@@ -140,6 +140,13 @@
     "@babel/types" "7.0.0-beta.36"
     lodash "^4.2.0"
 
+"@babel/helper-module-imports@7.0.0-beta.37":
+  version "7.0.0-beta.37"
+  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.0.0-beta.37.tgz#e0f34cfbe7eb0d70dc02e1481a236e26d127fb43"
+  dependencies:
+    "@babel/types" "7.0.0-beta.37"
+    lodash "^4.2.0"
+
 "@babel/helper-module-transforms@7.0.0-beta.36":
   version "7.0.0-beta.36"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-transforms/-/helper-module-transforms-7.0.0-beta.36.tgz#d88ac39b86d40065add150b71a09543b8daefe5f"
@@ -388,11 +395,11 @@
   dependencies:
     regenerator-transform "^0.12.2"
 
-"@babel/plugin-transform-runtime@^7.0.0-beta.36":
-  version "7.0.0-beta.36"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.0.0-beta.36.tgz#c1b7e29403623f2fa7a1b2055514309b2189d751"
+"@babel/plugin-transform-runtime@^7.0.0-beta.37":
+  version "7.0.0-beta.37"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.0.0-beta.37.tgz#08e4cc28a273be09d2d5e37e4f2ae17deb38deea"
   dependencies:
-    "@babel/helper-module-imports" "7.0.0-beta.36"
+    "@babel/helper-module-imports" "7.0.0-beta.37"
 
 "@babel/plugin-transform-shorthand-properties@7.0.0-beta.36":
   version "7.0.0-beta.36"
@@ -536,6 +543,14 @@
 "@babel/types@7.0.0-beta.36":
   version "7.0.0-beta.36"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.36.tgz#64f2004353de42adb72f9ebb4665fc35b5499d23"
+  dependencies:
+    esutils "^2.0.2"
+    lodash "^4.2.0"
+    to-fast-properties "^2.0.0"
+
+"@babel/types@7.0.0-beta.37":
+  version "7.0.0-beta.37"
+  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.0.0-beta.37.tgz#fa93af9aa9d85c331729bb923495af04d9b0617d"
   dependencies:
     esutils "^2.0.2"
     lodash "^4.2.0"
