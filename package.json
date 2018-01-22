@@ -20,7 +20,7 @@
     "@uncovertruth/eslint-config-react": "^0.1.0",
     "@uncovertruth/stylelint-config": "^0.8.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^22.0.4",
+    "babel-jest": "^22.1.0",
     "babel-loader": "8.0.0-beta.0",
     "codecov": "^3.0.0",
     "css-loader": "^0.28.8",
