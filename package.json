@@ -16,7 +16,7 @@
     "@babel/plugin-transform-runtime": "^7.0.0-beta.38",
     "@babel/preset-env": "^7.0.0-beta.38",
     "@babel/preset-flow": "^7.0.0-beta.38",
-    "@uncovertruth/eslint-config-flowtype": "^1.4.0",
+    "@uncovertruth/eslint-config-flowtype": "^1.5.0",
     "@uncovertruth/eslint-config-react": "^0.1.0",
     "@uncovertruth/stylelint-config": "^0.8.0",
     "babel-core": "7.0.0-bridge.0",
