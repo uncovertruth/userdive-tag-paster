@@ -553,12 +553,12 @@
     babel-eslint "^8.2.1"
     eslint-plugin-flowtype "^2.42.0"
 
-"@uncovertruth/eslint-config-react@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@uncovertruth/eslint-config-react/-/eslint-config-react-0.2.0.tgz#9b119b97bc329a6a48ab99090ecfa36d507edb5a"
+"@uncovertruth/eslint-config-react@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@uncovertruth/eslint-config-react/-/eslint-config-react-0.3.0.tgz#e5f942005112f3aeca3a137254213b1142c39985"
   dependencies:
     eslint-config-standard-react "^5.0.0"
-    eslint-plugin-react "^7.0.0"
+    eslint-plugin-react "^7.6.1"
 
 "@uncovertruth/eslint-config@^3.3.0":
   version "3.3.0"
@@ -2701,7 +2701,7 @@ eslint-plugin-promise@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-promise/-/eslint-plugin-promise-3.6.0.tgz#54b7658c8f454813dc2a870aff8152ec4969ba75"
 
-eslint-plugin-react@^7.0.0:
+eslint-plugin-react@^7.6.1:
   version "7.6.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.6.1.tgz#5d0e908be599f0c02fbf4eef0c7ed6f29dff7633"
   dependencies:
