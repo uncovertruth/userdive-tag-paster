@@ -164,13 +164,6 @@
   dependencies:
     "@babel/types" "7.0.0-beta.39"
 
-"@babel/helper-module-imports@7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.0.0-beta.38.tgz#1b3a6dd9105cc0c7fc0d67d44a08706eb4a506a1"
-  dependencies:
-    "@babel/types" "7.0.0-beta.38"
-    lodash "^4.2.0"
-
 "@babel/helper-module-imports@7.0.0-beta.39":
   version "7.0.0-beta.39"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.0.0-beta.39.tgz#39e1fd4b8f5982b05417f73250a620070541192e"
@@ -422,11 +415,11 @@
   dependencies:
     regenerator-transform "^0.12.3"
 
-"@babel/plugin-transform-runtime@^7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.0.0-beta.38.tgz#bce66005148d62fe946eb6cbf7b473dac5a8c6da"
+"@babel/plugin-transform-runtime@^7.0.0-beta.39":
+  version "7.0.0-beta.39"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.0.0-beta.39.tgz#5769f081a36b1cd437aaa0ecb5f3ae85bd3b1255"
   dependencies:
-    "@babel/helper-module-imports" "7.0.0-beta.38"
+    "@babel/helper-module-imports" "7.0.0-beta.39"
 
 "@babel/plugin-transform-shorthand-properties@7.0.0-beta.39":
   version "7.0.0-beta.39"
