@@ -239,9 +239,9 @@
   version "7.0.0-beta.38"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-async-generators/-/plugin-syntax-async-generators-7.0.0-beta.38.tgz#1224bcd4a5052e6e4c0eb95c96bbe9f617a119f4"
 
-"@babel/plugin-syntax-flow@7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.38.tgz#49b6ef92149fefa09c85fd31ca1f5c292a08ec06"
+"@babel/plugin-syntax-flow@7.0.0-beta.39":
+  version "7.0.0-beta.39"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-flow/-/plugin-syntax-flow-7.0.0-beta.39.tgz#b9247a81e4dacaa57aac3670792d788a64253f68"
 
 "@babel/plugin-syntax-jsx@7.0.0-beta.38":
   version "7.0.0-beta.38"
@@ -312,11 +312,11 @@
   dependencies:
     "@babel/helper-builder-binary-assignment-operator-visitor" "7.0.0-beta.38"
 
-"@babel/plugin-transform-flow-strip-types@7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-strip-types/-/plugin-transform-flow-strip-types-7.0.0-beta.38.tgz#a169de5b1dc6ac87f95e41f4cebc34d5c188ab9a"
+"@babel/plugin-transform-flow-strip-types@7.0.0-beta.39":
+  version "7.0.0-beta.39"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-flow-strip-types/-/plugin-transform-flow-strip-types-7.0.0-beta.39.tgz#3a03fc8ebaa9eddd62bdf501ceeff2a8e048bc4d"
   dependencies:
-    "@babel/plugin-syntax-flow" "7.0.0-beta.38"
+    "@babel/plugin-syntax-flow" "7.0.0-beta.39"
 
 "@babel/plugin-transform-for-of@7.0.0-beta.38":
   version "7.0.0-beta.38"
@@ -467,11 +467,11 @@
     invariant "^2.2.2"
     semver "^5.3.0"
 
-"@babel/preset-flow@^7.0.0-beta.38":
-  version "7.0.0-beta.38"
-  resolved "https://registry.yarnpkg.com/@babel/preset-flow/-/preset-flow-7.0.0-beta.38.tgz#dda9cb14833cf353cc5e9db7a7a13fb7e5f84fba"
+"@babel/preset-flow@^7.0.0-beta.39":
+  version "7.0.0-beta.39"
+  resolved "https://registry.yarnpkg.com/@babel/preset-flow/-/preset-flow-7.0.0-beta.39.tgz#2a104114c71fbce992af0ed6ba633ac8f1be7277"
   dependencies:
-    "@babel/plugin-transform-flow-strip-types" "7.0.0-beta.38"
+    "@babel/plugin-transform-flow-strip-types" "7.0.0-beta.39"
 
 "@babel/runtime@^7.0.0-beta.38":
   version "7.0.0-beta.38"
