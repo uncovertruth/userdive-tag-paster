@@ -1,5 +1,4 @@
 /* @flow */
-import 'jest'
 import chrome from 'sinon-chrome'
 import localStorage from 'mock-local-storage'
 import { random } from 'faker'

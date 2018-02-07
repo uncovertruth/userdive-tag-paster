@@ -1,5 +1,4 @@
 /* @flow */
-import 'jest'
 import { random } from 'faker'
 import { inject } from '../app/injector'
 
