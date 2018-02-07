@@ -1,7 +1,7 @@
-import { h, Component } from 'preact'
+import { Component, h } from 'preact'
 import { set } from '../actions/options'
 
-let var React: any
+declare var React: any
 
 type Store = {
   id: string

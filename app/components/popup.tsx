@@ -1,7 +1,7 @@
+import { Component, h } from 'preact'
 import { toggle } from '../actions/popup'
-import { h, Component } from 'preact'
 
-let var React: any
+declare var React: any
 
 type Props = {
   isActive: boolean
