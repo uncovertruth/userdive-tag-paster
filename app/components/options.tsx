@@ -1,12 +1,13 @@
 import { h, Component } from 'preact'
-import { React } from 'react'
 import { set } from '../actions/options'
 
+let var React: any
+
 type Store = {
-  id: string,
-  env: string,
-  host: string,
-  ignore: string,
+  id: string
+  env: string
+  host: string
+  ignore: string
   isActive: string
 }
 

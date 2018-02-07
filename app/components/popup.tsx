@@ -1,12 +1,11 @@
-import { React } from 'react'
 import { toggle } from '../actions/popup'
 import { h, Component } from 'preact'
 
+let var React: any
+
 type Props = {
-  isActive: boolean,
-  data: {
-    [string]: string
-  }
+  isActive: boolean
+  data: Object
 }
 
 export default class Popup extends Component<Props> {

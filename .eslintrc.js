@@ -1,9 +1,6 @@
 /* @flow */
 module.exports = {
-  extends: [
-    '@uncovertruth/eslint-config-flowtype',
-    '@uncovertruth/eslint-config-react'
-  ],
+  extends: ['@uncovertruth/eslint-config', '@uncovertruth/eslint-config-react'],
   rules: {
     'react/prop-types': 0 // use Flow Type
   },
