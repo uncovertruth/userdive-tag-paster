@@ -1,4 +1,3 @@
-/* @flow */
 import { random } from 'faker'
 import { afterEach, beforeEach, describe, expect, test } from 'jest'
 import chrome from 'sinon-chrome'
