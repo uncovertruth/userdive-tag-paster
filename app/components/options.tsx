@@ -1,21 +1,16 @@
-/* @flow */
-/** @jsx h */
 import { h, Component } from 'preact'
+import { React } from 'react'
 import { set } from '../actions/options'
 
 type Store = {
   id: string,
   env: string,
   host: string,
-  ignore: string
+  ignore: string,
+  isActive: string
 }
 
 export default class Options extends Component<Store, Store> {
-  onChangeId: Function
-  onChangeEnv: Function
-  onChangeHost: Function
-  onChangeIgnore: Function
-  onSave: Function
   constructor (props: Store) {
     super(props)
     this.state = props

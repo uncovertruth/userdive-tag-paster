@@ -1,5 +1,3 @@
-/* @flow */
-/** @jsx h */
 import { h, render } from 'preact'
 import Popup from '../components/popup'
 import { get } from '../actions/popup'

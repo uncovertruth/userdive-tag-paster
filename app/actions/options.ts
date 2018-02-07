@@ -1,4 +1,3 @@
-/* @flow */
 import {
   USERDIVE_ID,
   USERDIVE_ENV,

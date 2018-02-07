@@ -1,4 +1,3 @@
-/* @flow */
 import {
   IS_ACTIVE,
   USERDIVE_ID,
@@ -59,7 +58,7 @@ export default class Background {
   get (key: string): string {
     return localStorage[key] || ''
   }
-  set (key: string, value: string): void {
+  set (key: string, value?: string): void {
     localStorage[key] = value
   }
 }

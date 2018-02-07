@@ -1,4 +1,3 @@
-/* @flow */
 import thenChrome from 'then-chrome'
 import { CO_GET_STATE, BG_GET_CONFIG, BG_UPDATE_BADGE } from '../constants'
 import { inject } from '../injector'

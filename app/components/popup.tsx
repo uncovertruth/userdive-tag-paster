@@ -1,5 +1,4 @@
-/* @flow */
-/** @jsx h */
+import { React } from 'react'
 import { toggle } from '../actions/popup'
 import { h, Component } from 'preact'
 

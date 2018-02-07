@@ -1,4 +1,3 @@
-/* @flow */
 import thenChrome from 'then-chrome'
 import { CO_GET_STATE, BG_TOGGLE } from '../constants'
 

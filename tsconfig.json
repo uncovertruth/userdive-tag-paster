@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "lib": ["es6", "es7", "DOM"],
     "jsx": "react",
-    "module": "es2015",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "sourceMap": false,
-    "target": "es6",
+    "sourceMap": true,
+    "target": "es5",
     "experimentalDecorators": true
   },
   "compileOnSave": false,
