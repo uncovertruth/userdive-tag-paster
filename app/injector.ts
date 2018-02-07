@@ -1,4 +1,5 @@
-/* @flow */
+declare var global: any
+
 function injectScript (id: string, source: string): void {
   const th = document.getElementsByTagName('body')[0]
   const s = document.createElement('script')

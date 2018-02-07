@@ -22,7 +22,7 @@ export default class Provider {
     this.listen()
     window.addEventListener('load', e => {
       ;(async () => {
-        const config = await getConfig()
+        const config: any = await getConfig()
         if (!config.isActive) {
           renderBadge('OFF')
           return
@@ -34,7 +34,7 @@ export default class Provider {
     })
   }
   async renderPageId () {
-    const state = await this.loadState()
+    const state: any = await this.loadState()
     renderBadge(state.pageId || '?')
   }
   async loadState (): Promise<{ [string]: string }> {
