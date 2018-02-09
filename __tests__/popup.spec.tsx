@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'jest'
 import { h } from 'preact'
 import { render } from 'preact-render-to-string'
 

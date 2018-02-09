@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "lib": ["es6", "es7", "DOM"],
+    "lib": ["dom", "es2015"],
     "jsx": "react",
     "jsxFactory": "h",
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": false,
-    "sourceMap": true,
     "target": "es5",
     "experimentalDecorators": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
   "include": [
-    "__tests__/*.ts",
-    "app/**/*.ts"
+    "__tests__/*.ts?"
   ],
   "exclude": [
     "node_modules"

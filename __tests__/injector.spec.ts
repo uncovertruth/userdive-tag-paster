@@ -1,5 +1,4 @@
 import { random } from 'faker'
-import { describe, expect, test } from 'jest'
 import { inject } from '../app/injector'
 
 describe('injector', () => {

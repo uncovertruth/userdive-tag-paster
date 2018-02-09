@@ -1,4 +1,3 @@
-import { describe, expect, test } from 'jest'
 import { h } from 'preact'
 import { render } from 'preact-render-to-string'
 
@@ -12,7 +11,7 @@ describe('options', () => {
     env: 'env',
     host: 'host',
     ignore: 'ignore',
-    isActive: 'isActive'
+    isActive: !!'isActive'
   }
 
   test('vaild configs', () => {

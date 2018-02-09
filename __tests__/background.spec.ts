@@ -1,5 +1,4 @@
 import { random } from 'faker'
-import { beforeEach, describe, expect, test } from 'jest'
 import localStorage from 'mock-local-storage'
 import chrome from 'sinon-chrome'
 

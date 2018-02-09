@@ -1,5 +1,4 @@
 import { random } from 'faker'
-import { afterEach, beforeEach, describe, expect, test } from 'jest'
 import chrome from 'sinon-chrome'
 import { inject } from '../app/injector'
 import { sleep } from '../app/utils'

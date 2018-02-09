@@ -10,6 +10,9 @@
     "preact": "^8.2.7"
   },
   "devDependencies": {
+    "@types/gulp": "^4.0.5",
+    "@types/gulp-load-plugins": "^0.0.31",
+    "@types/jest": "^22.1.1",
     "@types/node": "^8.9.1",
     "@uncovertruth/eslint-config": "^3.4.0",
     "@uncovertruth/eslint-config-react": "^0.3.0",
@@ -41,6 +44,7 @@
     "stylelint": "^8.4.0",
     "then-chrome": "^1.0.7",
     "ts-loader": "^3.5.0",
+    "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
     "typescript": "^2.7.1",
     "typescript-eslint-parser": "^12.0.0",
@@ -74,14 +78,16 @@
     "b:images": "imagemin app/images/*.png --out-dir=dist/images/",
     "b:webpack": "webpack -p --env production",
     "build": "run-s clean b:webpack b:images b:html b:gulp",
-    "clean": "rimraf dist app/scripts package coverage",
+    "clean": "rimraf dist app/scripts package coverage __tests__/*.js",
     "coverage": "codecov -f ./coverage/lcov.info",
     "lint": "run-p lint:*",
     "lint:css": "stylelint app/styles/*.css",
     "lint:ts": "tslint '{app,__tests__}/**/*.ts'",
     "precommit": "lint-staged",
     "release": "gulp package",
-    "pretest": "tsc --jsx react __tests__/*.ts",
+    "pretest": "npm run ts",
+    "prets": "npm run clean",
+    "ts": "tsc -p tsconfig.json",
     "tag": "uglifyjs app/tag.js -m",
     "test": "jest"
   }

@@ -1,7 +1,6 @@
-/* @flow */
-import gulp from 'gulp'
-import gulpLoadPlugins from 'gulp-load-plugins'
-import runSequence from 'run-sequence'
+const gulp = require('gulp')
+const gulpLoadPlugins = require('gulp-load-plugins')
+const runSequence = require('run-sequence')
 
 const $ = gulpLoadPlugins()
 

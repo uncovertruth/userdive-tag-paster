@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`options vaild configs 1`] = `"<div><div><span>state: OFF</span></div><div><span>Id</span><input type=\\"text\\" value=\\"id\\" /></div><div><span>Env</span><input type=\\"text\\" value=\\"env\\" /></div><div><span>Source</span><input type=\\"text\\" value=\\"host\\" /></div><div><span>Ignored domains (plz split<b>line break)</b><br /></span><textarea rows=\\"4\\" cols=\\"40\\" value=\\"ignore\\"></textarea></div><button id=\\"toggle\\">Save</button></div>"`;
