@@ -43,6 +43,7 @@
     "style-loader": "^0.20.1",
     "stylelint": "^8.4.0",
     "then-chrome": "^1.0.7",
+    "ts-jest": "^22.0.3",
     "ts-loader": "^3.5.0",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
@@ -53,8 +54,16 @@
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
   "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testMatch": [
+      "**/__tests__/*.(ts|tsx)"
+    ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "collectCoverage": true
   },
@@ -85,9 +94,6 @@
     "lint:ts": "tslint '{app,__tests__}/**/*.ts'",
     "precommit": "lint-staged",
     "release": "gulp package",
-    "pretest": "npm run ts",
-    "prets": "npm run clean",
-    "ts": "tsc -p tsconfig.json",
     "tag": "uglifyjs app/tag.js -m",
     "test": "jest"
   }
