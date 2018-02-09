@@ -4,6 +4,8 @@
 // The reload client has a compatibility with livereload.
 // WARNING: only supports reload command.
 
+declare var chrome: any
+
 const LIVERELOAD_HOST = 'localhost:'
 const LIVERELOAD_PORT = 35729
 const connection = new WebSocket(

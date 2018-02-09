@@ -8,7 +8,7 @@ type Store = {
   env: string
   host: string
   ignore: string
-  isActive: string
+  isActive: boolean
 }
 
 export default class Options extends Component<Store, Store> {
@@ -61,8 +61,8 @@ export default class Options extends Component<Store, Store> {
             <br />
           </span>
           <textarea
-            rows='4'
-            cols='40'
+            rows={4}
+            cols={40}
             value={ignore}
             onChange={this.onChangeIgnore}
           />

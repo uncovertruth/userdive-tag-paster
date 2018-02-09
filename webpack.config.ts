@@ -19,7 +19,7 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: ['awesome-typescript-loader']
+        loader: ['ts-loader']
       },
       {
         test: /\.css$/,
@@ -28,7 +28,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.ts', '.tsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
   plugins: [
     new webpack.DefinePlugin({

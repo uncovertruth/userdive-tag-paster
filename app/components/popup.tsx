@@ -8,14 +8,14 @@ type Props = {
   data: Object
 }
 
-export default class Popup extends Component<Props> {
+export default class Popup extends Component<Props, any> {
   render () {
     const { isActive, data } = this.props
     return (
       <div>
         <table>
           {Object.keys(data).map((d, key) => (
-            <tr key={key}>
+            <tr key={String(key)}>
               <th>{d}</th>
               <th>{data[d]}</th>
             </tr>

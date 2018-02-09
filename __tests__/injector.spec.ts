@@ -1,7 +1,6 @@
-/* @flow */
 import { random } from 'faker'
+import { describe, expect, test } from 'jest'
 import { inject } from '../app/injector'
-import { describe, test, expect } from 'jest'
 
 describe('injector', () => {
   const elementId = random.uuid()
