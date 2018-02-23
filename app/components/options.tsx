@@ -8,7 +8,7 @@ type Store = {
   env: string
   host: string
   ignore: string
-  isActive: boolean
+  isActive?: boolean
 }
 
 export default class Options extends Component<Store, Store> {

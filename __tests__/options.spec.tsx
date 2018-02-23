@@ -10,8 +10,7 @@ describe('options', () => {
     id: 'id',
     env: 'env',
     host: 'host',
-    ignore: 'ignore',
-    isActive: !!'isActive'
+    ignore: 'ignore'
   }
 
   test('vaild configs', () => {
