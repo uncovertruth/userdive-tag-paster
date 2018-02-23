@@ -1,9 +1,8 @@
 import { random } from 'faker'
-import chrome from 'sinon-chrome'
+import chrome = require('sinon-chrome')
 import { inject } from '../app/injector'
 import { sleep } from '../app/utils'
 
-declare var require: any
 declare var global: any
 
 describe('contents', () => {
