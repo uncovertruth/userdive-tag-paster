@@ -1,4 +1,4 @@
-import thenChrome = require('then-chrome')
+import * as thenChrome from 'then-chrome'
 import { BG_GET_CONFIG, BG_UPDATE_BADGE, CO_GET_STATE } from '../constants'
 import { inject } from '../injector'
 import { sleep } from '../utils'

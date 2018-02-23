@@ -1,5 +1,5 @@
 import { random } from 'faker'
-import chrome = require('sinon-chrome')
+import * as chrome from 'sinon-chrome'
 import { inject } from '../app/injector'
 import { sleep } from '../app/utils'
 
