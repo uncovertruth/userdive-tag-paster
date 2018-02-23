@@ -1,6 +1,6 @@
 import { random } from 'faker'
-import localStorage from 'mock-local-storage'
-import chrome from 'sinon-chrome'
+import localStorage = require('mock-local-storage')
+import chrome = require('sinon-chrome')
 
 declare var require: any
 declare var global: any

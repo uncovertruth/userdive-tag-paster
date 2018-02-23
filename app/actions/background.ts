@@ -9,8 +9,6 @@ import {
   USERDIVE_IGNORE
 } from '../constants'
 
-declare var chrome: any
-
 export default class Background {
   constructor () {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

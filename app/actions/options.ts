@@ -6,7 +6,7 @@ import {
   USERDIVE_IGNORE
 } from '../constants'
 
-import thenChrome from 'then-chrome'
+import thenChrome = require('then-chrome')
 
 export async function get () {
   const { bg } = await thenChrome.runtime.getBackgroundPage()

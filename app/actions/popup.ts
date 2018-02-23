@@ -1,4 +1,4 @@
-import thenChrome from 'then-chrome'
+import thenChrome = require('then-chrome')
 import { BG_TOGGLE, CO_GET_STATE } from '../constants'
 
 export async function get () {
