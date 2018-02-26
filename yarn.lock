@@ -64,6 +64,12 @@
   dependencies:
     "@types/node" "*"
 
+"@types/gulp-size@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@types/gulp-size/-/gulp-size-2.1.1.tgz#7fabf1f60876b294204c25f0a7024a1e4fac44e6"
+  dependencies:
+    "@types/node" "*"
+
 "@types/gulp@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@types/gulp/-/gulp-4.0.5.tgz#f5f498d5bf9538364792de22490a12c0e6bc5eb4"

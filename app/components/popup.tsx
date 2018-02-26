@@ -3,7 +3,7 @@ import { toggle } from '../actions/popup'
 
 type Props = {
   isActive: boolean
-  data: Object
+  data: { [key: string]: string | number }
 }
 
 export default class Popup extends Component<Props, any> {
