@@ -10,7 +10,7 @@ describe('injector', () => {
       host: random.alphaNumeric(15),
       ignore: random.alphaNumeric(15)
     }
-    inject(elementId, `a${random.uuid()}`, config)
+    inject(elementId, `a${random.uuid()}`, config) // The attribute key must start with an alphabet.
     expect(document.getElementById(elementId))
   })
 
@@ -20,7 +20,7 @@ describe('injector', () => {
       host: random.alphaNumeric(15),
       ignore: 'about:blank'
     }
-    inject(elementId, `a${random.uuid()}`, config)
+    inject(elementId, `a${random.uuid()}`, config) // L13
     expect(document.getElementById(elementId))
   })
 })
