@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "es2015"],
+    "lib": ["es6", "es7", "DOM"],
     "jsx": "react",
     "jsxFactory": "h",
     "module": "commonjs",
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "noImplicitAny": false,
     "target": "es5",

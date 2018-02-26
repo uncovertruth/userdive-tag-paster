@@ -1,8 +1,6 @@
 import { Component, h } from 'preact'
 import { toggle } from '../actions/popup'
 
-declare var React: any
-
 type Props = {
   isActive: boolean
   data: Object

@@ -1,8 +1,6 @@
 import { Component, h } from 'preact'
 import { set } from '../actions/options'
 
-declare var React: any
-
 type Store = {
   id: string
   env: string
