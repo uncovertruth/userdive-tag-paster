@@ -77,6 +77,12 @@
       "prettier-eslint --write",
       "tslint --fix",
       "git add"
+    ],
+    "*.css": [
+      "prettier --write --parser postcss",
+      "stylelint --fix",
+      "stylelint",
+      "git add"
     ]
   },
   "main": "n/a",
