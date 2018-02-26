@@ -1,5 +1,4 @@
 import * as gulp from 'gulp'
-// const gulp = require('gulp')
 import * as gulpLoadPlugins from 'gulp-load-plugins'
 import * as runSequence from 'run-sequence'
 
