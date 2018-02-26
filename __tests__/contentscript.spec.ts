@@ -1,8 +1,9 @@
-/* @flow */
-import chrome from 'sinon-chrome'
 import { random } from 'faker'
+import * as chrome from 'sinon-chrome'
 import { inject } from '../app/injector'
 import { sleep } from '../app/utils'
+
+declare var global: any
 
 describe('contents', () => {
   let instance

@@ -1,12 +1,10 @@
-/* @flow */
-/** @jsx h */
 import { h, render } from 'preact'
-import Popup from '../components/popup'
-import { get } from '../actions/popup'
 import { get as getOptions } from '../actions/options'
+import { get } from '../actions/popup'
+import Popup from '../components/popup'
 
 window.addEventListener('load', e => {
-  ;(async function () {
+  (async function () {
     const { isActive } = await getOptions()
     let data = {
       status: 'OFF',

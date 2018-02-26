@@ -1,4 +1,3 @@
-/* @flow */
 export const IS_ACTIVE = 'IS_ACTIVE'
 export const USERDIVE_ID = 'USERDIVE_ID'
 export const USERDIVE_ENV = 'USERDIVE_ENV'

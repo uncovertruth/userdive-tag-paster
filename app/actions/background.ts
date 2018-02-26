@@ -1,16 +1,13 @@
-/* @flow */
 import {
+  BG_GET_CONFIG,
+  BG_TOGGLE,
+  BG_UPDATE_BADGE,
   IS_ACTIVE,
-  USERDIVE_ID,
   USERDIVE_ENV,
   USERDIVE_HOST,
-  USERDIVE_IGNORE,
-  BG_GET_CONFIG,
-  BG_UPDATE_BADGE,
-  BG_TOGGLE
+  USERDIVE_ID,
+  USERDIVE_IGNORE
 } from '../constants'
-
-declare var chrome: any
 
 export default class Background {
   constructor () {
@@ -59,7 +56,7 @@ export default class Background {
   get (key: string): string {
     return localStorage[key] || ''
   }
-  set (key: string, value: ?string): void {
+  set (key: string, value?: string): void {
     localStorage[key] = value
   }
 }

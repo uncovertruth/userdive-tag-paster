@@ -1,21 +1,15 @@
-/* @flow */
-/** @jsx h */
-import { h, Component } from 'preact'
+import { Component, h } from 'preact'
 import { set } from '../actions/options'
 
 type Store = {
-  id: string,
-  env: string,
-  host: string,
+  id: string
+  env: string
+  host: string
   ignore: string
+  isActive?: boolean
 }
 
 export default class Options extends Component<Store, Store> {
-  onChangeId: Function
-  onChangeEnv: Function
-  onChangeHost: Function
-  onChangeIgnore: Function
-  onSave: Function
   constructor (props: Store) {
     super(props)
     this.state = props
@@ -45,9 +39,7 @@ export default class Options extends Component<Store, Store> {
     return (
       <div>
         <div>
-          <span>
-            {`state: ${isActive || 'OFF'}`}
-          </span>
+          <span>{`state: ${isActive || 'OFF'}`}</span>
         </div>
         <div>
           <span>Id</span>
@@ -67,8 +59,8 @@ export default class Options extends Component<Store, Store> {
             <br />
           </span>
           <textarea
-            rows='4'
-            cols='40'
+            rows={4}
+            cols={40}
             value={ignore}
             onChange={this.onChangeIgnore}
           />

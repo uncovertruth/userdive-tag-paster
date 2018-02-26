@@ -7,28 +7,25 @@
     "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.39",
     "preact": "^8.2.7"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.38",
-    "@babel/plugin-transform-react-jsx": "^7.0.0-beta.39",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.38",
-    "@babel/preset-env": "^7.0.0-beta.39",
-    "@babel/preset-flow": "^7.0.0-beta.39",
-    "@uncovertruth/eslint-config-flowtype": "^1.5.0",
-    "@uncovertruth/eslint-config-react": "^0.3.0",
-    "@uncovertruth/stylelint-config": "^0.10.0",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-jest": "^22.1.0",
-    "babel-loader": "8.0.0-beta.0",
+    "@types/chrome": "^0.0.59",
+    "@types/gulp": "^4.0.5",
+    "@types/gulp-load-plugins": "^0.0.31",
+    "@types/gulp-size": "^2.1.1",
+    "@types/jest": "^22.1.3",
+    "@types/node": "^9.4.6",
+    "@types/sinon-chrome": "^2.2.0",
+    "@uncovertruth/eslint-config": "^4.0.0",
+    "@uncovertruth/eslint-config-react": "^4.0.0",
+    "@uncovertruth/stylelint-config": "^4.0.0",
+    "@uncovertruth/tslint-config": "^4.0.0",
     "codecov": "^3.0.0",
-    "css-loader": "^0.28.9",
-    "eslint": "^4.18.0",
+    "css-loader": "^0.28.10",
+    "eslint": "^4.18.1",
     "eslint-plugin-jest": "^21.12.2",
     "faker": "^4.1.0",
-    "flow-bin": "^0.64.0",
-    "flow-typed": "^2.3.0",
     "gulp": "^3.9.1",
     "gulp-chrome-manifest": "^0.0.13",
     "gulp-load-plugins": "^1.5.0",
@@ -36,8 +33,8 @@
     "gulp-zip": "^4.1.0",
     "husky": "^0.14.3",
     "imagemin-cli": "^3.0.0",
-    "jest": "22.3.0",
-    "lint-staged": "^6.1.1",
+    "jest": "22.4.2",
+    "lint-staged": "^7.0.0",
     "main-bower-files": "^2.13.1",
     "mock-local-storage": "^1.0.5",
     "npm-run-all": "^4.1.2",
@@ -47,23 +44,38 @@
     "run-sequence": "^2.2.1",
     "sinon-chrome": "^2.2.4",
     "style-loader": "^0.20.2",
-    "stylelint": "^9.0.0",
+    "stylelint": "^9.1.1",
     "then-chrome": "^1.0.7",
-    "uglifyjs-webpack-plugin": "^1.2.0",
-    "webpack": "^3.11.0"
+    "ts-jest": "^22.4.0",
+    "ts-loader": "^4.0.0",
+    "ts-node": "^5.0.0",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "typescript-eslint-parser": "^14.0.0",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.9"
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
   "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testMatch": [
+      "**/__tests__/*.(ts|tsx)"
+    ],
     "transform": {
-      "^.+\\.jsx?$": "babel-jest"
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
     "collectCoverage": true
   },
   "keywords": [],
   "lint-staged": {
-    "*.{js,jsx}": [
+    "*.{ts,tsx}": [
       "prettier-eslint --write",
-      "eslint --cache",
+      "tslint --fix",
       "git add"
     ],
     "*.css": [
@@ -85,12 +97,11 @@
     "b:images": "imagemin app/images/*.png --out-dir=dist/images/",
     "b:webpack": "webpack -p --env production",
     "build": "run-s clean b:webpack b:images b:html b:gulp",
-    "clean": "rimraf dist app/scripts package coverage",
+    "clean": "rimraf dist app/scripts package coverage __tests__/*.js",
     "coverage": "codecov -f ./coverage/lcov.info",
     "lint": "run-p lint:*",
     "lint:css": "stylelint app/styles/*.css",
-    "lint:flow": "flow",
-    "lint:js": "eslint . --cache --ext=js,jsx",
+    "lint:ts": "tslint '{app,__tests__}/**/*.ts'",
     "precommit": "lint-staged",
     "release": "gulp package",
     "tag": "uglifyjs app/tag.js -m",

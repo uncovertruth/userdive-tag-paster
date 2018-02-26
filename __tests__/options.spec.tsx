@@ -1,7 +1,5 @@
-/* @flow */
-/** @jsx h */
 import { h } from 'preact'
-import render from 'preact-render-to-string'
+import { render } from 'preact-render-to-string'
 
 import Options from '../app/components/options'
 

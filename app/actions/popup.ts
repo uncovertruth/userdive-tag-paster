@@ -1,6 +1,5 @@
-/* @flow */
-import thenChrome from 'then-chrome'
-import { CO_GET_STATE, BG_TOGGLE } from '../constants'
+import thenChrome = require('then-chrome')
+import { BG_TOGGLE, CO_GET_STATE } from '../constants'
 
 export async function get () {
   const tabs = await thenChrome.tabs.query({

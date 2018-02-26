@@ -1,7 +1,9 @@
-/* @flow */
-import chrome from 'sinon-chrome'
-import localStorage from 'mock-local-storage'
 import { random } from 'faker'
+import * as localStorage from 'mock-local-storage'
+import * as chrome from 'sinon-chrome'
+
+declare var require: any
+declare var global: any
 
 describe('background', () => {
   let bg

@@ -1,13 +1,12 @@
-/* @flow */
 import {
-  USERDIVE_ID,
+  IS_ACTIVE,
   USERDIVE_ENV,
   USERDIVE_HOST,
-  USERDIVE_IGNORE,
-  IS_ACTIVE
+  USERDIVE_ID,
+  USERDIVE_IGNORE
 } from '../constants'
 
-import thenChrome from 'then-chrome'
+import * as thenChrome from 'then-chrome'
 
 export async function get () {
   const { bg } = await thenChrome.runtime.getBackgroundPage()

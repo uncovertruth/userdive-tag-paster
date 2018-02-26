@@ -1,6 +1,5 @@
-/* @flow */
-import thenChrome from 'then-chrome'
-import { CO_GET_STATE, BG_GET_CONFIG, BG_UPDATE_BADGE } from '../constants'
+import * as thenChrome from 'then-chrome'
+import { BG_GET_CONFIG, BG_UPDATE_BADGE, CO_GET_STATE } from '../constants'
 import { inject } from '../injector'
 import { sleep } from '../utils'
 
@@ -21,8 +20,8 @@ export default class Provider {
   constructor () {
     this.listen()
     window.addEventListener('load', e => {
-      ;(async () => {
-        const config = await getConfig()
+      (async () => {
+        const config: any = await getConfig()
         if (!config.isActive) {
           renderBadge('OFF')
           return
@@ -34,10 +33,10 @@ export default class Provider {
     })
   }
   async renderPageId () {
-    const state = await this.loadState()
+    const state: any = await this.loadState()
     renderBadge(state.pageId || '?')
   }
-  async loadState (): Promise<{ [string]: string }> {
+  async loadState (): Promise<{ [key: string]: string }> {
     const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
       return {
@@ -79,7 +78,7 @@ export default class Provider {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       switch (request.content) {
         case CO_GET_STATE:
-          ;(async () => {
+          (async () => {
             const data = await this.loadState()
             sendResponse(data)
           })()

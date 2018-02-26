@@ -1,14 +1,14 @@
-import path from 'path'
-import webpack from 'webpack'
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import * as path from 'path'
+import * as UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import * as webpack from 'webpack'
 
 module.exports = {
   entry: {
-    background: path.resolve(__dirname, 'app/entrypoint/background.js'),
-    chromereload: path.resolve(__dirname, 'app/entrypoint/chromereload.js'),
-    contentscript: path.resolve(__dirname, 'app/entrypoint/contentscript.js'),
-    options: path.resolve(__dirname, 'app/entrypoint/options.jsx'),
-    popup: path.resolve(__dirname, 'app/entrypoint/popup.jsx')
+    background: path.resolve(__dirname, 'app/entrypoint/background.ts'),
+    chromereload: path.resolve(__dirname, 'app/entrypoint/chromereload.ts'),
+    contentscript: path.resolve(__dirname, 'app/entrypoint/contentscript.ts'),
+    options: path.resolve(__dirname, 'app/entrypoint/options.tsx'),
+    popup: path.resolve(__dirname, 'app/entrypoint/popup.tsx')
   },
   output: {
     path: path.resolve(__dirname, 'app/scripts'),
@@ -17,9 +17,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
+        loader: ['ts-loader']
       },
       {
         test: /\.css$/,
@@ -28,7 +28,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.ts', '.tsx']
   },
   plugins: [
     new webpack.DefinePlugin({
