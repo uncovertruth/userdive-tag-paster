@@ -1,4 +1,3 @@
-/* @flow */
 module.exports = {
   "parser": "typescript-eslint-parser",
   extends: ['@uncovertruth/eslint-config', '@uncovertruth/eslint-config-react'],

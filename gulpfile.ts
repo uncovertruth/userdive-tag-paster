@@ -1,8 +1,9 @@
-const gulp = require('gulp')
-const gulpLoadPlugins = require('gulp-load-plugins')
-const runSequence = require('run-sequence')
+import * as gulp from 'gulp'
+// const gulp = require('gulp')
+import * as gulpLoadPlugins from 'gulp-load-plugins'
+import * as runSequence from 'run-sequence'
 
-const $ = gulpLoadPlugins()
+const $: any = gulpLoadPlugins()
 
 gulp.task('chromeManifest', ['js'], () => {
   return gulp

@@ -3,8 +3,6 @@ import { render } from 'preact-render-to-string'
 
 import Options from '../app/components/options'
 
-declare var React: any
-
 describe('options', () => {
   const data = {
     id: 'id',
