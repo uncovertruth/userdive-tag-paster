@@ -19,7 +19,7 @@
     "@types/sinon-chrome": "^2.2.0",
     "@uncovertruth/eslint-config": "^4.0.0",
     "@uncovertruth/eslint-config-react": "^4.0.0",
-    "@uncovertruth/stylelint-config": "^4.0.0",
+    "@uncovertruth/stylelint-config": "^4.1.0",
     "@uncovertruth/tslint-config": "^4.0.0",
     "codecov": "^3.0.0",
     "css-loader": "^0.28.10",
