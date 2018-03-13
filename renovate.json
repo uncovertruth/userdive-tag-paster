@@ -6,6 +6,9 @@
   "major": {
     "automerge": false
   },
+  "labels": [
+    "dependencies"
+  ],
   "devDependencies": {
     "automerge": true
   }
