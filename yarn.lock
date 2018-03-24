@@ -39,9 +39,9 @@
   dependencies:
     "@types/filesystem" "*"
 
-"@types/chrome@0.0.62":
-  version "0.0.62"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.62.tgz#2a00dfe7c70c210d90807d47d7aebf702808af53"
+"@types/chrome@0.0.63":
+  version "0.0.63"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.63.tgz#b86fc8c859ec6ae0bf929b4504d7ac47d579006d"
   dependencies:
     "@types/filesystem" "*"
 
