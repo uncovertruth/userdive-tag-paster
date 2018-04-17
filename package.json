@@ -10,7 +10,7 @@
     "preact": "8.2.7"
   },
   "devDependencies": {
-    "@types/chrome": "0.0.63",
+    "@types/chrome": "0.0.64",
     "@types/gulp": "4.0.5",
     "@types/gulp-load-plugins": "0.0.31",
     "@types/gulp-size": "2.1.1",
