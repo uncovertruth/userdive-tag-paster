@@ -21,7 +21,7 @@ function createTag (
   for (const domain of (ignore || '').split('\n')) {
     if (!domain) break
     const regexp = new RegExp(domain)
-    if (regexp.test(global.location.href)) {
+    if (regexp.test(location.href)) {
       return ''
     }
   }
