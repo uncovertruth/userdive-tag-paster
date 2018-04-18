@@ -3,8 +3,6 @@ import * as chrome from 'sinon-chrome'
 import { inject } from '../app/injector'
 import { sleep } from '../app/utils'
 
-declare var global: any
-
 describe('contents', () => {
   let instance
   const elementId = 'wmd3MCLG6HXn'
@@ -26,12 +24,12 @@ describe('contents', () => {
 
   test('is not active', () => {
     chrome.runtime.sendMessage.yields({ isActive: false })
-    return instance.loadState().then(d => expect(d))
+    return instance.loadState().then((d) => expect(d))
   })
 
   test('is active, but inject failed', () => {
     chrome.runtime.sendMessage.yields({ isActive: true })
-    return instance.loadState().then(d => expect(d))
+    return instance.loadState().then((d) => expect(d))
   })
 
   test('is active, but UDTracker Blocked', async () => {
@@ -42,7 +40,7 @@ describe('contents', () => {
     }
     inject('wmd3MCLG6HXn', 'vyQqaa4SnJh48', config)
     await sleep(3000)
-    return instance.loadState().then(d => expect(d))
+    return instance.loadState().then((d) => expect(d))
   })
 
   test('is active, but UDTracker failed starting', async () => {
@@ -55,7 +53,7 @@ describe('contents', () => {
 
     setAttr(document.getElementById(elementId), attrKey, { status: 'Failed' })
 
-    return instance.loadState().then(d => expect(d))
+    return instance.loadState().then((d) => expect(d))
   })
 
   function setAttr (dom: any, key: string, value: any) {
@@ -72,7 +70,7 @@ describe('contents', () => {
 
     setAttr(document.getElementById(elementId), attrKey, { pageId: 1 })
 
-    return instance.loadState().then(d => expect(d.pageId).toEqual(1))
+    return instance.loadState().then((d) => expect(d.pageId).toEqual(1))
   })
 
   test('render page id as badge', async () => {
