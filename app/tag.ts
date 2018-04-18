@@ -1,6 +1,5 @@
-declare var window: Window
-
-(function (global, document, element, state) {
+// tslint:disable:no-invalid-template-strings
+(function (global: any, document, element, state) {
   element = document.getElementById('${elementId}')
   element.setAttribute('${attrName}', JSON.stringify({ status: 'Loading' }))
   if (!global.UDTracker || !global.USERDIVEObject) {
@@ -25,7 +24,10 @@ declare var window: Window
       'ud',
       'UTF-8'
     )
+
+    // tslint:disable-next-line:align
     global.ud('create', '${id}', { env: '${env}', cookieExpires: 1 })
+    // tslint:disable-next-line:align
     global.ud('analyze')
   }
   setTimeout(function () {

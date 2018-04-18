@@ -7,19 +7,17 @@ function renderBadge (text: string | number): Promise<boolean> {
   return thenChrome.runtime.sendMessage({ bg: BG_UPDATE_BADGE, text })
 }
 
-function getConfig (): Promise<Object> {
+function getConfig (): Promise<object> {
   return thenChrome.runtime.sendMessage({ bg: BG_GET_CONFIG })
 }
 
 const STATE_NAME = 'vyQqaa4SnJh48'
 const INJECT_ELEMENT_ID = 'wmd3MCLG6HXn'
 
-declare var chrome: any
-
 export default class Provider {
   constructor () {
     this.listen()
-    window.addEventListener('load', e => {
+    window.addEventListener('load', (e) => {
       (async () => {
         const config: any = await getConfig()
         if (!config.isActive) {
@@ -32,11 +30,11 @@ export default class Provider {
       })()
     })
   }
-  async renderPageId () {
+  public async renderPageId () {
     const state: any = await this.loadState()
     renderBadge(state.pageId || '?')
   }
-  async loadState (): Promise<{ [key: string]: string }> {
+  public async loadState (): Promise<{ [key: string]: string }> {
     const element: any = document.getElementById(INJECT_ELEMENT_ID)
     if (!element) {
       return {
@@ -74,17 +72,17 @@ export default class Provider {
     }
     return userData
   }
-  listen () {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      switch (request.content) {
-        case CO_GET_STATE:
-          (async () => {
+  public listen () {
+    chrome.runtime.onMessage.addListener(
+      async (request, sender, sendResponse) => {
+        switch (request.content) {
+          case CO_GET_STATE:
             const data = await this.loadState()
             sendResponse(data)
-          })()
-          break
+            break
+        }
+        return true
       }
-      return true
-    })
+    )
   }
 }

@@ -8,11 +8,12 @@ const connection = new WebSocket(
   'ws://' + LIVERELOAD_HOST + LIVERELOAD_PORT + '/livereload'
 )
 
-connection.onerror = error => {
+connection.onerror = (error) => {
+  // tslint:disable-next-line:no-console
   console.log('reload connection got error:', error) // eslint-disable-line no-console
 }
 
-connection.onmessage = e => {
+connection.onmessage = (e) => {
   if (e.data) {
     const data = JSON.parse(e.data)
     if (data && data.command === 'reload') {
