@@ -35,28 +35,28 @@ export default class Background {
       return true
     })
   }
-  _renderBadge (text: string, color: string) {
+  public _renderBadge (text: string, color: string) {
     chrome.browserAction.setBadgeBackgroundColor({ color })
     chrome.browserAction.setBadgeText({ text })
   }
-  updateBadge (text: string | number): void {
+  public updateBadge (text: string | number): void {
     if (typeof text === 'number') {
       this._renderBadge(text.toString(), '#42b812')
       return
     }
     this._renderBadge(text.toString(), '#CCCCCC')
   }
-  toggle (value: string = ''): string {
+  public toggle (value: string = ''): string {
     if (this.get(IS_ACTIVE) === '') {
       value = 'active'
     }
     this.set(IS_ACTIVE, value)
     return value
   }
-  get (key: string): string {
+  public get (key: string): string {
     return localStorage[key] || ''
   }
-  set (key: string, value?: string): void {
+  public set (key: string, value?: string): void {
     localStorage[key] = value
   }
 }
