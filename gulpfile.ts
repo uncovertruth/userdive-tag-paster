@@ -2,7 +2,7 @@ import * as gulp from 'gulp'
 import * as gulpLoadPlugins from 'gulp-load-plugins'
 import * as runSequence from 'run-sequence'
 
-const $ = gulpLoadPlugins()
+const $: any = gulpLoadPlugins()
 
 gulp.task('chromeManifest', ['js'], () => {
   return gulp
