@@ -7,7 +7,7 @@
     "url": "https://github.com/uncovertruth/userdive-tag-paster/pulls"
   },
   "dependencies": {
-    "preact": "8.2.7"
+    "preact": "8.2.8"
   },
   "devDependencies": {
     "@types/chrome": "0.0.64",
