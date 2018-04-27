@@ -21,7 +21,7 @@
     "@uncovertruth/eslint-config-react": "4.3.1",
     "@uncovertruth/stylelint-config": "4.2.0",
     "@uncovertruth/tslint-config": "4.3.1",
-    "codecov": "3.0.0",
+    "codecov": "3.0.1",
     "css-loader": "0.28.11",
     "eslint": "4.19.1",
     "eslint-plugin-jest": "21.15.1",
