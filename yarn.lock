@@ -221,9 +221,9 @@
   version "9.6.14"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.14.tgz#79b5167f822d5fb0fb2b5c92ca150391ae0f2542"
 
-"@types/sinon-chrome@2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@types/sinon-chrome/-/sinon-chrome-2.2.2.tgz#795ffeb6f2e2f9638572d34e0de01253e2ba21cc"
+"@types/sinon-chrome@2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@types/sinon-chrome/-/sinon-chrome-2.2.3.tgz#aae0e6d1efa3094905fe112a48ff5b4da2bc8013"
   dependencies:
     "@types/chrome" "*"
     "@types/sinon" "*"
