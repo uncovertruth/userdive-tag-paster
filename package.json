@@ -54,7 +54,7 @@
     "typescript-eslint-parser": "15.0.0",
     "uglifyjs-webpack-plugin": "1.2.5",
     "webpack": "4.10.2",
-    "webpack-cli": "2.1.4"
+    "webpack-cli": "2.1.5"
   },
   "homepage": "https://github.com/uncovertruth/userdive-tag-paster#readme",
   "jest": {
