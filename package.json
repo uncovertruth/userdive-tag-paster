@@ -52,7 +52,7 @@
     "tslint": "5.10.0",
     "typescript": "2.9.2",
     "typescript-eslint-parser": "16.0.0",
-    "uglifyjs-webpack-plugin": "1.2.6",
+    "uglifyjs-webpack-plugin": "1.2.7",
     "webpack": "4.12.1",
     "webpack-cli": "3.0.8"
   },
