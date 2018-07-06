@@ -15,7 +15,7 @@
     "@types/gulp-load-plugins": "0.0.31",
     "@types/gulp-size": "2.1.1",
     "@types/jest": "23.1.4",
-    "@types/node": "9.6.22",
+    "@types/node": "9.6.23",
     "@types/sinon-chrome": "2.2.4",
     "@uncovertruth/eslint-config": "4.4.0",
     "@uncovertruth/eslint-config-react": "4.4.0",
