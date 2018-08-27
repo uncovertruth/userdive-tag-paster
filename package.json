@@ -43,7 +43,7 @@
     "rimraf": "2.6.2",
     "run-sequence": "2.2.1",
     "sinon-chrome": "2.3.2",
-    "style-loader": "0.22.1",
+    "style-loader": "0.23.0",
     "stylelint": "9.5.0",
     "then-chrome": "1.0.7",
     "ts-jest": "23.1.4",
