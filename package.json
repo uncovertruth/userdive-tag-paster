@@ -47,7 +47,7 @@
     "stylelint": "9.9.0",
     "then-chrome": "1.0.7",
     "ts-jest": "23.1.4",
-    "ts-loader": "4.5.0",
+    "ts-loader": "5.4.5",
     "ts-node": "7.0.1",
     "tslint": "5.11.0",
     "typescript": "2.9.2",
