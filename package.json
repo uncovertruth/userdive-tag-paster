@@ -24,7 +24,7 @@
     "codecov": "3.1.0",
     "css-loader": "0.28.11",
     "eslint": "5.9.0",
-    "eslint-plugin-jest": "21.27.2",
+    "eslint-plugin-jest": "22.17.0",
     "faker": "4.1.0",
     "gulp": "3.9.1",
     "gulp-chrome-manifest": "0.0.13",
