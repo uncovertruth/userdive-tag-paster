@@ -7112,9 +7112,9 @@ preact-render-to-string@3.8.2:
   dependencies:
     pretty-format "^3.5.1"
 
-preact@8.3.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-8.3.1.tgz#ed34f79d09edc5efd32a378a3416ef5dc531e3ac"
+preact@8.5.3:
+  version "8.5.3"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-8.5.3.tgz#78c2a5562fcecb1fed1d0055fa4ac1e27bde17c1"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
