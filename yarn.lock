@@ -218,9 +218,10 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/gulp-load-plugins@0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@types/gulp-load-plugins/-/gulp-load-plugins-0.0.31.tgz#e25c9d626b2c0947944cf8369b9ecdd2dbf2e57a"
+"@types/gulp-load-plugins@0.0.32":
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/@types/gulp-load-plugins/-/gulp-load-plugins-0.0.32.tgz#c0c9d366810b0d874c5acd9f4036c74c14bb3e9e"
+  integrity sha512-6pZj417GgXkXzTXKM8IYlumW+Q6CSB+LVhYYwmbVH4t8qCPJeyxkvjvxKRB81+HUzKUJMRQJsG9wdCC42uT9Gg==
   dependencies:
     "@types/node" "*"
 
