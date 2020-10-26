@@ -254,9 +254,10 @@
   version "9.6.40"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.40.tgz#2d69cefbc090cb0bb824542a4c575b14dde7d3aa"
 
-"@types/sinon-chrome@2.2.5":
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/@types/sinon-chrome/-/sinon-chrome-2.2.5.tgz#a7de14de73534c1860dbcfd2056316f092dc1cab"
+"@types/sinon-chrome@2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@types/sinon-chrome/-/sinon-chrome-2.2.10.tgz#d131e25d5a06f9f2e37d71a2099e8dd74e4c1de9"
+  integrity sha512-Ckhubh9oEmVoOE6vkXjFdiK0Q4gCpXl433JDfMne6Mrz8v3PjEGt9xKK0foyAdRtViLgUp1IBOW9koDqclEY2Q==
   dependencies:
     "@types/chrome" "*"
     "@types/sinon" "*"
