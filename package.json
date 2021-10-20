@@ -12,7 +12,7 @@
   "devDependencies": {
     "@types/chrome": "0.0.75",
     "@types/gulp": "4.0.5",
-    "@types/gulp-load-plugins": "0.0.31",
+    "@types/gulp-load-plugins": "0.0.33",
     "@types/gulp-size": "2.1.1",
     "@types/jest": "23.3.10",
     "@types/node": "9.6.40",
