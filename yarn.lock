@@ -224,9 +224,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/gulp-size@2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@types/gulp-size/-/gulp-size-2.1.1.tgz#7fabf1f60876b294204c25f0a7024a1e4fac44e6"
+"@types/gulp-size@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/gulp-size/-/gulp-size-2.1.2.tgz#cd0fc2cea95b6d871de26d11c29abe2eca4d6ba2"
+  integrity sha512-7kWQBAhun29/s+YjBFOE8M0dtgYJmoCj3Q1kNcA+y84jM5b2bUvha+5+by1UXPs8FiypEZP1y062aRB4zHQGxg==
   dependencies:
     "@types/node" "*"
 
