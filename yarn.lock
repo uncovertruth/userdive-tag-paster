@@ -1847,10 +1847,6 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
 
-core-js@^0.8.3:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-0.8.4.tgz#c22665f1e0d1b9c3c5e1b08dabd1f108695e4fcf"
-
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -1858,6 +1854,11 @@ core-js@^1.0.0:
 core-js@^2.4.0, core-js@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
+
+core-js@^3.30.2:
+  version "3.30.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.30.2.tgz#6528abfda65e5ad728143ea23f7a14f0dcf503fc"
+  integrity sha512-uBJiDmwqsbJCWHAwjrx3cvjbMXP7xD72Dmsn5LOJpiRmE3WbBbN5rCqQ2Qh6Ek6/eOrjlWngEynBWo4VxerQhg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -5997,11 +5998,12 @@ mixin-deep@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
-mock-local-storage@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.5.tgz#899ff300027cefed47816e6dc539bb059fcce489"
+mock-local-storage@1.1.24:
+  version "1.1.24"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.24.tgz#b4ca8d071c89d095acccb79c6afa1daded22ed72"
+  integrity sha512-NEfmw+yEK9oe6xCfOnTaJ6Dz+L3eu6vsZopJlxflXYxr7Mg3EV+S0NXKUQlY9AAeDEdaPZDSUGq1Gi6kLSa5PA==
   dependencies:
-    core-js "^0.8.3"
+    core-js "^3.30.2"
     global "^4.3.2"
 
 move-concurrently@^1.0.1:
