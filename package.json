@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.75",
-    "@types/gulp": "4.0.5",
+    "@types/gulp": "4.0.17",
     "@types/gulp-load-plugins": "0.0.31",
     "@types/gulp-size": "2.1.1",
     "@types/jest": "23.3.10",
@@ -26,7 +26,7 @@
     "eslint": "5.9.0",
     "eslint-plugin-jest": "21.27.2",
     "faker": "4.1.0",
-    "gulp": "3.9.1",
+    "gulp": "4.0.2",
     "gulp-chrome-manifest": "0.0.13",
     "gulp-load-plugins": "1.5.0",
     "gulp-size": "3.0.0",
